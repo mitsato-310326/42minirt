@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makeflle                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/17 12:44:36 by ainatsug          #+#    #+#              #
-#    Updated: 2026/06/02 19:40:11 by mitsato          ###   ########.fr        #
+#    Updated: 2026/06/06 16:12:44 by mitsato          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,6 @@ SRC         = \
     $(SRC_DIR)/utils/vec_utils/vec_calc.c \
     $(SRC_DIR)/utils/vec_utils/vec_func2.c \
     $(SRC_DIR)/utils/ft_weekend.c \
-    $(SRC_DIR)/material/lambertian.c \
     $(SRC_DIR)/material/metal.c
 
 
