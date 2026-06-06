@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hittable.c                                         :+:      :+:    :+:   */
+/*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/18 19:05:31 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/06 16:38:05 by mitsato          ###   ########.fr       */
+/*   Created: 2026/06/06 16:37:15 by mitsato           #+#    #+#             */
+/*   Updated: 2026/06/06 19:41:45 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,19 @@ static void set_face_normal(t_ray *r, t_vec_three *outward_normal, t_hit_record 
 		rec->normal = vec_three_mult(*outward_normal, -1.0);
 }
 
-bool hit_sphere(double t_min, double t_max, void *sphere, t_ray *r, t_hit_record *rec)
+bool hit_cylinder(double t_min, double t_max, void *cylinder, t_ray *r, t_hit_record *rec)
 {
-	double radius = ((t_sphere *)((t_hittable *)sphere)->object_unique_info)->radius;
-	t_vec_three *center = &((t_sphere *)((t_hittable *)sphere)->object_unique_info)->origin;
-	t_vec_three oc = vec_three_neg(r->p_origin, *center);
-	double a = dot(r->v_dir, r->v_dir);
-	double half_b = dot(oc, r->v_dir);
-	double c = dot(oc, oc) - radius*radius;
+	double radius = ((t_cylinder *)((t_hittable *)cylinder)->object_unique_info)->radius;
+	t_vec_three *center = &((t_cylinder *)((t_hittable *)cylinder)->object_unique_info)->origin;
+	// double height = ((t_cylinder *)((t_hittable *)cylinder)->object_unique_info)->height;
+	t_vec_three *axis = &((t_cylinder *)((t_hittable *)cylinder)->object_unique_info)->axis; // S
+	t_vec_three oc = vec_three_neg(r->p_origin, *center); //P1
+
+	double a = dot(r->v_dir, r->v_dir) - dot(*axis, r->v_dir) * dot(*axis, r->v_dir) / dot(*axis, *axis);
+	double half_b = dot(oc, r->v_dir) - dot(*axis, r->v_dir) * dot(oc, *axis) / dot(*axis, *axis);
+	double c = dot(oc, oc) - dot(oc, *axis) * dot(oc, *axis) / dot(*axis, *axis)  - radius * radius; //
 	double discriminant = half_b*half_b - a*c;
+	// printf("%f\n", discriminant);
 
 	if (discriminant > 0)
 	{
@@ -40,7 +44,7 @@ bool hit_sphere(double t_min, double t_max, void *sphere, t_ray *r, t_hit_record
 			rec->p = ray_at(*r, rec->t);
 			t_vec_three outward_normal = vec_three_mult(vec_three_neg(rec->p, *center), 1 / radius);
 			set_face_normal(r, &outward_normal, rec);
-			rec->material = ((t_hittable *)sphere)->material;
+			rec->material = ((t_hittable *)cylinder)->material;
 			return true;
 		}
 		temp = (-half_b + root) / a;
@@ -49,7 +53,7 @@ bool hit_sphere(double t_min, double t_max, void *sphere, t_ray *r, t_hit_record
 			rec->p = ray_at(*r, rec->t);
 			t_vec_three outward_normal = vec_three_mult(vec_three_neg(rec->p, *center), 1 / radius);
 			set_face_normal(r, &outward_normal, rec);
-			rec->material = ((t_hittable *)sphere)->material;
+			rec->material = ((t_hittable *)cylinder)->material;
 			return true;
 		}
 	}

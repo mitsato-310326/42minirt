@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:32:16 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/06 16:30:17 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/06/06 16:53:09 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 #include "../../os_setting.h"
 #include "./hittable.h"
 #include "./hittable_list.h"
-#include "./sphere.h"
+#include "./physics.h"
 #include "./camera.h"
 #include "./ft_weekend.h"
 #include "./lambertian.h"

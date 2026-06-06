@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 14:09:24 by mitsato           #+#    #+#             */
-/*   Updated: 2026/05/29 18:36:29 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/06/06 17:27:24 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,13 @@ t_vec_three random_in_hemisphere(t_vec_three *normal)
 t_vec_three reflect(t_vec_three *v, t_vec_three *n)
 {
 	return vec_three_neg(*v, vec_three_mult(*n, 2.0f * dot(*v,*n)));
+}
+
+t_vec_three cross(t_vec_three a, t_vec_three b)
+{
+    return (t_vec_three){
+        a.y * b.z - a.z * b.y,
+        a.z * b.x - a.x * b.z,
+        a.x * b.y - a.y * b.x
+    };
 }

@@ -6,7 +6,7 @@
 #    By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/17 12:44:36 by ainatsug          #+#    #+#              #
-#    Updated: 2026/06/06 16:12:44 by mitsato          ###   ########.fr        #
+#    Updated: 2026/06/06 16:58:01 by mitsato          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC         = \
     $(SRC_DIR)/$(HOOK_DIR)/hook.c \
     $(SRC_DIR)/$(HOOK_DIR)/camera.c \
     $(SRC_DIR)/$(PATTERN_DIR)/hittable/hittable.c \
+    $(SRC_DIR)/$(PATTERN_DIR)/hittable/cylinder.c \
     $(SRC_DIR)/$(PATTERN_DIR)/hittable/hittable_utils.c \
     $(SRC_DIR)/$(PATTERN_DIR)/normal.c \
     $(SRC_DIR)/$(PATTERN_DIR)/view_calc.c \

@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/06 16:29:47 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/06/06 19:42:04 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,17 +108,23 @@ t_hittable_list *create_obj()
 {
     t_hittable_list *world = NULL;
 
+//
+
     t_hittable *a_u = malloc(sizeof(t_hittable));
-    t_sphere *a = malloc(sizeof(t_sphere));
+    t_cylinder *a = malloc(sizeof(t_cylinder));
     t_vec_three point3a = (struct s_vec_three){-0.2, -0.2, -1};
     a->origin = point3a;
+    a->axis = (struct s_vec_three){0.1, 0.1, 0.1};
     a->radius = 0.1; // ココ大きくしたら壊れた、わんちゃんカメラがオブジェクトにめり込んでいると動いてくれないかも
-    a_u->hit_fn = &hit_sphere;
+    a->height = 0.1;
+    a_u->hit_fn = &hit_cylinder;
     t_material *a_m = malloc(sizeof(t_material));
     a_m->albedo = (struct s_vec_three){0.7, 0.1, 0.3};
     a_m->scatter_fn = &scatter;
     a_u->material = a_m;
     a_u->object_unique_info = a;
+
+//
 
     t_hittable *b_u = malloc(sizeof(t_hittable));
     t_sphere *b = malloc(sizeof(t_sphere));
