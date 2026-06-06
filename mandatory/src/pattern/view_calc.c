@@ -14,7 +14,6 @@
 
 int view_calc(t_mlxs *mlxs)
 {
-    // ENTRY("view_calc");
     char *data = mlxs->data;
     t_camera *cam = mlxs->cam;
     double aspect_ratio = (double)WIDTH / HEIGHT;

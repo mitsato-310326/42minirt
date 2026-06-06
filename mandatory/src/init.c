@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/05 19:27:04 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/06/06 16:29:47 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ bool setup_mlx(t_mlxs *mlxs)
 
 t_camera *init_camera() //カメラオブジェクトは別物だしここでべついいかも
 {
-    // ENTRY("init_camera");
-
 	t_camera *new = malloc(sizeof(t_camera));
     if (!new)
         return NULL;

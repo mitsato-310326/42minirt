@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:32:16 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/05 19:26:54 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/06/06 16:30:17 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,15 @@ void	my_pixel_put(char *data, int x, int y, double scale, t_vec_three *color);
 
 #define PERROR printf(RED "ERROR" RESET "\n");
 #define PSUCCESS printf(GREEN "SUCCESS" RESET "\n");
-// #define // ENTRY(str) do { \
-//     static int i = 0; \
-//     if (i++ == 0) { \
-//         printf(BLUE "GET IN %s FUNCTION" RESET "\n", (str)); \
-//     } \
-// } while(0)
+
+/*
+#define // ENTRY(str) do { \
+    static int i = 0; \
+    if (i++ == 0) { \
+        printf(BLUE "GET IN %s FUNCTION" RESET "\n", (str)); \
+    } \
+} while(0)
+*/
 
 /*											*/
 
