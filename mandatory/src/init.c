@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/06 19:42:04 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/06/09 19:33:45 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,13 +127,14 @@ t_hittable_list *create_obj()
 //
 
     t_hittable *b_u = malloc(sizeof(t_hittable));
-    t_sphere *b = malloc(sizeof(t_sphere));
-    t_vec_three point3b = (struct s_vec_three){2.2, -40.5, -1};
+    t_plane *b = malloc(sizeof(t_plane));
+    t_vec_three point3b = (struct s_vec_three){2.2, -2, -1};
     b->origin = point3b;
-    b->radius = 40.0;
-    b_u->hit_fn = &hit_sphere;
+    t_vec_three point3b2 = (struct s_vec_three){0, 1, 0};
+    b->normal = unit_vector(point3b2);
+    b_u->hit_fn = &hit_plane;
     t_material *b_m = malloc(sizeof(t_material));
-    b_m->albedo = (struct s_vec_three){0.8, 0.8, 1};
+    b_m->albedo = (struct s_vec_three){0.7, 0.1, 0.3};
     b_m->scatter_fn = &scatter_metal;
     b_u->material = b_m;
     b_u->object_unique_info = b;
