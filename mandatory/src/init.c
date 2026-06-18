@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/09 19:33:45 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/06/15 19:51:08 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ t_hittable_list *create_obj()
     a->axis = (struct s_vec_three){0.1, 0.1, 0.1};
     a->radius = 0.1; // ココ大きくしたら壊れた、わんちゃんカメラがオブジェクトにめり込んでいると動いてくれないかも
     a->height = 0.1;
+    a->q = set_quaternion(a->axis);
     a_u->hit_fn = &hit_cylinder;
     t_material *a_m = malloc(sizeof(t_material));
     a_m->albedo = (struct s_vec_three){0.7, 0.1, 0.3};
