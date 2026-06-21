@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 19:01:23 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/21 16:18:50 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/06/21 19:08:01 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ typedef struct s_cylinder
 	double	height;
 	t_vec_three axis;
 	t_quaternion q;
-	t_vec_three offset;
 }			t_cylinder;
 
 typedef struct s_plane
