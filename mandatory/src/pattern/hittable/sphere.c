@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hittable.c                                         :+:      :+:    :+:   */
+/*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 19:05:31 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/06 16:38:05 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/06/21 16:18:57 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void set_face_normal(t_ray *r, t_vec_three *outward_normal, t_hit_record *rec)
+void set_face_normal(t_ray *r, t_vec_three *outward_normal, t_hit_record *rec)
 {
 	rec->front_face = dot(r->v_dir, *outward_normal) < 0;
 	if (rec->front_face)

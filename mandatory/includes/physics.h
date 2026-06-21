@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 19:01:23 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/15 19:57:18 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/06/21 16:18:50 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ bool hit_sphere(double t_min, double t_max, void *hittable, t_ray *r, t_hit_reco
 bool hit_cylinder(double t_min, double t_max, void *hittable, t_ray *r, t_hit_record *rec);
 bool hit_plane(double t_min, double t_max, void *hittable, t_ray *r, t_hit_record *rec);
 t_quaternion set_quaternion(t_vec_three axis);
+void set_face_normal(t_ray *r, t_vec_three *outward_normal, t_hit_record *rec);
 
 #endif
