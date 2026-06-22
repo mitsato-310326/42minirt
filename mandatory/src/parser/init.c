@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/05 19:27:04 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/06/22 20:48:32 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ t_camera *init_camera() //カメラオブジェクトは別物だしここでべ
 
 t_hittable_list *create_obj();
 
-t_hittable_list *init_hittable(char *map)
+t_hittable_list *init_hittable(char *scene)
 {
-	(void)map;
+	(void)scene;
 	//parse();
 	t_hittable_list *hittable_list = create_obj();
 	if (hittable_list == NULL)
@@ -76,16 +76,73 @@ t_hittable_list *init_hittable(char *map)
 	return hittable_list;
 }
 
-t_mlxs	*init(char *map)
+void	*ft_realloc(void *p, size_t size)
 {
-	t_mlxs *mlxs;
+	void		*mem;
+	char	*str = (char *)p;
+
+	if (ft_strlen(str) + 1 >= size)
+		return (p);
+	mem = malloc(size);
+	if (mem == NULL)
+		return (NULL);
+	ft_strlcpy((char *)mem, str, size);
+	free(p);
+	return (mem);
+}
+
+#define BUFSIZE 1024
+
+char	*get_scene(char *file)
+{
+	int	fd;
+	int	read_count;
+	char	buf[BUFSIZE + 1];
+	char	*scene;
+
+	fd = open(file, O_RDONLY);
+	read_count = 1;
+	scene = malloc(1);
+	scene[0] = 0;
+	while (read_count != 0)
+	{
+		read_count = read(fd, buf, BUFSIZE);
+		if (read_count < 0)
+		{
+			free(scene);
+			return (NULL);
+		}
+		scene = ft_realloc(scene, ft_strlen(scene) + read_count + 1);
+		if (scene == NULL)
+		{
+			free(scene);
+			return (NULL);
+		}
+		ft_strlcat(scene, buf, ft_strlen(scene) + read_count + 1);
+	}
+	return (scene);
+}
+
+t_mlxs	*init(char *file)
+{
+	t_mlxs	*mlxs;
+	char	*scene;
+
+	scene = get_scene(file);
+	printf("%s\n", scene);
+	return NULL;
+	if (scene == NULL)
+	{
+		put_error(NULL, 1);
+		return NULL;
+	}
 	mlxs = malloc(sizeof(t_mlxs));
 	if (mlxs == NULL)
 	{
 		put_error(NULL, 1); // malloc失敗
 		return NULL;
 	}
-	mlxs->hittable_list = init_hittable(map); //配列を作ってるからポインタは適切
+	mlxs->hittable_list = init_hittable(scene); //配列を作ってるからポインタは適切
 	if (mlxs->hittable_list == NULL)
 	{
 		; // 未実装

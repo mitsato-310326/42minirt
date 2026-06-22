@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makeflle                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/17 12:44:36 by ainatsug          #+#    #+#              #
-#    Updated: 2026/06/02 19:40:11 by mitsato          ###   ########.fr        #
+#    Updated: 2026/06/22 20:33:10 by keitotak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,24 +14,25 @@ NAME		= miniRT
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -pthread
 
-LIBFT_DIR   = ./libft
+LIBFT_DIR	= ./libft
 LIBFT		= ${LIBFT_DIR}/libft.a
-LIBFT_FLAGS = -L${LIBFT_DIR} -lft
+LIBFT_FLAGS	= -L${LIBFT_DIR} -lft
 
-INCLUDE     = -I ./mandatory/includes -I ${LIBFT_DIR}
+INCLUDE		= -I ./mandatory/includes -I ${LIBFT_DIR}
 
 SRC_DIR		= mandatory/src
 
 OBJ_DIR		= obj
 
-PRINT_DIR   = printer
-HOOK_DIR    = hook
-PATTERN_DIR = pattern
+PARSER_DIR	= parser
+PRINT_DIR	= printer
+HOOK_DIR	= hook
+PATTERN_DIR	= pattern
 
 SRC         = \
     ft_mlx.c \
     $(SRC_DIR)/main.c \
-    $(SRC_DIR)/init.c \
+    $(SRC_DIR)/$(PARSER_DIR)/init.c \
     $(SRC_DIR)/$(PRINT_DIR)/print.c \
     $(SRC_DIR)/$(HOOK_DIR)/hook.c \
     $(SRC_DIR)/$(HOOK_DIR)/camera.c \
@@ -53,6 +54,11 @@ MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 
 .PHONY: all
 all: $(NAME)
+
+debug: RULE=debug
+debug: CC=gcc
+debug: CFLAGS=-g3 -Wall -Wextra -Werror -pthread
+debug: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
 	@make -C $(MLX_LIB)
