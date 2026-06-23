@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/23 09:39:42 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/23 13:57:09 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,23 +76,39 @@ t_hittable_list *init_hittable(char *scene)
 	return hittable_list;
 }
 
-char	*get_scene(char *file)
+t_scene	*parse(char *file)
 {
 	char	*str;
+	char	**elements;
 	t_scene	*scene;
 
 	str = read_str(file);
-	printf("%s", str);
-
+	if (str == NULL)
+		return (NULL);
+	printf("%s");
+	elements = divide_elements(str);
+	if (elements == NULL)
+	{
+		free(str);
+		return (NULL);
+	}
+	free(str);
+	scene = get_scene(elements);
+	if (scene == NULL)
+	{
+		free_array(elements);
+		return (NULL);
+	}
+	free_array(elements);
 	return (scene);
 }
 
 t_mlxs	*init(char *file)
 {
 	t_mlxs	*mlxs;
-	t_scene	*scene;
+	char	*scene;
 
-	scene = get_scene(file);
+	scene = parse(file);
 	return NULL;
 	if (scene == NULL)
 	{

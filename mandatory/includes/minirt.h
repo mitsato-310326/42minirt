@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:32:16 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/22 20:35:50 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/23 13:29:48 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_mlxs
 void put_error(char *errstr, bool systemerr);
 t_mlxs *init(char *map);
 int destroy_minirt(t_mlxs *mlxs);
+char	*read_str(char *file);
 
 /*					CALCULATE				*/
 

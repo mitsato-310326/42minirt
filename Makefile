@@ -6,7 +6,7 @@
 #    By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/17 12:44:36 by ainatsug          #+#    #+#              #
-#    Updated: 2026/06/22 20:33:10 by keitotak         ###   ########.fr        #
+#    Updated: 2026/06/23 13:32:21 by keitotak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC         = \
     ft_mlx.c \
     $(SRC_DIR)/main.c \
     $(SRC_DIR)/$(PARSER_DIR)/init.c \
+    $(SRC_DIR)/$(PARSER_DIR)/read.c \
     $(SRC_DIR)/$(PRINT_DIR)/print.c \
     $(SRC_DIR)/$(HOOK_DIR)/hook.c \
     $(SRC_DIR)/$(HOOK_DIR)/camera.c \

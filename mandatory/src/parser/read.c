@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 09:38:48 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/23 09:40:26 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/23 13:33:15 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 
 void	*ft_realloc(void *p, size_t size)
 {
-	void		*mem;
-	char	*str = (char *)p;
+	void	*mem;
+	char	*str;
 
+	str = (char *)p;
 	if (ft_strlen(str) + 1 >= size)
 		return (p);
 	mem = malloc(size);
