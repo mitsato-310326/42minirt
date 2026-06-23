@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/22 20:48:32 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/23 09:39:42 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,60 +76,23 @@ t_hittable_list *init_hittable(char *scene)
 	return hittable_list;
 }
 
-void	*ft_realloc(void *p, size_t size)
-{
-	void		*mem;
-	char	*str = (char *)p;
-
-	if (ft_strlen(str) + 1 >= size)
-		return (p);
-	mem = malloc(size);
-	if (mem == NULL)
-		return (NULL);
-	ft_strlcpy((char *)mem, str, size);
-	free(p);
-	return (mem);
-}
-
-#define BUFSIZE 1024
-
 char	*get_scene(char *file)
 {
-	int	fd;
-	int	read_count;
-	char	buf[BUFSIZE + 1];
-	char	*scene;
+	char	*str;
+	t_scene	*scene;
 
-	fd = open(file, O_RDONLY);
-	read_count = 1;
-	scene = malloc(1);
-	scene[0] = 0;
-	while (read_count != 0)
-	{
-		read_count = read(fd, buf, BUFSIZE);
-		if (read_count < 0)
-		{
-			free(scene);
-			return (NULL);
-		}
-		scene = ft_realloc(scene, ft_strlen(scene) + read_count + 1);
-		if (scene == NULL)
-		{
-			free(scene);
-			return (NULL);
-		}
-		ft_strlcat(scene, buf, ft_strlen(scene) + read_count + 1);
-	}
+	str = read_str(file);
+	printf("%s", str);
+
 	return (scene);
 }
 
 t_mlxs	*init(char *file)
 {
 	t_mlxs	*mlxs;
-	char	*scene;
+	t_scene	*scene;
 
 	scene = get_scene(file);
-	printf("%s\n", scene);
 	return NULL;
 	if (scene == NULL)
 	{
