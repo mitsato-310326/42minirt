@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+         #
+#    By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/17 12:44:36 by ainatsug          #+#    #+#              #
-#    Updated: 2026/06/23 13:32:21 by keitotak         ###   ########.fr        #
+#    Updated: 2026/06/25 15:46:15 by keitotak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,10 @@ SRC         = \
     ft_mlx.c \
     $(SRC_DIR)/main.c \
     $(SRC_DIR)/$(PARSER_DIR)/init.c \
-    $(SRC_DIR)/$(PARSER_DIR)/read.c \
+    $(SRC_DIR)/$(PARSER_DIR)/read_file.c \
+    $(SRC_DIR)/$(PARSER_DIR)/get_lines.c \
+    $(SRC_DIR)/$(PARSER_DIR)/parse_util.c \
+    $(SRC_DIR)/$(PARSER_DIR)/array.c \
     $(SRC_DIR)/$(PRINT_DIR)/print.c \
     $(SRC_DIR)/$(HOOK_DIR)/hook.c \
     $(SRC_DIR)/$(HOOK_DIR)/camera.c \

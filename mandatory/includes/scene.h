@@ -6,12 +6,14 @@
 /*   By: keitotak <keitotak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 10:26:38 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/23 13:13:46 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/25 00:32:34 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCENE_H
 # define SCENE_H
+
+#include "minirt.h"
 
 typedef struct s_color
 {
@@ -58,11 +60,11 @@ typedef struct s_plane_scene
 
 typedef struct s_cylinder_scene
 {
-	t_coord	center;
+	t_coord		center;
 	t_vec_three	vec;
-	double	diameter;
-	double	height;
-	t_color	color;
+	double		diameter;
+	double		height;
+	t_color		color;
 }	t_cylinder_scene;
 
 typedef struct s_obj_node
@@ -76,7 +78,7 @@ typedef struct s_scene
 {
 	t_amblight_scene	*amblight;
 	t_camera_scene		*camera;
-	t_light_scnene		*light;
+	t_light_scene		*light;
 	t_obj_node			*objs;
 }	t_scene;
 

@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/23 13:57:09 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/25 16:10:22 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minirt.h"
 
 int stop_minirt(void *v_mlxs);
@@ -66,7 +67,7 @@ t_camera *init_camera() //カメラオブジェクトは別物だしここでべ
 
 t_hittable_list *create_obj();
 
-t_hittable_list *init_hittable(char *scene)
+t_hittable_list *init_hittable(t_scene *scene)
 {
 	(void)scene;
 	//parse();
@@ -79,34 +80,38 @@ t_hittable_list *init_hittable(char *scene)
 t_scene	*parse(char *file)
 {
 	char	*str;
-	char	**elements;
-	t_scene	*scene;
+	char	**lines;
+//	t_scene	*scene;
 
 	str = read_str(file);
 	if (str == NULL)
 		return (NULL);
-	printf("%s");
-	elements = divide_elements(str);
-	if (elements == NULL)
+//	printf("%s", str);
+	lines = get_lines(str);
+	if (lines == NULL)
 	{
 		free(str);
 		return (NULL);
 	}
 	free(str);
+//	print_array(lines);
+	/*
 	scene = get_scene(elements);
 	if (scene == NULL)
 	{
 		free_array(elements);
 		return (NULL);
 	}
-	free_array(elements);
+	free_array(lines, arrlen(lines));
 	return (scene);
+	*/
+	return (NULL);
 }
 
 t_mlxs	*init(char *file)
 {
 	t_mlxs	*mlxs;
-	char	*scene;
+	t_scene	*scene;
 
 	scene = parse(file);
 	return NULL;
