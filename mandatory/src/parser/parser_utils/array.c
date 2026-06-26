@@ -1,49 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_util.c                                       :+:      :+:    :+:   */
+/*   array.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/24 17:36:52 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/25 15:42:01 by keitotak         ###   ########.fr       */
+/*   Created: 2026/06/25 15:44:24 by keitotak          #+#    #+#             */
+/*   Updated: 2026/06/26 23:41:40 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	*ft_realloc(void *p, size_t size)
+size_t	arrlen(char **array)
 {
-	void	*mem;
-	char	*str;
+	size_t	size;
 
-	str = (char *)p;
-	if (ft_strlen(str) + 1 >= size)
-		return (p);
-	mem = malloc(size);
-	if (mem == NULL)
-		return (NULL);
-	ft_strlcpy((char *)mem, str, size);
-	free(p);
-	return (mem);
+	size = 0;
+	while (*array++)
+		size++;
+	return (size);
 }
 
-char	*ft_strndup(char *str, size_t n)
+void	print_array(char **arr)
 {
-	char	*dup;
 	size_t	i;
 
-	dup = (char *)malloc(sizeof(char) * (n + 1));
-	if (dup == NULL)
-		return (NULL);
 	i = 0;
-	while (str[i] && i < n)
+	while (arr[i])
 	{
-		dup[i] = str[i];
+		printf("%s\n", arr[i]);
 		i++;
 	}
-	dup[i] = '\0';
-	return (dup);
 }
 
 void	free_array(char **array, size_t size)

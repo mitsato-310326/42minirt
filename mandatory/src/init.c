@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/25 16:10:22 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/26 21:04:50 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,35 +77,18 @@ t_hittable_list *init_hittable(t_scene *scene)
 	return hittable_list;
 }
 
-t_scene	*parse(char *file)
-{
-	char	*str;
-	char	**lines;
-//	t_scene	*scene;
+#define RT ".rt"
+#define RTLEN 3
 
-	str = read_str(file);
-	if (str == NULL)
-		return (NULL);
-//	printf("%s", str);
-	lines = get_lines(str);
-	if (lines == NULL)
-	{
-		free(str);
-		return (NULL);
-	}
-	free(str);
-//	print_array(lines);
-	/*
-	scene = get_scene(elements);
-	if (scene == NULL)
-	{
-		free_array(elements);
-		return (NULL);
-	}
-	free_array(lines, arrlen(lines));
-	return (scene);
-	*/
-	return (NULL);
+bool	valid_filename(char *file)
+{
+	size_t	len;
+
+	len = ft_strlen(file);
+	file += len - RTLEN;
+	if (ft_strncmp(file, RT, RTLEN + 1) == 0)
+		return (true);
+	return (false);
 }
 
 t_mlxs	*init(char *file)
@@ -113,6 +96,8 @@ t_mlxs	*init(char *file)
 	t_mlxs	*mlxs;
 	t_scene	*scene;
 
+	if (!valid_filename(file))
+		return (printf("invalid filename.\n"), NULL);
 	scene = parse(file);
 	return NULL;
 	if (scene == NULL)

@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:32:16 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/25 13:28:27 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/26 23:17:02 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 #include "./ft_weekend.h"
 #include "./lambertian.h"
 #include "./parser.h"
+#include "./parser_utils.h"
 #include "./scene.h"
 
 #define WIDTH 640

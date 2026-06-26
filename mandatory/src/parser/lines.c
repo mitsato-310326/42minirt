@@ -1,17 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_lines.c                                        :+:      :+:    :+:   */
+/*   lines.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 14:45:58 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/25 16:06:09 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/27 01:50:06 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "parser_utils.h"
 
+/*
 static size_t	count_c(char *str, int c)
 {
 	size_t	count;
@@ -38,7 +40,76 @@ static char	*get_line(char *str)
 	line = ft_strndup(str, size);
 	return (line);
 }
+*/
 
+bool	empty_line(char *str)
+{
+	while (*str)
+		if (!ft_isspace(*str++))
+			return (false);
+	return (true);
+}
+
+static void	remove_empty_line(t_list *lines)
+{
+	t_list	*prev;
+	t_list	*next;
+
+	while (lines)
+	{
+		if (empty_line(lines->content))
+		{
+			next = lines->next;
+			free(lines->content);
+			free(lines);
+			lines = prev;
+			lines->next = next;
+		}
+		prev = lines;
+		lines = lines->next;
+	}
+}
+
+t_list	*get_list(char *str, char const *set)
+{
+	char	**arr;
+	t_list	*lines;
+
+	arr = my_split(str, set);
+	lines = arr_to_lst(arr);
+	remove_empty_line(lines);
+	return (lines);
+}
+/*
+t_list	*get_lines(char *str)
+{
+	t_list	*lines;
+	char	*line;
+
+	lines = NULL;
+	while (*str)
+	{
+		line = get_line(str);
+		if (line == NULL)
+		{
+			ft_lstclear(&lines, free);
+			return (NULL);
+		}
+		if (empty_line(line))
+			free(line);
+		else
+			ft_lstadd_back(&lines, ft_lstnew(line));
+		str = ft_strchr(str, '\n');
+		if (str == NULL)
+			break ;
+		str++;
+	}
+	return (lines);
+}
+*/
+
+// Should I use list instead of array from here because it's able to use pointer operation?
+/*
 char	**get_lines(char *str)
 {
 	char	**lines;
@@ -64,3 +135,4 @@ char	**get_lines(char *str)
 	lines[line_nb] = NULL;
 	return (lines);
 }
+*/

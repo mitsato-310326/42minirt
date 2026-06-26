@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   array.c                                            :+:      :+:    :+:   */
+/*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/25 15:44:24 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/25 15:52:42 by keitotak         ###   ########.fr       */
+/*   Created: 2026/06/26 21:32:04 by keitotak          #+#    #+#             */
+/*   Updated: 2026/06/27 02:00:51 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-size_t	arrlen(char **array)
+void	print_list(t_list *list)
 {
-	size_t	size;
-
-	size = 0;
-	while (*array++)
-		size++;
-	return (size);
+	while (list)
+	{
+		printf("%s\n", (char *)list->content);
+		list = list->next;
+	}
 }
 
-void	print_array(char **arr)
+void	*ft_lstsearch(t_list *lst, int index)
 {
-	size_t	i;
+	int	i;
 
-	i = 0;
-	while (arr[i])
-	{
-		printf("line%2ld: %s\n", i, arr[i]);
-		i++;
-	}
+	if (index < 1)
+		return (NULL);
+	i = 1;
+	while (i++ < index)
+		lst = lst->next;
+	return (lst->content);
 }
