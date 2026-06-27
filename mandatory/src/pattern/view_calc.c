@@ -23,6 +23,7 @@ int view_calc(t_mlxs *mlxs)
     double scale = 1.0 / samples_per_pixel;
 
     t_hittable_list *world = mlxs->hittable_list;
+    t_light_list *light = mlxs->light_list;
 
     for (int j = image_height-1; j >= 0; --j)
     {
@@ -33,7 +34,7 @@ int view_calc(t_mlxs *mlxs)
                 double u = (i + random_double()) / (image_width-1);
                 double v = (j + random_double()) / (image_height-1);
                 t_ray r = get_ray(u, v, *cam);
-                pixel_color = vec_three_add(pixel_color, ray_color(&r, world, 15));
+                pixel_color = vec_three_add(pixel_color, ray_color(&r, world, light, 15));
             }
             my_pixel_put(data, i, j, scale, &pixel_color);
         }

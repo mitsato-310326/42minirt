@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/21 19:04:00 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/06/27 16:17:20 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ t_mlxs	*init(char *map)
 		return NULL;
 	}
 	mlxs->hittable_list = init_hittable(map); //配列を作ってるからポインタは適切
+    mlxs->light_list = create_lights();
 	if (mlxs->hittable_list == NULL)
 	{
 		; // 未実装
@@ -108,8 +109,7 @@ t_hittable_list *create_obj()
 {
     t_hittable_list *world = NULL;
 
-//
-
+    //
     t_hittable *a_u = malloc(sizeof(t_hittable));
     t_cylinder *a = malloc(sizeof(t_cylinder));
     t_vec_three point3a = (struct s_vec_three){1.8, 0, -8.1};
@@ -121,11 +121,11 @@ t_hittable_list *create_obj()
     a_u->hit_fn = &hit_cylinder;
     t_material *a_m = malloc(sizeof(t_material));
     a_m->albedo = (struct s_vec_three){0.1, 0.1, 0.1};
-    a_m->scatter_fn = &scatter_metal;
+    a_m->scatter_fn = &scatter;
     a_u->material = a_m;
     a_u->object_unique_info = a;
+    //
 
-//
     t_hittable *j_u = malloc(sizeof(t_hittable));
     t_cylinder *j = malloc(sizeof(t_cylinder));
     t_vec_three point3j = (struct s_vec_three){-2.2, -0.2, -8.1};
@@ -137,7 +137,7 @@ t_hittable_list *create_obj()
     j_u->hit_fn = &hit_cylinder;
     t_material *j_m = malloc(sizeof(t_material));
     j_m->albedo = (struct s_vec_three){0.1, 0.1, 0.1};
-    j_m->scatter_fn = &scatter_metal;
+    j_m->scatter_fn = &scatter;
     j_u->material = j_m;
     j_u->object_unique_info = j;
 
@@ -150,7 +150,7 @@ t_hittable_list *create_obj()
     b_u->hit_fn = &hit_plane;
     t_material *b_m = malloc(sizeof(t_material));
     b_m->albedo = (struct s_vec_three){0.7, 0.1, 0.3};
-    b_m->scatter_fn = &scatter_metal;
+    b_m->scatter_fn = &scatter;
     b_u->material = b_m;
     b_u->object_unique_info = b;
 

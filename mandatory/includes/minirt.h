@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:32:16 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/06 16:53:09 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/06/27 16:17:07 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 #include "./camera.h"
 #include "./ft_weekend.h"
 #include "./lambertian.h"
+#include "light.h"
+
 
 #define WIDTH 640
 #define HEIGHT 360
@@ -46,6 +48,7 @@ typedef struct s_mlxs
 	char *data;
 
 	t_hittable_list *hittable_list;
+	t_light_list *light_list;
 	t_camera *cam;
 }						t_mlxs;
 
