@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:32:16 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/26 23:17:02 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/27 16:14:23 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 #include "./parser.h"
 #include "./parser_utils.h"
 #include "./scene.h"
+#include "./scene_utils.h"
 
 #define WIDTH 640
 #define HEIGHT 360

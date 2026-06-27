@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 22:35:37 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/27 02:01:10 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/27 22:54:00 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 char	**my_split(char const *s, char const *set);
 void	*ft_realloc(void *p, size_t size);
-char	*ft_strndup(char *str, size_t n);
+//char	*ft_strndup(char const *str, size_t n);
 
 // array.c
 void	free_array(char **array, size_t size);

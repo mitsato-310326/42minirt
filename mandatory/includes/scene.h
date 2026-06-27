@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keitotak <keitotak@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 10:26:38 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/25 00:32:34 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/27 20:01:05 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,18 @@ typedef struct s_cylinder_scene
 	t_color		color;
 }	t_cylinder_scene;
 
-typedef struct s_obj_node
+typedef struct s_obj_content
 {
-	int					id;
-	void				*content;
-	struct s_scene_node	*next;
-}	t_obj_node;
+	t_id	id;
+	void	*obj;
+}	t_obj_content;
 
 typedef struct s_scene
 {
 	t_amblight_scene	*amblight;
 	t_camera_scene		*camera;
 	t_light_scene		*light;
-	t_obj_node			*objs;
+	t_list				*objs;
 }	t_scene;
 
 #endif

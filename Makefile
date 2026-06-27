@@ -6,7 +6,7 @@
 #    By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/17 12:44:36 by ainatsug          #+#    #+#              #
-#    Updated: 2026/06/27 01:35:25 by keitotak         ###   ########.fr        #
+#    Updated: 2026/06/27 22:54:29 by keitotak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,8 +37,14 @@ SRC         = \
     $(SRC_DIR)/$(PARSER_DIR)/read.c \
     $(SRC_DIR)/$(PARSER_DIR)/lines.c \
     $(SRC_DIR)/$(PARSER_DIR)/elements.c \
+    $(SRC_DIR)/$(PARSER_DIR)/scene.c \
+    $(SRC_DIR)/$(PARSER_DIR)/scene_utils/set_scene.c \
+    $(SRC_DIR)/$(PARSER_DIR)/scene_utils/create_objs.c \
+    $(SRC_DIR)/$(PARSER_DIR)/scene_utils/set_info.c \
+    $(SRC_DIR)/$(PARSER_DIR)/scene_utils/int_utils.c \
+    $(SRC_DIR)/$(PARSER_DIR)/scene_utils/double_utils.c \
+    $(SRC_DIR)/$(PARSER_DIR)/scene_utils/ft_atod.c \
     $(SRC_DIR)/$(PARSER_DIR)/parser_utils/ft_realloc.c \
-    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/ft_strndup.c \
     $(SRC_DIR)/$(PARSER_DIR)/parser_utils/my_split.c \
     $(SRC_DIR)/$(PARSER_DIR)/parser_utils/array.c \
     $(SRC_DIR)/$(PARSER_DIR)/parser_utils/list.c \

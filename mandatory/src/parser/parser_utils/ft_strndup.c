@@ -6,13 +6,13 @@
 /*   By: keitotak <keitotak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 22:02:27 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/26 22:02:37 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/27 21:41:20 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-char	*ft_strndup(char *str, size_t n)
+char	*ft_strndup(char const *str, size_t n)
 {
 	char	*dup;
 	size_t	i;

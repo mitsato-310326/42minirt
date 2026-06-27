@@ -6,13 +6,13 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 14:45:58 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/27 02:02:12 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/27 23:49:40 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "parser.h"
 
-/*
 void	print_element(t_list *elm_lst)
 {
 	t_element	*elm;
@@ -33,7 +33,6 @@ void	print_element(t_list *elm_lst)
 	}
 	printf("\n");
 }
-*/
 
 /*void ft_lstclear(t_list **lst, void (*del)(void *))*/
 
@@ -46,7 +45,7 @@ void	delete_element(void *p)
 	free(elm);
 }
 
-static t_id	get_elmid(char *id_str)
+t_id	get_elmid(char *id_str)
 {
 	if (ft_strncmp(id_str, "A", 2) == 0)
 		return (AMBIENT);
@@ -77,7 +76,7 @@ static t_element	*create_element(char *str)
 		return (NULL);
 	}
 	elm->size = ft_lstsize(elm->info);
-	elm->id = get_elmid(ft_lstsearch(elm->info, 1));
+	elm->id = get_elmid(ft_lstsearch(elm->info, 0));
 	if (elm->id == ELSE)
 	{
 		ft_lstclear(&elm->info, free);
@@ -85,6 +84,32 @@ static t_element	*create_element(char *str)
 		return (NULL);
 	}
 	return (elm);
+}
+
+bool	check_doubled_id(t_list *lst)
+{
+	int	amb_cnt;
+	int	cmr_cnt;
+	int	lgt_cnt;
+	t_element	*elm;
+
+	amb_cnt = 0;
+	cmr_cnt = 0;
+	lgt_cnt = 0;
+	while (lst)
+	{
+		elm = (t_element *)lst->content;
+		if (get_elmid(elm->info->content) == AMBIENT)
+			amb_cnt++;
+		if (get_elmid(elm->info->content) == CAMERA)
+			cmr_cnt++;
+		if (get_elmid(elm->info->content) == LIGHT)
+			lgt_cnt++;
+		lst = lst->next;
+	}
+	if (amb_cnt > 1 || cmr_cnt > 1 || lgt_cnt > 1)
+		return (true);
+	return (false);
 }
 
 t_list	*get_elements(t_list *lines)
@@ -104,46 +129,10 @@ t_list	*get_elements(t_list *lines)
 		ft_lstadd_back(&elm_lst, ft_lstnew(elm));
 		lines = lines->next;
 	}
+	if (check_doubled_id(elm_lst))
+	{
+		ft_lstclear(&elm_lst, delete_element);
+		return (NULL);
+	}
 	return (elm_lst);
 }
-
-/*
-void	free_element(t_list **element, size_t size)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < size)
-	{
-		ft_lstclear(&element[i], free);
-		i++;
-	}
-	free(element);
-}
-
-t_list	**get_elements(t_list *lines)
-{
-	t_list	**elements;
-	size_t	size;
-	size_t	i;
-
-	size = ft_lstsize(lines);
-	elements = (t_list **)malloc(sizeof(t_list *) * (size + 1));
-	if (elements == NULL)
-		return (NULL);
-	i = 0;
-	while (i < size)
-	{
-		elements[i] = get_list(lines->content, SPACE);
-		if (elements[i] == NULL)
-		{
-			free_element(elements, i);
-			return (NULL);
-		}
-		lines = lines->next;
-		i++;
-	}
-	elements[size] = NULL;
-	return (elements);
-}
-*/

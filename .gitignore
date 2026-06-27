@@ -4,3 +4,4 @@ mlx_macos_guide.md
 tags
 .cache/
 compile_commands.json
+ws/
