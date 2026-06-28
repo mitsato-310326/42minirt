@@ -6,21 +6,21 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 21:30:48 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/05 19:26:54 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/06/28 16:06:53 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	my_pixel_put(char *data, int x, int y, double scale, t_vec_three *color)
+void	my_pixel_put(char *data, int x, int y, t_vec_three *color)
 {
 	double ir = color->x;
 	double ig = color->y;
 	double ib = color->z;
 
-	ir = sqrt(scale * ir);
-	ig = sqrt(scale * ig);
-	ib = sqrt(scale * ib);
+	ir = sqrt(ir);
+	ig = sqrt(ig);
+	ib = sqrt(ib);
 
 	int r = (256 * clamp(ir, 0.0, 0.999));
 	int g = (256 * clamp(ig, 0.0, 0.999));
@@ -39,9 +39,6 @@ void	my_pixel_put(char *data, int x, int y, double scale, t_vec_three *color)
 
 bool print(t_mlxs *mlxs)
 {
-	// ENTRY("print");
-
-	// mlx_string_put(mlxs->mlx, mlxs->win, 5, 0, 0xFF00FF, "Left Click:   Pan");
 	mlx_put_image_to_window(mlxs->mlx, mlxs->win, mlxs->img, 0, 0);
 
 	return(true);
