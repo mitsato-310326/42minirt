@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-void	my_pixel_put(char *data, int x, int y, t_vec_three *color)
+void my_pixel_put(char *data, int x, int y, t_vec_three *color)
 {
 	double ir = color->x;
 	double ig = color->y;
@@ -26,7 +26,7 @@ void	my_pixel_put(char *data, int x, int y, t_vec_three *color)
 	int g = (256 * clamp(ig, 0.0, 0.999));
 	int b = (256 * clamp(ib, 0.0, 0.999));
 
-	int	offset;
+	int offset;
 
 	int ry = HEIGHT - y;
 
@@ -34,12 +34,11 @@ void	my_pixel_put(char *data, int x, int y, t_vec_three *color)
 	data[offset + 0] = b & 0xFF;
 	data[offset + 1] = g & 0xFF;
 	data[offset + 2] = r & 0xFF;
-	// data[offset + 3] = 0;
 }
 
 bool print(t_mlxs *mlxs)
 {
 	mlx_put_image_to_window(mlxs->mlx, mlxs->win, mlxs->img, 0, 0);
 
-	return(true);
+	return (true);
 }

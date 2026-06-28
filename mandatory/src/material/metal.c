@@ -15,10 +15,10 @@
 
 // typedef
 
-bool list_scatter(t_ray *r_in, t_hit_record *rec, t_vec_three *attenuation, t_ray *scattered, t_material *material)
-{
-	return material->scatter_fn(r_in, rec, attenuation, scattered, material);
-}
+// bool list_scatter(t_ray *r_in, t_hit_record *rec, t_vec_three *attenuation, t_ray *scattered, t_material *material)
+// {
+// 	return material->scatter_fn(r_in, rec, attenuation, scattered, material);
+// }
 
 // bool scatter_metal(t_ray *r_in, t_hit_record *rec, t_vec_three *attenuation, t_ray *scattered, void *material)
 // {
@@ -29,13 +29,21 @@ bool list_scatter(t_ray *r_in, t_hit_record *rec, t_vec_three *attenuation, t_ra
 // 	return (dot(scattered->v_dir, rec->normal) > 0);
 // }
 
-bool scatter(t_ray *r_in, t_hit_record *rec, t_vec_three *attenuation, t_ray *scattered, void *material)
+bool scatter(t_hit_record *rec, t_vec_three *attenuation, t_ray *scattered, void *material)
 {
-	(void)r_in;
-
-    // t_vec_three scatter_direction = vec_three_add(rec->normal, random_in_unit_sphere());
     t_vec_three scatter_direction = rec->normal;
     *scattered = (struct s_ray){rec->p, scatter_direction};
     *attenuation = ((t_material *)material)->albedo;
     return true;
 }
+
+// bool scatter(t_ray *r_in, t_hit_record *rec, t_vec_three *attenuation, t_ray *scattered, void *material)
+// {
+// 	(void)r_in;
+
+//     // t_vec_three scatter_direction = vec_three_add(rec->normal, random_in_unit_sphere());
+//     t_vec_three scatter_direction = rec->normal;
+//     *scattered = (struct s_ray){rec->p, scatter_direction};
+//     *attenuation = ((t_material *)material)->albedo;
+//     return true;
+// }
