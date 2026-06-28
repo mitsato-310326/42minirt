@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/28 01:00:21 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/28 15:48:15 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,25 @@ t_camera *init_camera() //カメラオブジェクトは別物だしここでべ
     return new;
 }
 
-t_hittable_list *create_obj();
+/*
+t_hittable_list *create_hittable_lst(t_scene *scene);
+{
+	
+}
+*/
+
+t_hittable_list *create_obj(void);
 
 t_hittable_list *init_hittable(t_scene *scene)
 {
+	t_hittable_list *hittable_list;
+
 	(void)scene;
-	//parse();
-	t_hittable_list *hittable_list = create_obj();
+	hittable_list = create_obj();
+	//hittable_list = create_hittable_lst(scene);
 	if (hittable_list == NULL)
 		return NULL;
-	return hittable_list;
+	return (hittable_list);
 }
 
 #define RT ".rt"
@@ -100,7 +109,7 @@ t_mlxs	*init(char *file)
 		return (printf("invalid filename.\n"), NULL);
 	scene = parse(file);
 	if (scene == NULL)
-		return (NULL);
+		return (scene_clear(scene), NULL);
 	mlxs = malloc(sizeof(t_mlxs));
 	if (mlxs == NULL)
 	{

@@ -6,7 +6,7 @@
 #    By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/17 12:44:36 by ainatsug          #+#    #+#              #
-#    Updated: 2026/06/27 22:54:29 by keitotak         ###   ########.fr        #
+#    Updated: 2026/06/28 15:51:20 by keitotak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRC         = \
     $(SRC_DIR)/$(PARSER_DIR)/scene_utils/int_utils.c \
     $(SRC_DIR)/$(PARSER_DIR)/scene_utils/double_utils.c \
     $(SRC_DIR)/$(PARSER_DIR)/scene_utils/ft_atod.c \
+    $(SRC_DIR)/$(PARSER_DIR)/scene_utils/print_scene.c \
     $(SRC_DIR)/$(PARSER_DIR)/parser_utils/ft_realloc.c \
     $(SRC_DIR)/$(PARSER_DIR)/parser_utils/my_split.c \
     $(SRC_DIR)/$(PARSER_DIR)/parser_utils/array.c \
