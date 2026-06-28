@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 19:18:37 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/27 15:04:50 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/06/28 15:53:25 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 bool list_scatter(t_ray *r_in, t_hit_record *rec, t_vec_three *attenuation, t_ray *scattered, t_material *material)
 {
 	return material->scatter_fn(r_in, rec, attenuation, scattered, material);
-	PERROR
-	return false;
 }
 
 // bool scatter_metal(t_ray *r_in, t_hit_record *rec, t_vec_three *attenuation, t_ray *scattered, void *material)

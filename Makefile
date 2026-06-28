@@ -6,7 +6,7 @@
 #    By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/17 12:44:36 by ainatsug          #+#    #+#              #
-#    Updated: 2026/06/09 19:12:52 by mitsato          ###   ########.fr        #
+#    Updated: 2026/06/28 15:18:00 by mitsato          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,8 +45,9 @@ SRC         = \
     $(SRC_DIR)/utils/vec_utils/vec_calc.c \
     $(SRC_DIR)/utils/vec_utils/vec_func2.c \
     $(SRC_DIR)/utils/ft_weekend.c \
-    $(SRC_DIR)/material/metal.c
-
+    $(SRC_DIR)/material/metal.c \
+    $(SRC_DIR)/kusocode.c \
+    $(SRC_DIR)/light.c
 
 OBJ 		= $(SRC:${SRC_DIR}/%.c=$(OBJ_DIR)/%.o)
 MLX_LIB = mlx/

@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:32:16 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/27 16:17:07 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/06/28 15:56:39 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 #define HEIGHT 360
 
 /*											*/
+typedef struct s_light_list t_light_list;
 
 typedef struct s_mlxs
 {
@@ -59,7 +60,7 @@ int destroy_minirt(t_mlxs *mlxs);
 /*					CALCULATE				*/
 
 int view_calc(t_mlxs *mlx);
-t_vec_three ray_color(t_ray* r, t_hittable_list *world, int depth);
+t_vec_three ray_color(t_ray* r, t_mlxs *mlxs);
 
 /*					HOOK					*/
 
@@ -81,14 +82,12 @@ void	my_pixel_put(char *data, int x, int y, double scale, t_vec_three *color);
 #define PERROR printf(RED "ERROR" RESET "\n");
 #define PSUCCESS printf(GREEN "SUCCESS" RESET "\n");
 
-/*
-#define // ENTRY(str) do { \
+#define  ENTRY(str) do { \
     static int i = 0; \
     if (i++ == 0) { \
         printf(BLUE "GET IN %s FUNCTION" RESET "\n", (str)); \
     } \
 } while(0)
-*/
 
 /*											*/
 

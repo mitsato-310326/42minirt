@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 14:09:24 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/06 17:27:24 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/06/28 15:54:32 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,22 @@ t_vec_three unit_vector(t_vec_three v)
 
 #define PI 3.14159265
 
-t_vec_three random_in_unit_sphere()
-{
-  double a = random_double_with(0, 2*PI);
-  double z = random_double_with(-1, 1);
-  double r = sqrt(1 - z*z);
-  return (struct s_vec_three){r * cos(a), r * sin(a), z};
-}
+// t_vec_three random_in_unit_sphere()
+// {
+  // double a = random_double_with(0, 2*PI);
+  // double z = random_double_with(-1, 1);
+  // double r = sqrt(1 - z*z);
+  // return (struct s_vec_three){r * cos(a), r * sin(a), z};
+// }
 
-t_vec_three random_in_hemisphere(t_vec_three *normal)
-{
-	t_vec_three in_unit_sphere = random_in_unit_sphere();
-	if (dot(in_unit_sphere, *normal) > 0.0)
-		return in_unit_sphere;
-	else
-		return vec_three_mult(in_unit_sphere, -1);
-}
+// t_vec_three random_in_hemisphere(t_vec_three *normal)
+// {
+// 	t_vec_three in_unit_sphere = random_in_unit_sphere();
+// 	if (dot(in_unit_sphere, *normal) > 0.0)
+// 		return in_unit_sphere;
+// 	else
+// 		return vec_three_mult(in_unit_sphere, -1);
+// }
 
 t_vec_three reflect(t_vec_three *v, t_vec_three *n)
 {

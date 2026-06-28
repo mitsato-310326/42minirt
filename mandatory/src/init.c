@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/27 16:17:20 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/06/28 15:14:35 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ t_hittable_list *create_obj()
     b->normal = unit_vector(point3b2);
     b_u->hit_fn = &hit_plane;
     t_material *b_m = malloc(sizeof(t_material));
-    b_m->albedo = (struct s_vec_three){0.7, 0.1, 0.3};
+    b_m->albedo = (struct s_vec_three){0.7, 0.8, 0.6};
     b_m->scatter_fn = &scatter;
     b_u->material = b_m;
     b_u->object_unique_info = b;
