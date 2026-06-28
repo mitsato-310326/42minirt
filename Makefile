@@ -6,7 +6,7 @@
 #    By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/17 12:44:36 by ainatsug          #+#    #+#              #
-#    Updated: 2026/06/28 15:51:20 by keitotak         ###   ########.fr        #
+#    Updated: 2026/06/28 17:07:34 by keitotak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,9 @@ SRC         = \
     $(SRC_DIR)/$(PRINT_DIR)/print.c \
     $(SRC_DIR)/$(HOOK_DIR)/hook.c \
     $(SRC_DIR)/$(HOOK_DIR)/camera.c \
-    $(SRC_DIR)/$(PATTERN_DIR)/hittable/hittable.c \
+    $(SRC_DIR)/$(PATTERN_DIR)/hittable/sphere.c \
+    $(SRC_DIR)/$(PATTERN_DIR)/hittable/plane.c \
+    $(SRC_DIR)/$(PATTERN_DIR)/hittable/cylinder.c \
     $(SRC_DIR)/$(PATTERN_DIR)/hittable/hittable_utils.c \
     $(SRC_DIR)/$(PATTERN_DIR)/normal.c \
     $(SRC_DIR)/$(PATTERN_DIR)/view_calc.c \
@@ -61,9 +63,9 @@ SRC         = \
     $(SRC_DIR)/utils/vec_utils/vec_calc.c \
     $(SRC_DIR)/utils/vec_utils/vec_func2.c \
     $(SRC_DIR)/utils/ft_weekend.c \
-    $(SRC_DIR)/material/lambertian.c \
-    $(SRC_DIR)/material/metal.c
-
+    $(SRC_DIR)/material/metal.c \
+    $(SRC_DIR)/kusocode.c \
+    $(SRC_DIR)/light.c
 
 OBJ 		= $(SRC:${SRC_DIR}/%.c=$(OBJ_DIR)/%.o)
 MLX_LIB = mlx/

@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 18:58:40 by mitsato           #+#    #+#             */
-/*   Updated: 2026/05/29 22:01:36 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/06/06 16:53:18 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "minirt.h"
 # include "material.h"
-# include "sphere.h"
 
 typedef struct  s_hit_record
 {

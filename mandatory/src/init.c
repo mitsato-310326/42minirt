@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/28 15:48:15 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/28 17:23:50 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ bool setup_mlx(t_mlxs *mlxs)
 
 t_camera *init_camera() //カメラオブジェクトは別物だしここでべついいかも
 {
-    // ENTRY("init_camera");
-
 	t_camera *new = malloc(sizeof(t_camera));
     if (!new)
         return NULL;
@@ -117,6 +115,7 @@ t_mlxs	*init(char *file)
 		return NULL;
 	}
 	mlxs->hittable_list = init_hittable(scene); //配列を作ってるからポインタは適切
+	mlxs->light_list = create_lights();
 	if (mlxs->hittable_list == NULL)
 	{
 		; // 未実装
@@ -141,45 +140,66 @@ t_hittable_list *create_obj()
 {
     t_hittable_list *world = NULL;
 
+    //
     t_hittable *a_u = malloc(sizeof(t_hittable));
-    t_sphere *a = malloc(sizeof(t_sphere));
-    t_vec_three point3a = (struct s_vec_three){-0.2, -0.2, -1};
+    t_cylinder *a = malloc(sizeof(t_cylinder));
+    t_vec_three point3a = (struct s_vec_three){1.8, 0, -8.1};
     a->origin = point3a;
-    a->radius = 0.1; // ココ大きくしたら壊れた、わんちゃんカメラがオブジェクトにめり込んでいると動いてくれないかも
-    a_u->hit_fn = &hit_sphere;
+    a->axis = (struct s_vec_three){0.001, 0.99, 0.001};
+    a->radius = 2.1; // ココ大きくしたら壊れた、わんちゃんカメラがオブジェクトにめり込んでいると動いてくれないかも
+    a->height = 5.1;
+    a->q = set_quaternion(a->axis);
+    a_u->hit_fn = &hit_cylinder;
     t_material *a_m = malloc(sizeof(t_material));
-    a_m->albedo = (struct s_vec_three){0.7, 0.1, 0.3};
+    a_m->albedo = (struct s_vec_three){0.1, 0.1, 0.1};
     a_m->scatter_fn = &scatter;
     a_u->material = a_m;
     a_u->object_unique_info = a;
+    //
+
+    t_hittable *j_u = malloc(sizeof(t_hittable));
+    t_cylinder *j = malloc(sizeof(t_cylinder));
+    t_vec_three point3j = (struct s_vec_three){-2.2, -0.2, -8.1};
+    j->origin = point3j;
+    j->axis = (struct s_vec_three){0.02, 0.02, 0.97};
+    j->radius = 2.1; // ココ大きくしたら壊れた、わんちゃんカメラがオブジェクトにめり込んでいると動いてくれないかも
+    j->height = 5.1;
+    j->q = set_quaternion(j->axis);
+    j_u->hit_fn = &hit_cylinder;
+    t_material *j_m = malloc(sizeof(t_material));
+    j_m->albedo = (struct s_vec_three){0.1, 0.1, 0.1};
+    j_m->scatter_fn = &scatter;
+    j_u->material = j_m;
+    j_u->object_unique_info = j;
 
     t_hittable *b_u = malloc(sizeof(t_hittable));
-    t_sphere *b = malloc(sizeof(t_sphere));
-    t_vec_three point3b = (struct s_vec_three){2.2, -40.5, -1};
+    t_plane *b = malloc(sizeof(t_plane));
+    t_vec_three point3b = (struct s_vec_three){2.2, -2, -1};
     b->origin = point3b;
-    b->radius = 40.0;
-    b_u->hit_fn = &hit_sphere;
+    t_vec_three point3b2 = (struct s_vec_three){0, 1, 0};
+    b->normal = unit_vector(point3b2);
+    b_u->hit_fn = &hit_plane;
     t_material *b_m = malloc(sizeof(t_material));
-    b_m->albedo = (struct s_vec_three){0.8, 0.8, 1};
-    b_m->scatter_fn = &scatter_metal;
+    b_m->albedo = (struct s_vec_three){0.7, 0.8, 0.6};
+    b_m->scatter_fn = &scatter;
     b_u->material = b_m;
     b_u->object_unique_info = b;
 
     t_hittable *c_u = malloc(sizeof(t_hittable));
     t_sphere *c = malloc(sizeof(t_sphere));
-    t_vec_three point3c = (struct s_vec_three){1.0 ,0.5 ,-1.0};
+    t_vec_three point3c = (struct s_vec_three){4.0 ,4.5 ,-4.5};
     c->origin = point3c;
-    c->radius = 1;
+    c->radius = 0.31;
     c_u->hit_fn = &hit_sphere;
     t_material *c_m = malloc(sizeof(t_material));
     c_m->albedo = (struct s_vec_three){0.8, 0.6, 0};
-    c_m->scatter_fn = &scatter_metal;
+    c_m->scatter_fn = &scatter;
     c_u->material = c_m;
     c_u->object_unique_info = c;
 
     t_hittable *d_u = malloc(sizeof(t_hittable));
     t_sphere *d = malloc(sizeof(t_sphere));
-    t_vec_three point3d = (struct s_vec_three){-1,0,-4};
+    t_vec_three point3d = (struct s_vec_three){-1,0,-2};
     d->origin = point3d;
     d->radius = 0.5;
     d_u->hit_fn = &hit_sphere;
@@ -191,6 +211,7 @@ t_hittable_list *create_obj()
 
     ft_hlstadd_front(&world, ft_hlstnew(a_u));
     ft_hlstadd_front(&world, ft_hlstnew(b_u));
+    ft_hlstadd_front(&world, ft_hlstnew(j_u));
     ft_hlstadd_front(&world, ft_hlstnew(c_u));
     ft_hlstadd_front(&world, ft_hlstnew(d_u));
     return world;

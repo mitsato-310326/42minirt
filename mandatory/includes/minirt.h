@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:32:16 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/27 16:14:23 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/28 17:09:22 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 #include "../../os_setting.h"
 #include "./hittable.h"
 #include "./hittable_list.h"
-#include "./sphere.h"
+#include "./physics.h"
 #include "./camera.h"
 #include "./ft_weekend.h"
 #include "./lambertian.h"
@@ -39,11 +39,13 @@
 #include "./parser_utils.h"
 #include "./scene.h"
 #include "./scene_utils.h"
+#include "light.h"
 
 #define WIDTH 640
 #define HEIGHT 360
 
 /*											*/
+typedef struct s_light_list t_light_list;
 
 typedef struct s_mlxs
 {
@@ -53,6 +55,9 @@ typedef struct s_mlxs
 	char *data;
 
 	t_hittable_list *hittable_list;
+	t_light_list *light_list;
+
+	
 	t_camera *cam;
 }						t_mlxs;
 
@@ -64,7 +69,7 @@ char	*read_str(char *file);
 /*					CALCULATE				*/
 
 int view_calc(t_mlxs *mlx);
-t_vec_three ray_color(t_ray* r, t_hittable_list *world, int depth);
+t_vec_three ray_color(t_ray* r, t_mlxs *mlxs);
 
 /*					HOOK					*/
 
@@ -74,7 +79,7 @@ int	key_handler(int keycode, void *v_mlxs);
 /*					PRINT					*/
 
 bool 	print(t_mlxs * mlxs);
-void	my_pixel_put(char *data, int x, int y, double scale, t_vec_three *color);
+void	my_pixel_put(char *data, int x, int y, t_vec_three *color);
 
 /*					DEBUG					*/
 
@@ -86,11 +91,16 @@ void	my_pixel_put(char *data, int x, int y, double scale, t_vec_three *color);
 #define PERROR printf(RED "ERROR" RESET "\n");
 #define PSUCCESS printf(GREEN "SUCCESS" RESET "\n");
 /*#define // ENTRY(str) do { \
+=======
+
+#define  ENTRY(str) do { \
+>>>>>>> main
     static int i = 0; \
     if (i++ == 0) { \
         printf(BLUE "GET IN %s FUNCTION" RESET "\n", (str)); \
     } \
 } while(0)
+<<<<<<< HEAD
 */
 /*											*/
 

@@ -6,33 +6,62 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 21:01:23 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/05 19:26:54 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/06/28 16:37:07 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
 #include "lambertian.h"
+#include "minirt.h"
 
-t_vec_three ray_color(t_ray* r, t_hittable_list *world, int depth)
+#define ambient_color (struct s_vec_three){1, 1, 1}
+#define ambient_ratio 0.8
+
+t_vec_three	check_light(t_hit_record rec, t_mlxs *mlxs)
 {
-	// ENTRY("ray_color");
-	if (depth <= 0)
-		return (struct s_vec_three){0, 0, 0};
-	t_hit_record rec;
+	t_vec_three		direct;
+	t_light_list	*light;
+	t_vec_three		to_light;
+	double			dist;
+	t_vec_three		light_dir;
+	t_ray shadow_ray;
+	t_hit_record shadow_rec;
+	double			diff;
+	t_vec_three		contribution;
 
-	if (list_hit(r, 0.001, INFINITY, &rec, world))
+	direct = (struct s_vec_three){0, 0, 0};
+	light = mlxs->light_list;
+	while (light)
 	{
-		t_ray scattered;
-		t_vec_three attenuation;
-		if (list_scatter(r, &rec, &attenuation, &scattered, rec.material))
-			return vec_three_mult_v(attenuation, ray_color(&scattered, world, depth-1));
-		return (struct s_vec_three){0, 0, 0};
+		to_light = vec_three_neg(light->content->pos, rec.p);
+		dist = vec_three_squared(to_light);
+		light_dir = vec_three_mult(to_light, 1 / dist);
+		shadow_ray.p_origin = vec_three_add(rec.p, vec_three_mult(rec.normal,
+					0.001));
+		shadow_ray.v_dir = light_dir;
+		if (list_hit(&shadow_ray, 0, dist, &shadow_rec, mlxs->hittable_list))
+		{
+			light = light->next;
+			continue ;
+		}
+		diff = fmax(0.0, dot(rec.normal, light_dir));
+		contribution = vec_three_mult(light->content->color, diff
+				* light->content->power);
+		direct = vec_three_add(direct, contribution);
+		light = light->next;
 	}
+	return (direct);
+}
 
-	t_vec_three unit_direction = unit_vector(r->v_dir);
-	double t = 0.5*(unit_direction.y + 1.0);
+t_vec_three	ray_color(t_ray *r, t_mlxs *mlxs)
+{
+	t_hit_record	rec;
+	t_vec_three		object_color;
+	t_vec_three		ambient;
 
-	t_vec_three color1 = (struct s_vec_three){1.0, 1.0, 1.0};
-	t_vec_three color2 = (struct s_vec_three){0.5, 0.7, 1.0};
-	return (vec_three_add(vec_three_mult(color1, 1.0 - t), vec_three_mult(color2, t)));
+	if (!list_hit(r, 0.001, INFINITY, &rec, mlxs->hittable_list))
+		return ((struct s_vec_three){0, 0, 0});
+	object_color = rec.material->albedo;
+	ambient = vec_three_mult(vec_three_mult_v(object_color, ambient_color),
+			ambient_ratio);
+	return (vec_three_add(ambient, check_light(rec, mlxs)));
 }
