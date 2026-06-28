@@ -35,8 +35,7 @@ t_vec_three	check_light(t_hit_record rec, t_mlxs *mlxs)
 		to_light = vec_three_neg(light->content->pos, rec.p);
 		dist = vec_three_squared(to_light);
 		light_dir = vec_three_mult(to_light, 1 / dist);
-		shadow_ray.p_origin = vec_three_add(rec.p, vec_three_mult(rec.normal,
-					0.001));
+		shadow_ray.p_origin = vec_three_add(rec.p, vec_three_mult(rec.normal, 0.001));
 		shadow_ray.v_dir = light_dir;
 		if (list_hit(&shadow_ray, 0, dist, &shadow_rec, mlxs->hittable_list))
 		{

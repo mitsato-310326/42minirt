@@ -13,6 +13,17 @@
 #include "light.h"
 #include "minirt.h"
 
-t_light_list	*ft_llstnew(void *content) { return ((void *)ft_hlstnew(content)); }
-void ft_llstadd_front(t_light_list **lst, t_light_list *newl) { ft_hlstadd_front((t_hittable_list **)lst, (t_hittable_list *)newl); }
-void ft_llstclear(t_light_list **lst) { ft_hlstclear((t_hittable_list **)lst); }
+t_light_list	*ft_llstnew(void *content)
+{
+	return ((void *)ft_hlstnew(content));
+}
+
+void	ft_llstadd_front(t_light_list **lst, t_light_list *newl)
+{
+	ft_hlstadd_front((t_hittable_list **)lst, (t_hittable_list *)newl);
+}
+
+void	ft_llstclear(t_light_list **lst)
+{
+	ft_hlstclear((t_hittable_list **)lst);
+}

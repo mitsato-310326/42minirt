@@ -10,13 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vec_util.h"
 #include "ray_util.h"
+#include "vec_util.h"
+#include "camera.h"
 
-t_vec_three ray_at(t_ray ray, double t)
+t_ray get_ray(double u, double v, t_camera camera)
 {
-	t_vec_three mult;
-	t_vec_three ret;
+	return (struct s_ray){camera.origin, vec_three_add(vec_three_add(camera.lower_left_corner, vec_three_mult(camera.horizontal, u)), vec_three_neg(vec_three_mult(camera.vertical, v), camera.origin))};
+}
+
+t_vec_three	ray_at(t_ray ray, double t)
+{
+	t_vec_three	mult;
+	t_vec_three	ret;
 
 	mult = vec_three_mult(ray.v_dir, t);
 	ret = vec_three_add(ray.p_origin, mult);
