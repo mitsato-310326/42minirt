@@ -6,7 +6,7 @@
 #    By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/17 12:44:36 by ainatsug          #+#    #+#              #
-#    Updated: 2026/06/28 17:07:34 by keitotak         ###   ########.fr        #
+#    Updated: 2026/06/29 01:10:35 by keitotak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,11 @@ SRC         = \
     $(SRC_DIR)/$(PARSER_DIR)/read.c \
     $(SRC_DIR)/$(PARSER_DIR)/lines.c \
     $(SRC_DIR)/$(PARSER_DIR)/elements.c \
+    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/ft_realloc.c \
+    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/my_split.c \
+    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/array.c \
+    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/list.c \
+    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/cnv_arr_lst.c \
     $(SRC_DIR)/$(PARSER_DIR)/scene.c \
     $(SRC_DIR)/$(PARSER_DIR)/scene_utils/set_scene.c \
     $(SRC_DIR)/$(PARSER_DIR)/scene_utils/create_objs.c \
@@ -45,11 +50,7 @@ SRC         = \
     $(SRC_DIR)/$(PARSER_DIR)/scene_utils/double_utils.c \
     $(SRC_DIR)/$(PARSER_DIR)/scene_utils/ft_atod.c \
     $(SRC_DIR)/$(PARSER_DIR)/scene_utils/print_scene.c \
-    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/ft_realloc.c \
-    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/my_split.c \
-    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/array.c \
-    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/list.c \
-    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/cnv_arr_lst.c \
+    $(SRC_DIR)/$(PARSER_DIR)/print.c \
     $(SRC_DIR)/$(PRINT_DIR)/print.c \
     $(SRC_DIR)/$(HOOK_DIR)/hook.c \
     $(SRC_DIR)/$(HOOK_DIR)/camera.c \

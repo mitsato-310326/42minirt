@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 14:45:58 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/29 00:38:44 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/29 01:25:36 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ t_list	*get_list(char *str, char const *set)
 	if (arr == NULL)
 		return (NULL);
 	lines = arr_to_lst(arr);
+	free_array(arr, arrlen(arr));
 	remove_empty_line(lines);
 	return (lines);
 }

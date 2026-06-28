@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/28 17:23:50 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/29 01:15:47 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ t_mlxs	*init(char *file)
 	scene = parse(file);
 	if (scene == NULL)
 		return (scene_clear(scene), NULL);
+	scene_clear(scene);
+	return NULL;
 	mlxs = malloc(sizeof(t_mlxs));
 	if (mlxs == NULL)
 	{
@@ -131,6 +133,7 @@ t_mlxs	*init(char *file)
 	{
 		; // 未実装
 	}
+	scene_clear(scene);
 	return mlxs;
 }
 

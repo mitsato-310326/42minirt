@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 22:12:58 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/26 22:28:55 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/29 01:24:54 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,17 @@
 t_list	*arr_to_lst(char **arr)
 {
 	t_list	*lst;
+	char	*content;
 
 	lst = NULL;
 	while (*arr)
-		ft_lstadd_back(&lst, ft_lstnew(*arr++));
+	{
+		content = ft_strdup(*arr);
+		if (content == NULL)
+			return (ft_lstclear(&lst, free), NULL);
+		ft_lstadd_back(&lst, ft_lstnew(content));
+		arr++;
+	}
 	return (lst);
 }
 
