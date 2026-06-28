@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+         #
+#    By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/17 12:44:36 by ainatsug          #+#    #+#              #
-#    Updated: 2026/06/28 15:18:00 by mitsato          ###   ########.fr        #
+#    Updated: 2026/06/28 17:07:34 by keitotak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,24 +14,42 @@ NAME		= miniRT
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -pthread
 
-LIBFT_DIR   = ./libft
+LIBFT_DIR	= ./libft
 LIBFT		= ${LIBFT_DIR}/libft.a
-LIBFT_FLAGS = -L${LIBFT_DIR} -lft
+LIBFT_FLAGS	= -L${LIBFT_DIR} -lft
 
-INCLUDE     = -I ./mandatory/includes -I ${LIBFT_DIR}
+INCLUDE		= -I ./mandatory/includes -I ${LIBFT_DIR}
 
 SRC_DIR		= mandatory/src
 
 OBJ_DIR		= obj
 
-PRINT_DIR   = printer
-HOOK_DIR    = hook
-PATTERN_DIR = pattern
+PARSER_DIR	= parser
+PRINT_DIR	= printer
+HOOK_DIR	= hook
+PATTERN_DIR	= pattern
 
 SRC         = \
     ft_mlx.c \
     $(SRC_DIR)/main.c \
     $(SRC_DIR)/init.c \
+    $(SRC_DIR)/$(PARSER_DIR)/parse.c \
+    $(SRC_DIR)/$(PARSER_DIR)/read.c \
+    $(SRC_DIR)/$(PARSER_DIR)/lines.c \
+    $(SRC_DIR)/$(PARSER_DIR)/elements.c \
+    $(SRC_DIR)/$(PARSER_DIR)/scene.c \
+    $(SRC_DIR)/$(PARSER_DIR)/scene_utils/set_scene.c \
+    $(SRC_DIR)/$(PARSER_DIR)/scene_utils/create_objs.c \
+    $(SRC_DIR)/$(PARSER_DIR)/scene_utils/set_info.c \
+    $(SRC_DIR)/$(PARSER_DIR)/scene_utils/int_utils.c \
+    $(SRC_DIR)/$(PARSER_DIR)/scene_utils/double_utils.c \
+    $(SRC_DIR)/$(PARSER_DIR)/scene_utils/ft_atod.c \
+    $(SRC_DIR)/$(PARSER_DIR)/scene_utils/print_scene.c \
+    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/ft_realloc.c \
+    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/my_split.c \
+    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/array.c \
+    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/list.c \
+    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/cnv_arr_lst.c \
     $(SRC_DIR)/$(PRINT_DIR)/print.c \
     $(SRC_DIR)/$(HOOK_DIR)/hook.c \
     $(SRC_DIR)/$(HOOK_DIR)/camera.c \
@@ -55,6 +73,11 @@ MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 
 .PHONY: all
 all: $(NAME)
+
+debug: RULE=debug
+debug: CC=gcc
+debug: CFLAGS=-g3 -Wall -Wextra -Werror -pthread
+debug: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
 	@make -C $(MLX_LIB)

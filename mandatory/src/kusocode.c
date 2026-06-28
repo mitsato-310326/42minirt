@@ -16,7 +16,6 @@
 t_light_list *create_lights()
 {
 	t_light_list *light = NULL;
-	light = malloc(sizeof(t_light_list));
 	t_light *a_l = malloc(sizeof(t_light));
 	t_vec_three point3a = (struct s_vec_three){50, 5, -50};
 	a_l->pos = point3a;
@@ -30,7 +29,6 @@ t_light_list *create_lights()
 	t_vec_three color3b = (struct s_vec_three){1, 1, 1};
 	b_l->color = color3b;
 	b_l->power = 0.2;
-	light->content = b_l;
 	ft_llstadd_front(&light, ft_llstnew(a_l));
 	ft_llstadd_front(&light, ft_llstnew(b_l));
 

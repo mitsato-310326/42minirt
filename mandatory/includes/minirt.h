@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:32:16 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/28 16:38:53 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/06/28 17:09:22 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include "../../mlx/mlx.h"
 #include "../../libft/libft.h"
 #include "./ray_util.h"
@@ -32,8 +35,11 @@
 #include "./camera.h"
 #include "./ft_weekend.h"
 #include "./lambertian.h"
+#include "./parser.h"
+#include "./parser_utils.h"
+#include "./scene.h"
+#include "./scene_utils.h"
 #include "light.h"
-
 
 #define WIDTH 640
 #define HEIGHT 360
@@ -58,6 +64,7 @@ typedef struct s_mlxs
 void put_error(char *errstr, bool systemerr);
 t_mlxs *init(char *map);
 int destroy_minirt(t_mlxs *mlxs);
+char	*read_str(char *file);
 
 /*					CALCULATE				*/
 
@@ -83,14 +90,18 @@ void	my_pixel_put(char *data, int x, int y, t_vec_three *color);
 
 #define PERROR printf(RED "ERROR" RESET "\n");
 #define PSUCCESS printf(GREEN "SUCCESS" RESET "\n");
+/*#define // ENTRY(str) do { \
+=======
 
 #define  ENTRY(str) do { \
+>>>>>>> main
     static int i = 0; \
     if (i++ == 0) { \
         printf(BLUE "GET IN %s FUNCTION" RESET "\n", (str)); \
     } \
 } while(0)
-
+<<<<<<< HEAD
+*/
 /*											*/
 
 #endif

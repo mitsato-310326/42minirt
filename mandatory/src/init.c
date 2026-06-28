@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/28 15:14:35 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/06/28 17:23:50 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minirt.h"
 
 int stop_minirt(void *v_mlxs);
@@ -62,29 +63,59 @@ t_camera *init_camera() //カメラオブジェクトは別物だしここでべ
     return new;
 }
 
-t_hittable_list *create_obj();
-
-t_hittable_list *init_hittable(char *map)
+/*
+t_hittable_list *create_hittable_lst(t_scene *scene);
 {
-	(void)map;
-	//parse();
-	t_hittable_list *hittable_list = create_obj();
+	
+}
+*/
+
+t_hittable_list *create_obj(void);
+
+t_hittable_list *init_hittable(t_scene *scene)
+{
+	t_hittable_list *hittable_list;
+
+	(void)scene;
+	hittable_list = create_obj();
+	//hittable_list = create_hittable_lst(scene);
 	if (hittable_list == NULL)
 		return NULL;
-	return hittable_list;
+	return (hittable_list);
 }
 
-t_mlxs	*init(char *map)
+#define RT ".rt"
+#define RTLEN 3
+
+bool	valid_filename(char *file)
 {
-	t_mlxs *mlxs;
+	size_t	len;
+
+	len = ft_strlen(file);
+	file += len - RTLEN;
+	if (ft_strncmp(file, RT, RTLEN + 1) == 0)
+		return (true);
+	return (false);
+}
+
+t_mlxs	*init(char *file)
+{
+	t_mlxs	*mlxs;
+	t_scene	*scene;
+
+	if (!valid_filename(file))
+		return (printf("invalid filename.\n"), NULL);
+	scene = parse(file);
+	if (scene == NULL)
+		return (scene_clear(scene), NULL);
 	mlxs = malloc(sizeof(t_mlxs));
 	if (mlxs == NULL)
 	{
 		put_error(NULL, 1); // malloc失敗
 		return NULL;
 	}
-	mlxs->hittable_list = init_hittable(map); //配列を作ってるからポインタは適切
-    mlxs->light_list = create_lights();
+	mlxs->hittable_list = init_hittable(scene); //配列を作ってるからポインタは適切
+	mlxs->light_list = create_lights();
 	if (mlxs->hittable_list == NULL)
 	{
 		; // 未実装
