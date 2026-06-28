@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:32:16 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/28 15:56:39 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/06/28 16:38:53 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef struct s_mlxs
 
 	t_hittable_list *hittable_list;
 	t_light_list *light_list;
+
+	
 	t_camera *cam;
 }						t_mlxs;
 
@@ -70,7 +72,7 @@ int	key_handler(int keycode, void *v_mlxs);
 /*					PRINT					*/
 
 bool 	print(t_mlxs * mlxs);
-void	my_pixel_put(char *data, int x, int y, double scale, t_vec_three *color);
+void	my_pixel_put(char *data, int x, int y, t_vec_three *color);
 
 /*					DEBUG					*/
 

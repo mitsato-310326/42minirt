@@ -12,27 +12,26 @@
 
 #include "minirt.h"
 
-int view_calc(t_mlxs *mlxs)
+int	view_calc(t_mlxs *mlxs)
 {
-    char *data = mlxs->data;
-    t_camera *cam = mlxs->cam;
-    double aspect_ratio = (double)WIDTH / HEIGHT;
-    int image_width = WIDTH;
-    int image_height = (int)(image_width / aspect_ratio);
-    int samples_per_pixel = 1;
-    double scale = 1.0 / samples_per_pixel;
+	int			i;
+	int			j;
+	t_vec_three	pixel_color;
+	t_ray		r;
 
-    for (int j = image_height-1; j >= 0; --j)
-    {
-        for (int i = 0; i < image_width; ++i)
-        {
-            t_vec_three pixel_color = (struct s_vec_three){0, 0, 0};
-            double u = (i + 0.5) / (image_width-1);
-            double v = (j + 0.5) / (image_height-1);
-            t_ray r = get_ray(u, v, *cam);
-            pixel_color = vec_three_add(pixel_color, ray_color(&r, mlxs));
-            my_pixel_put(data, i, j, scale, &pixel_color);
-        }
-    }
-    return 1;
+	j = HEIGHT - 1;
+	while (j >= 0)
+	{
+		i = 0;
+		while (i < WIDTH)
+		{
+			pixel_color = (struct s_vec_three){0, 0, 0};
+			r = get_ray((i + 0.5) / (WIDTH - 1), (j + 0.5) / (HEIGHT - 1), *(mlxs->cam));
+			pixel_color = vec_three_add(pixel_color, ray_color(&r, mlxs));
+			my_pixel_put(mlxs->data, i, j, &pixel_color);
+			++i;
+		}
+		--j;
+	}
+	return (1);
 }
