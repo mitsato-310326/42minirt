@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/27 14:24:47 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/28 01:04:32 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/29 00:45:41 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static t_camera_scene	*set_camera(t_camera_scene *cmr, t_element *elm)
 	cmr = (t_camera_scene *)malloc(sizeof(t_camera_scene));
 	if (cmr == NULL)
 		return (NULL);
-	if (!set_point(&cmr->point, ft_lstsearch(elm->info, 1)))
+	if (!set_coord(&cmr->crd, ft_lstsearch(elm->info, 1)))
 		return (free(cmr), NULL);
 	if (!set_vector(&cmr->vec, ft_lstsearch(elm->info, 2)))
 		return (free(cmr), NULL);
@@ -49,7 +49,7 @@ static t_light_scene	*set_light(t_light_scene *lgt, t_element *elm)
 	lgt = (t_light_scene *)malloc(sizeof(t_light_scene));
 	if (lgt == NULL)
 		return (NULL);
-	if (!set_point(&lgt->point, ft_lstsearch(elm->info, 1)))
+	if (!set_coord(&lgt->crd, ft_lstsearch(elm->info, 1)))
 		return (free(lgt), NULL);
 	if (!set_ratio(&lgt->ratio, ft_lstsearch(elm->info, 2)))
 		return (free(lgt), NULL);
@@ -74,10 +74,7 @@ static t_list	*set_object(t_list *obj_lst, t_element *elm)
 	else if (elm->id == CYLINDER)
 		content->obj = create_cylinder(elm);
 	if (content->obj == NULL)
-	{
-		free(content);
-		return (NULL);
-	}
+		return (free(content), NULL);
 	content->id = elm->id;
 	newnode = ft_lstnew(content);
 	if (newnode == NULL)

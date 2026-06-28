@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_file.c                                        :+:      :+:    :+:   */
+/*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 09:38:48 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/25 15:58:13 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/29 00:40:19 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ char	*read_str(char *file)
 
 	fd = open(file, O_RDONLY);
 	read_count = 1;
-	str = malloc(1);
-	str[0] = 0;
+	str = ft_calloc(1, sizeof(char));
 	while (read_count != 0)
 	{
 		read_count = read(fd, buf, BUFSIZE);
