@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/27 14:27:11 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/28 01:00:10 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/29 00:31:26 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_sphere_scene	*create_sphere(t_element *elm)
 	sph = (t_sphere_scene *)malloc(sizeof(t_sphere_scene));
 	if (sph == NULL)
 		return (NULL);
-	if (!set_point(&sph->center, ft_lstsearch(elm->info, 1)))
+	if (!set_coord(&sph->crd, ft_lstsearch(elm->info, 1)))
 		return (free(sph), NULL);
 	if (!set_double(&sph->diameter, ft_lstsearch(elm->info, 2)))
 		return (free(sph), NULL);
@@ -39,7 +39,7 @@ t_plane_scene	*create_plane(t_element *elm)
 	pln = (t_plane_scene *)malloc(sizeof(t_plane_scene));
 	if (pln == NULL)
 		return (NULL);
-	if (!set_point(&pln->point, ft_lstsearch(elm->info, 1)))
+	if (!set_coord(&pln->crd, ft_lstsearch(elm->info, 1)))
 		return (free(pln), NULL);
 	if (!set_vector(&pln->vec, ft_lstsearch(elm->info, 2)))
 		return (free(pln), NULL);
@@ -57,7 +57,7 @@ t_cylinder_scene	*create_cylinder(t_element *elm)
 	cyl = (t_cylinder_scene *)malloc(sizeof(t_cylinder_scene));
 	if (cyl == NULL)
 		return (NULL);
-	if (!set_point(&cyl->center, ft_lstsearch(elm->info, 1)))
+	if (!set_coord(&cyl->crd, ft_lstsearch(elm->info, 1)))
 		return (free(cyl), NULL);
 	if (!set_vector(&cyl->vec, ft_lstsearch(elm->info, 2)))
 		return (free(cyl), NULL);

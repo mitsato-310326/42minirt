@@ -6,33 +6,12 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 14:45:58 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/27 23:49:40 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/29 00:43:42 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "parser.h"
-
-void	print_element(t_list *elm_lst)
-{
-	t_element	*elm;
-	int i = 0;
-	printf("\n");
-	while (elm_lst)
-	{
-		printf("\nelement:%d\n", i++);
-		elm = (t_element *)elm_lst->content;
-		printf("size:\t%ld\n", elm->size);
-		printf("ID:\t%s\n", (char *)elm->info->content);
-		while (elm->info->next)
-		{
-			printf("info:\t%s\n", (char *)elm->info->next->content);
-			elm->info = elm->info->next;
-		}
-		elm_lst = elm_lst->next;
-	}
-	printf("\n");
-}
 
 /*void ft_lstclear(t_list **lst, void (*del)(void *))*/
 
@@ -88,9 +67,9 @@ static t_element	*create_element(char *str)
 
 bool	check_doubled_id(t_list *lst)
 {
-	int	amb_cnt;
-	int	cmr_cnt;
-	int	lgt_cnt;
+	int			amb_cnt;
+	int			cmr_cnt;
+	int			lgt_cnt;
 	t_element	*elm;
 
 	amb_cnt = 0;

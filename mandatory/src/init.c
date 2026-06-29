@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/28 17:23:50 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/29 11:40:48 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ t_mlxs	*init(char *file)
 	{
 		; // 未実装
 	}
+	scene_clear(scene);
 	return mlxs;
 }
 

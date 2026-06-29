@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/27 02:23:28 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/28 00:11:29 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/29 00:36:33 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	delete_obj_content(void *p)
 	t_obj_content	*content;
 
 	if (p == NULL)
-		return;
+		return ;
 	content = (t_obj_content *)p;
 	if (content->obj != NULL)
 		free(content->obj);
@@ -38,7 +38,7 @@ void	delete_obj_content(void *p)
 void	scene_clear(t_scene *scene)
 {
 	if (scene == NULL)
-		return;
+		return ;
 	if (scene->amblight)
 		free(scene->amblight);
 	if (scene->camera)
