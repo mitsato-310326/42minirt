@@ -16,6 +16,7 @@
 #define ambient_color (struct s_vec_three){1, 1, 1}
 #define ambient_ratio 0.8
 
+//ここはlightを変える都合で後回し
 t_vec_three	check_light(t_hit_record rec, t_mlxs *mlxs)
 {
 	t_vec_three		direct;
@@ -26,7 +27,6 @@ t_vec_three	check_light(t_hit_record rec, t_mlxs *mlxs)
 	t_ray shadow_ray;
 	t_hit_record shadow_rec;
 	double			diff;
-	t_vec_three		contribution;
 
 	direct = (struct s_vec_three){0, 0, 0};
 	light = mlxs->light_list;
@@ -43,9 +43,8 @@ t_vec_three	check_light(t_hit_record rec, t_mlxs *mlxs)
 			continue ;
 		}
 		diff = fmax(0.0, dot(rec.normal, light_dir));
-		contribution = vec_three_mult(light->content->color, diff
-				* light->content->power);
-		direct = vec_three_add(direct, contribution);
+		direct = vec_three_add(direct, vec_three_mult(light->content->color, diff
+				* light->content->power));
 		light = light->next;
 	}
 	return (direct);

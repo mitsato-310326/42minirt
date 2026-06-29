@@ -5,7 +5,7 @@
 #                                                     +:+ +:+         +:+      #
 #    By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/01/17 12:44:36 by ainatsug          #+#    #+#              #
+#    Created: 2026/01/17 12:44:36 by mitsato          #+#    #+#              #
 #    Updated: 2026/06/28 17:07:34 by keitotak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -52,7 +52,6 @@ SRC         = \
     $(SRC_DIR)/$(PARSER_DIR)/parser_utils/cnv_arr_lst.c \
     $(SRC_DIR)/$(PRINT_DIR)/print.c \
     $(SRC_DIR)/$(HOOK_DIR)/hook.c \
-    $(SRC_DIR)/$(HOOK_DIR)/camera.c \
     $(SRC_DIR)/$(PATTERN_DIR)/hittable/sphere.c \
     $(SRC_DIR)/$(PATTERN_DIR)/hittable/plane.c \
     $(SRC_DIR)/$(PATTERN_DIR)/hittable/cylinder.c \

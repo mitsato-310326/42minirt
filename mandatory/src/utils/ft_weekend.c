@@ -13,17 +13,6 @@
 #include "ft_weekend.h"
 #include "minirt.h"
 
-double	random_double(void)
-{
-  PERROR
-	return (0.5);
-}
-
-// double	random_double_with(double min, double max)
-// {
-// 	return (min + (max - min) * random_double());
-// }
-
 double clamp(double x, double min, double max)
 {
   if (x < min) return min;

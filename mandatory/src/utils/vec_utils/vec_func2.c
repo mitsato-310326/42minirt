@@ -23,11 +23,6 @@ t_vec_three	unit_vector(t_vec_three v)
 	return (vec_three_mult(v, 1.0 / vec_three_squared(v)));
 }
 
-// t_vec_three	reflect(t_vec_three *v, t_vec_three *n)
-// {
-// 	return (vec_three_neg(*v, vec_three_mult(*n, 2.0f * dot(*v, *n))));
-// }
-
 t_vec_three	cross(t_vec_three a, t_vec_three b)
 {
 	return ((t_vec_three){a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x

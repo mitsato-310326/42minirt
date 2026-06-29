@@ -12,6 +12,7 @@
 
 #include "libft.h"
 #include "minirt.h"
+// #define M_PI        3.14159265358979323846264338327950288
 
 int				stop_minirt(void *v_mlxs);
 int				key_handler(int keycode, void *v_mlxs);
@@ -46,30 +47,29 @@ bool	setup_mlx(t_mlxs *mlxs)
 	return (true);
 }
 
-t_camera	*init_camera(void)
+t_camera	*init_camera(t_camera_scene *camera)
 {
-	t_camera *new;
-	double aspect_ratio;
-	double viewport_height;
-	double viewport_width;
-	double focal_length;
+	t_camera	*new;
+	double		viewport_height;
+	double		viewport_width;
 
-    focal_length = 1.0;
-    viewport_height = 2.0;
-    aspect_ratio = (double)WIDTH / (double)HEIGHT;
-    viewport_width = aspect_ratio * viewport_height;
-
+	// (void)camera;
+	/*
+	focal_lengthに関して、
+	*/
+	viewport_width = 2.0 * tan(camera->fov * M_PI / 360);
+	viewport_height = (double)HEIGHT / WIDTH * viewport_width;
 	new = malloc(sizeof(t_camera));
 	if (!new)
 		return (NULL);
-
-	new->origin = (struct s_vec_three){0, 0, 0};
-	new->horizontal = (struct s_vec_three){viewport_width, 0, 0};
-	new->vertical = (struct s_vec_three){0, viewport_height, 0};
+	t_vec_three w = unit_vector(camera->vec);      // 視線方向（normalize前提）
+	t_vec_three world_up = (t_vec_three){0, 1, 0}; // 上方向（uとwが正規直交ならvも単位ベクトル）
+	new->origin = (struct s_vec_three)camera->point;
+	new->horizontal = vec_three_mult(unit_vector(cross(world_up, w)), viewport_width);
+	new->vertical = vec_three_mult(cross(w, unit_vector(cross(world_up, w))), viewport_height); // 要整理
 	new->lower_left_corner = vec_three_neg(vec_three_neg(vec_three_neg(new->origin,
 					vec_three_mult(new->horizontal, 0.5)),
-				vec_three_mult(new->vertical, 0.5)), (struct s_vec_three){0, 0,
-			focal_length});
+				vec_three_mult(new->vertical, 0.5)), (struct s_vec_three){0, 0, 1});
 	return (new);
 }
 
@@ -128,7 +128,7 @@ t_mlxs	*init(char *file)
 		destroy_minirt(mlxs);
 		return (NULL);
 	}
-	mlxs->cam = init_camera();
+	mlxs->cam = init_camera(scene->camera);
 	if (mlxs->cam == NULL)
 	{
 		; // 未実装

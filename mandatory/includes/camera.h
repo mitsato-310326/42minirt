@@ -13,7 +13,8 @@
 #ifndef CAMERA_H
 # define CAMERA_H
 
-#include "ft_weekend.h"
+#include "minirt.h"
+#include "scene.h"
 #include "vec_util.h"
 #include "ray_util.h"
 
@@ -28,7 +29,7 @@ typedef struct s_camera
     t_vec_three vertical;
 }			t_camera;
 
-t_camera *init_camera();
+t_camera *init_camera(t_camera_scene *camera);
 t_ray get_ray(double u, double v, t_camera camera);
 
 #endif

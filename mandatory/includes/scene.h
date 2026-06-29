@@ -14,6 +14,7 @@
 # define SCENE_H
 
 #include "minirt.h"
+#include "parser.h"
 
 typedef struct s_color
 {
