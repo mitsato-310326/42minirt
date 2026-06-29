@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 00:41:30 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/29 01:08:52 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/29 12:10:15 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ void	print_list(t_list *list)
 void	print_element(t_list *elm_lst)
 {
 	t_element	*elm;
-	int i = 0;
+	t_list		*info;
+	int			i;
+
+	i = 0;
 	printf("\n");
 	while (elm_lst)
 	{
@@ -37,10 +40,11 @@ void	print_element(t_list *elm_lst)
 		elm = (t_element *)elm_lst->content;
 		printf("size:\t%ld\n", elm->size);
 		printf("ID:\t%s\n", (char *)elm->info->content);
-		while (elm->info->next)
+		info = (t_list *)elm->info->next;
+		while (info)
 		{
-			printf("info:\t%s\n", (char *)elm->info->next->content);
-			elm->info = elm->info->next;
+			printf("info:\t%s\n", (char *)info->content);
+			info = info->next;
 		}
 		elm_lst = elm_lst->next;
 	}
@@ -53,4 +57,5 @@ void	print_scene(t_scene *scene)
 	print_camera(scene->camera);
 	print_light(scene->light);
 	print_objs(scene->objs);
+	printf("\n");
 }

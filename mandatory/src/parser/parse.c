@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 19:59:28 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/29 01:30:16 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/29 11:39:02 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,24 @@ t_scene	*parse(char *file)
 	str = read_str(file);
 	if (str == NULL)
 		return (NULL);
-//	print_str(str);
-	lines = get_list(str, "\n");
+	lines = get_list(str, NL);
 	if (lines == NULL)
 		return (free(str), NULL);
 	free(str);
-//	print_list(lines);
 	elements = get_elements(lines);
 	if (elements == NULL)
 		return (ft_lstclear(&lines, free), NULL);
 	ft_lstclear(&lines, free);
-//	print_element(elements);
 	scene = create_scene(elements);
 	if (scene == NULL)
 		return (ft_lstclear(&elements, delete_element), NULL);
 	ft_lstclear(&elements, delete_element);
-//	print_scene(scene);
 	return (scene);
 }
+
+/*
+	print_str(str);
+	print_list(lines);
+	print_element(elements);
+	print_scene(scene);
+*/

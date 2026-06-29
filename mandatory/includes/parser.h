@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 13:23:36 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/29 01:07:49 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/29 12:03:27 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 # define BUFSIZE 1024
 # define SPACE " \t\n\v\f\r"
+# define NL "\n"
 
 typedef enum e_id
 {
@@ -59,11 +60,5 @@ void	print_element(t_list *element);
 t_scene	*create_scene(t_list *elm_lst);
 void	scene_clear(t_scene *scene);
 void	delete_obj_content(void *p);
-
-// print.c
-void	print_str(char *str);
-void	print_list(t_list *list);
-void	print_element(t_list *elm_lst);
-void	print_scene(t_scene *scene);
 
 #endif

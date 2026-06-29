@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/27 14:31:53 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/29 01:07:37 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/29 12:03:49 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,5 @@ bool				range_double(double f, double min, double max);
 // ft_atod.c
 double				ft_atod(char const *str);
 bool				is_three_dimential(char const *str);
-
-// print_scene.c
-void	print_amblight(t_amblight_scene *ambl);
-void	print_camera(t_camera_scene *cmr);
-void	print_light(t_light_scene *lgt);
-void	print_objs(t_list *obj_lst);
-void	print_sphere(t_sphere_scene *sph);
-void	print_plane(t_plane_scene *pln);
-void	print_cylinder(t_cylinder_scene *cyl);
-void	print_id(char *id_name);
-void	print_color(t_color color);
-void	print_coord(t_coord crd);
-void	print_vector(t_vector vec);
 
 #endif

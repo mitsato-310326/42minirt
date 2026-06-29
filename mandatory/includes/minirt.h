@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:32:16 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/28 17:09:22 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/29 12:05:40 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 #include "./lambertian.h"
 #include "./parser.h"
 #include "./parser_utils.h"
+#include "./parser_print.h"
 #include "./scene.h"
 #include "./scene_utils.h"
 #include "light.h"

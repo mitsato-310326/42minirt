@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 15:09:27 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/29 01:09:06 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/29 12:00:08 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	print_light(t_light_scene *lgt)
 void	print_objs(t_list *obj_lst)
 {
 	t_obj_content	*content;
+
 	while (obj_lst)
 	{
 		content = (t_obj_content *)obj_lst->content;
@@ -67,56 +68,4 @@ void	print_objs(t_list *obj_lst)
 			print_cylinder(content->obj);
 		obj_lst = obj_lst->next;
 	}
-}
-
-void	print_sphere(t_sphere_scene *sph)
-{
-	if (!sph)
-		return ;
-	print_id("sphere");
-	print_coord(sph->crd);
-	printf("diameter: %f", sph->diameter);
-	print_color(sph->color);
-}
-
-void	print_plane(t_plane_scene *pln)
-{
-	if (!pln)
-		return ;
-	print_id("plane");
-	print_coord(pln->crd);
-	print_vector(pln->vec);
-	print_color(pln->color);
-}
-
-void	print_cylinder(t_cylinder_scene *cyl)
-{
-	if (!cyl)
-		return ;
-	print_id("plane");
-	print_coord(cyl->crd);
-	print_vector(cyl->vec);
-	printf("diameter: %f\n", cyl->diameter);
-	printf("height: %f\n", cyl->height);
-	print_color(cyl->color);
-}
-
-void	print_id(char *id_name)
-{
-	printf("\nelement: %s\n", id_name);
-}
-
-void	print_color(t_color color)
-{
-	printf("color: r=%d g=%d b=%d\n", color.r, color.g, color.b);
-}
-
-void	print_coord(t_coord crd)
-{
-	printf("coord: x=%f y=%f z=%f\n", crd.x, crd.y, crd.z);
-}
-
-void	print_vector(t_vector vec)
-{
-	printf("vector: x=%f y=%f z=%f\n", vec.x, vec.y, vec.z);
 }
