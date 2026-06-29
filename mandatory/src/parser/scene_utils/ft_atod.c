@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/27 21:29:44 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/28 00:07:59 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/29 18:16:11 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	is_three_dimential(char const *str)
 			str++;
 		else if (*str == COMMA)
 		{
-			if (!ft_isdigit(*(str + 1)))
+			if (!ft_isdigit(*(str + 1)) && !ft_issign(*(str + 1)))
 				return (false);
 			dot_cnt++;
 			str++;
