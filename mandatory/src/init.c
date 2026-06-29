@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/28 17:23:50 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/29 11:40:48 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_camera	*init_camera(t_camera_scene *camera)
 		return (NULL);
 	t_vec_three w = unit_vector(camera->vec);      // 視線方向（normalize前提）
 	t_vec_three world_up = (t_vec_three){0, 1, 0}; // 上方向（uとwが正規直交ならvも単位ベクトル）
-	new->origin = (struct s_vec_three)camera->point;
+	new->origin = (struct s_vec_three)camera->crd;
 	new->horizontal = vec_three_mult(unit_vector(cross(world_up, w)), viewport_width);
 	new->vertical = vec_three_mult(cross(w, unit_vector(cross(world_up, w))), viewport_height); // 要整理
 	new->lower_left_corner = vec_three_neg(vec_three_neg(vec_three_neg(new->origin,
@@ -133,7 +133,8 @@ t_mlxs	*init(char *file)
 	{
 		; // 未実装
 	}
-	return (mlxs);
+	scene_clear(scene);
+	return mlxs;
 }
 
 // ------------ 一時的クソコード ------------ //

@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 13:23:36 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/27 23:27:11 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/29 12:03:27 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 # define BUFSIZE 1024
 # define SPACE " \t\n\v\f\r"
+# define NL "\n"
 
 typedef enum e_id
 {

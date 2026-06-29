@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:32:16 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/28 17:09:22 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/29 12:05:40 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,20 @@
 #include "./physics.h"
 #include "./camera.h"
 #include "./ft_weekend.h"
-#include "./lambertian.h"
 #include "./parser.h"
 #include "./parser_utils.h"
+#include "./parser_print.h"
 #include "./scene.h"
 #include "./scene_utils.h"
 #include "light.h"
+#include "camera.h"
 
 #define WIDTH 640
 #define HEIGHT 360
 
 /*											*/
 typedef struct s_light_list t_light_list;
-
+typedef struct s_camera t_camera;
 typedef struct s_mlxs
 {
 	char *mlx;
@@ -57,7 +58,6 @@ typedef struct s_mlxs
 	t_hittable_list *hittable_list;
 	t_light_list *light_list;
 
-	
 	t_camera *cam;
 }						t_mlxs;
 
@@ -73,6 +73,7 @@ t_vec_three ray_color(t_ray* r, t_mlxs *mlxs);
 
 /*					HOOK					*/
 
+int	destroy_minirt(t_mlxs *mlxs);
 int stop_minirt(void *v_mlxs);
 int	key_handler(int keycode, void *v_mlxs);
 

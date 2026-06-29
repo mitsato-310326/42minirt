@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook.c                                             :+:      :+:    :+:   */
+/*   metal.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/05 20:26:10 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/05 19:28:48 by mitsato          ###   ########.fr       */
+/*   Created: 2026/05/12 19:18:37 by mitsato           #+#    #+#             */
+/*   Updated: 2026/06/28 15:53:25 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int stop_minirt(void *v_mlxs)
+void reflect(t_hit_record *rec, t_vec_three *attenuation, t_ray *reflected, void *material)
 {
-	ft_mlx_loop_end(((t_mlxs *)v_mlxs)->mlx);
-	return (0);
-}
-
-int	key_handler(int keycode, void *v_mlxs)
-{
-	if (keycode == 0xFF1B)
-		ft_mlx_loop_end(((t_mlxs *)v_mlxs)->mlx);
-	return (0);
+    t_vec_three reflect_direction = rec->normal;
+    *reflected = (struct s_ray){rec->p, reflect_direction};
+    *attenuation = ((t_material *)material)->albedo;
 }

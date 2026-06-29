@@ -25,4 +25,6 @@ typedef struct s_material
 	bool (* scatter_fn)(t_ray *r_in, t_hit_record *rec, t_vec_three *attenuation, t_ray *scattered, void *material);
 }			t_material;
 
+void reflect(t_hit_record *rec, t_vec_three *attenuation, t_ray *reflected, void *material);
+
 #endif

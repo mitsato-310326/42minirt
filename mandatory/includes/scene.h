@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 10:26:38 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/27 20:01:05 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/06/29 01:04:51 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,16 @@
 #include "minirt.h"
 #include "parser.h"
 
+typedef struct s_vec_three t_coord;
+typedef struct s_vec_three t_vector;
+typedef enum e_id t_id;
+
 typedef struct s_color
 {
 	int	r;
 	int	g;
 	int	b;
 }	t_color;
-
-typedef struct s_vec_three t_coord;
 
 typedef struct s_amblight_scene
 {
@@ -33,36 +35,36 @@ typedef struct s_amblight_scene
 
 typedef struct s_camera_scene
 {
-	t_coord		point;
-	t_vec_three	vec;
+	t_coord		crd;
+	t_vector	vec;
 	int			fov;
 }	t_camera_scene;
 
 typedef struct s_light_scene
 {
-	t_coord		point;
+	t_coord		crd;
 	double		ratio;
 	t_color		color;
 }	t_light_scene;
 
 typedef struct s_sphere_scene
 {
-	t_coord	center;
+	t_coord	crd;
 	double	diameter;
 	t_color	color;
 }	t_sphere_scene;
 
 typedef struct s_plane_scene
 {
-	t_coord		point;
-	t_vec_three	vec;
+	t_coord		crd;
+	t_vector	vec;
 	t_color		color;
 }	t_plane_scene;
 
 typedef struct s_cylinder_scene
 {
-	t_coord		center;
-	t_vec_three	vec;
+	t_coord		crd;
+	t_vector	vec;
 	double		diameter;
 	double		height;
 	t_color		color;

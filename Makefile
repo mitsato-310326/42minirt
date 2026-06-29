@@ -38,31 +38,33 @@ SRC         = \
     $(SRC_DIR)/$(PARSER_DIR)/lines.c \
     $(SRC_DIR)/$(PARSER_DIR)/elements.c \
     $(SRC_DIR)/$(PARSER_DIR)/scene.c \
+    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/ft_realloc.c \
+    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/my_split.c \
+    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/array.c \
+    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/list.c \
+    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/cnv_arr_lst.c \
     $(SRC_DIR)/$(PARSER_DIR)/scene_utils/set_scene.c \
     $(SRC_DIR)/$(PARSER_DIR)/scene_utils/create_objs.c \
     $(SRC_DIR)/$(PARSER_DIR)/scene_utils/set_info.c \
     $(SRC_DIR)/$(PARSER_DIR)/scene_utils/int_utils.c \
     $(SRC_DIR)/$(PARSER_DIR)/scene_utils/double_utils.c \
     $(SRC_DIR)/$(PARSER_DIR)/scene_utils/ft_atod.c \
-    $(SRC_DIR)/$(PARSER_DIR)/scene_utils/print_scene.c \
-    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/ft_realloc.c \
-    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/my_split.c \
-    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/array.c \
-    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/list.c \
-    $(SRC_DIR)/$(PARSER_DIR)/parser_utils/cnv_arr_lst.c \
+    $(SRC_DIR)/$(PARSER_DIR)/print_debug/print.c \
+    $(SRC_DIR)/$(PARSER_DIR)/print_debug/print_scene.c \
+    $(SRC_DIR)/$(PARSER_DIR)/print_debug/print_objs.c \
+    $(SRC_DIR)/$(PARSER_DIR)/print_debug/print_utils.c \
     $(SRC_DIR)/$(PRINT_DIR)/print.c \
-    $(SRC_DIR)/$(HOOK_DIR)/hook.c \
+    $(SRC_DIR)/stop.c \
     $(SRC_DIR)/$(PATTERN_DIR)/hittable/sphere.c \
     $(SRC_DIR)/$(PATTERN_DIR)/hittable/plane.c \
     $(SRC_DIR)/$(PATTERN_DIR)/hittable/cylinder.c \
     $(SRC_DIR)/$(PATTERN_DIR)/hittable/hittable_utils.c \
-    $(SRC_DIR)/$(PATTERN_DIR)/normal.c \
     $(SRC_DIR)/$(PATTERN_DIR)/view_calc.c \
     $(SRC_DIR)/utils/ray_utils/ray_func.c \
-    $(SRC_DIR)/utils/vec_utils/vec_calc.c \
+    $(SRC_DIR)/utils/vec_utils/vec_func.c \
     $(SRC_DIR)/utils/vec_utils/vec_func2.c \
-    $(SRC_DIR)/utils/ft_weekend.c \
-    $(SRC_DIR)/material/metal.c \
+    $(SRC_DIR)/utils/util.c \
+    $(SRC_DIR)/reflect.c \
     $(SRC_DIR)/kusocode.c \
     $(SRC_DIR)/light.c
 

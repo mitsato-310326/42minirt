@@ -20,7 +20,7 @@ double	dot(t_vec_three a, t_vec_three b)
 
 t_vec_three	unit_vector(t_vec_three v)
 {
-	return (vec_three_mult(v, 1.0 / vec_three_squared(v)));
+	return (vec_three_mult(v, 1.0 / vec_three_length(v)));
 }
 
 t_vec_three	cross(t_vec_three a, t_vec_three b)

@@ -32,7 +32,7 @@ t_vec_three	vec_three_mult_v(t_vec_three a, t_vec_three b)
 	return ((struct s_vec_three){a.x * b.x, a.y * b.y, a.z * b.z});
 }
 
-double	vec_three_squared(t_vec_three a)
+double	vec_three_length(t_vec_three a)
 {
 	return (sqrt(a.x * a.x + a.y * a.y + a.z * a.z));
 }
