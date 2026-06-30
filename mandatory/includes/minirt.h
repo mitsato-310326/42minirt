@@ -46,8 +46,9 @@
 #define HEIGHT 360
 
 /*											*/
-typedef struct s_light_list t_light_list;
 typedef struct s_camera t_camera;
+typedef struct s_light_scene t_light_scene;
+typedef struct s_ambient t_ambient;
 typedef struct s_mlxs
 {
 	char *mlx;
@@ -56,9 +57,10 @@ typedef struct s_mlxs
 	char *data;
 
 	t_hittable_list *hittable_list;
-	t_light_list *light_list;
-
+	t_ambient *ambient;
 	t_camera *cam;
+
+	t_scene *scene;
 }						t_mlxs;
 
 void put_error(char *errstr, bool systemerr);

@@ -65,8 +65,7 @@ SRC         = \
     $(SRC_DIR)/utils/vec_utils/vec_func2.c \
     $(SRC_DIR)/utils/util.c \
     $(SRC_DIR)/reflect.c \
-    $(SRC_DIR)/kusocode.c \
-    $(SRC_DIR)/light.c
+    $(SRC_DIR)/kusocode.c
 
 OBJ 		= $(SRC:${SRC_DIR}/%.c=$(OBJ_DIR)/%.o)
 MLX_LIB = mlx/

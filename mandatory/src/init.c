@@ -12,7 +12,6 @@
 
 #include "libft.h"
 #include "minirt.h"
-// #define M_PI        3.14159265358979323846264338327950288
 
 int				stop_minirt(void *v_mlxs);
 int				key_handler(int keycode, void *v_mlxs);
@@ -117,7 +116,8 @@ t_mlxs	*init(char *file)
 		return (NULL);
 	}
 	mlxs->hittable_list = init_hittable(scene); //配列を作ってるからポインタは適切
-	mlxs->light_list = create_lights();
+	// sceneslight = create_lights();
+	mlxs->scene = scene;
 	if (mlxs->hittable_list == NULL)
 	{
 		; // 未実装
@@ -133,7 +133,7 @@ t_mlxs	*init(char *file)
 	{
 		; // 未実装
 	}
-	scene_clear(scene);
+	// scene_clear(scene);
 	return mlxs;
 }
 
@@ -170,7 +170,7 @@ t_hittable_list	*create_obj(void)
 	a = malloc(sizeof(t_cylinder));
 	point3a = (struct s_vec_three){1.8, 0, -8.1};
 	a->origin = point3a;
-	a->axis = (struct s_vec_three){0.001, 0.99, 0.001};
+	a->axis = (struct s_vec_three){0.2, 0.89, 0.1};
 	a->radius = 2.1; // ココ大きくしたら壊れた、わんちゃんカメラがオブジェクトにめり込んでいると動いてくれないかも
 	a->height = 5.1;
 	a->q = set_quaternion(a->axis);
@@ -185,7 +185,7 @@ t_hittable_list	*create_obj(void)
 	j = malloc(sizeof(t_cylinder));
 	point3j = (struct s_vec_three){-2.2, -0.2, -8.1};
 	j->origin = point3j;
-	j->axis = (struct s_vec_three){0.02, 0.02, 0.97};
+	j->axis = (struct s_vec_three){0.3, 0.2, 0.4};
 	j->radius = 2.1; // ココ大きくしたら壊れた、わんちゃんカメラがオブジェクトにめり込んでいると動いてくれないかも
 	j->height = 5.1;
 	j->q = set_quaternion(j->axis);
@@ -229,10 +229,10 @@ t_hittable_list	*create_obj(void)
 	d_m->scatter_fn = NULL;
 	d_u->material = d_m;
 	d_u->object_unique_info = d;
-	ft_hlstadd_front(&world, ft_hlstnew(a_u));
-	ft_hlstadd_front(&world, ft_hlstnew(b_u));
+	// ft_hlstadd_front(&world, ft_hlstnew(a_u));
+	// ft_hlstadd_front(&world, ft_hlstnew(b_u));
 	ft_hlstadd_front(&world, ft_hlstnew(j_u));
-	ft_hlstadd_front(&world, ft_hlstnew(c_u));
+	// ft_hlstadd_front(&world, ft_hlstnew(c_u));
 	ft_hlstadd_front(&world, ft_hlstnew(d_u));
 	return (world);
 }

@@ -49,6 +49,20 @@ t_vector	*set_vector(t_vector *vec, char const *str)
 	return (vec);
 }
 
+bool check_color(t_color *clr, int r, int g, int b)
+{
+	clr->x = r / 255;
+	clr->y = g / 255;
+	clr->z = b / 255;
+	if (!range_int(r, 0, 255))
+		return (false);
+	if (!range_int(g, 0, 255))
+		return (false);
+	if (!range_int(b, 0, 255))
+		return (false);
+	return (true);
+}
+
 t_color	*set_color(t_color *clr, char const *str)
 {
 	char	**arr;
@@ -63,16 +77,9 @@ t_color	*set_color(t_color *clr, char const *str)
 		free_array(arr, 3);
 		return (NULL);
 	}
-	clr->r = ft_atoi(arr[0]);
-	clr->g = ft_atoi(arr[1]);
-	clr->b = ft_atoi(arr[2]);
+	if (!check_color(clr, ft_atoi(arr[0]), ft_atoi(arr[1]), ft_atoi(arr[2])))
+		return(free_array(arr, 3), NULL);
 	free_array(arr, 3);
-	if (!range_int(clr->r, 0, 255))
-		return (NULL);
-	if (!range_int(clr->g, 0, 255))
-		return (NULL);
-	if (!range_int(clr->b, 0, 255))
-		return (NULL);
 	return (clr);
 }
 
