@@ -20,14 +20,16 @@ typedef struct  s_hit_record
 {
     t_vec_three p;
     t_vec_three normal;
-    t_material *material;
+    // t_material *material;
+    t_vec_three color;
     double t;
     bool front_face;
 }   t_hit_record;
 
 typedef struct s_hittable
 {
-	t_material * material;
+	// t_material * material;
+    t_vec_three color;
 	bool (*hit_fn)(double t_min, double t_max, void *hittable, t_ray *r, t_hit_record *rec);
 	void *object_unique_info;
 }			t_hittable;

@@ -31,6 +31,7 @@ t_coord	*set_coord(t_coord *crd, char const *str)
 	crd->x = ft_atod(arr[0]);
 	crd->y = ft_atod(arr[1]);
 	crd->z = ft_atod(arr[2]);
+	
 	free_array(arr, 3);
 	return (crd);
 }
@@ -38,6 +39,7 @@ t_coord	*set_coord(t_coord *crd, char const *str)
 t_vector	*set_vector(t_vector *vec, char const *str)
 {
 	vec = set_coord(vec, str);
+	
 	if (vec == NULL)
 		return (NULL);
 	if (!range_double(vec->x, -1.0, 1.0))
@@ -47,6 +49,20 @@ t_vector	*set_vector(t_vector *vec, char const *str)
 	if (!range_double(vec->z, -1.0, 1.0))
 		return (NULL);
 	return (vec);
+}
+
+bool check_color(t_color *clr, int r, int g, int b)
+{
+	clr->x = r / 255.0;
+	clr->y = g / 255.0;
+	clr->z = b / 255.0;
+	if (!range_int(r, 0, 255))
+		return (false);
+	if (!range_int(g, 0, 255))
+		return (false);
+	if (!range_int(b, 0, 255))
+		return (false);
+	return (true);
 }
 
 t_color	*set_color(t_color *clr, char const *str)
@@ -63,16 +79,9 @@ t_color	*set_color(t_color *clr, char const *str)
 		free_array(arr, 3);
 		return (NULL);
 	}
-	clr->r = ft_atoi(arr[0]);
-	clr->g = ft_atoi(arr[1]);
-	clr->b = ft_atoi(arr[2]);
+	if (!check_color(clr, ft_atoi(arr[0]), ft_atoi(arr[1]), ft_atoi(arr[2])))
+		return(free_array(arr, 3), NULL);
 	free_array(arr, 3);
-	if (!range_int(clr->r, 0, 255))
-		return (NULL);
-	if (!range_int(clr->g, 0, 255))
-		return (NULL);
-	if (!range_int(clr->b, 0, 255))
-		return (NULL);
 	return (clr);
 }
 

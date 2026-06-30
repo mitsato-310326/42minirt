@@ -14,17 +14,13 @@
 # define SCENE_H
 
 #include "minirt.h"
+#include "parser.h"
 
 typedef struct s_vec_three t_coord;
 typedef struct s_vec_three t_vector;
 typedef enum e_id t_id;
 
-typedef struct s_color
-{
-	int	r;
-	int	g;
-	int	b;
-}	t_color;
+typedef struct s_vec_three t_color;
 
 typedef struct s_amblight_scene
 {

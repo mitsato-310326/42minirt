@@ -12,28 +12,28 @@
 
 #include "mandatory/includes/minirt.h"
 
-void ft_mlx_destroy_display(void *mlx)
+void	ft_mlx_destroy_display(void *mlx)
 {
-    switch (OS)
-    {
-        case MAC_OS:
-            (void)mlx;
-            return;
-        case LINUX_OS:
-            mlx_destroy_display(mlx);
-            return;
-    }
+	switch (OS)
+	{
+	case MAC_OS:
+		(void)mlx;
+		return ;
+	case LINUX_OS:
+		mlx_destroy_display(mlx);
+		return ;
+	}
 }
 
-void ft_mlx_loop_end(void *mlx)
+void	ft_mlx_loop_end(void *mlx)
 {
-    switch (OS)
-    {
-        case MAC_OS:
-            (void)mlx;
-            return;
-        case LINUX_OS:
-            mlx_loop_end(mlx);
-            return;
-    }
+	switch (OS)
+	{
+	case MAC_OS:
+		(void)mlx;
+		return ;
+	case LINUX_OS:
+		mlx_loop_end(mlx);
+		return ;
+	}
 }

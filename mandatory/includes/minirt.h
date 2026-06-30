@@ -34,20 +34,21 @@
 #include "./physics.h"
 #include "./camera.h"
 #include "./ft_weekend.h"
-#include "./lambertian.h"
 #include "./parser.h"
 #include "./parser_utils.h"
 #include "./parser_print.h"
 #include "./scene.h"
 #include "./scene_utils.h"
 #include "light.h"
+#include "camera.h"
 
 #define WIDTH 640
 #define HEIGHT 360
 
 /*											*/
-typedef struct s_light_list t_light_list;
-
+typedef struct s_camera t_camera;
+typedef struct s_light_scene t_light_scene;
+typedef struct s_ambient t_ambient;
 typedef struct s_mlxs
 {
 	char *mlx;
@@ -56,10 +57,9 @@ typedef struct s_mlxs
 	char *data;
 
 	t_hittable_list *hittable_list;
-	t_light_list *light_list;
-
-	
 	t_camera *cam;
+
+	t_scene *scene;
 }						t_mlxs;
 
 void put_error(char *errstr, bool systemerr);
@@ -74,6 +74,7 @@ t_vec_three ray_color(t_ray* r, t_mlxs *mlxs);
 
 /*					HOOK					*/
 
+int	destroy_minirt(t_mlxs *mlxs);
 int stop_minirt(void *v_mlxs);
 int	key_handler(int keycode, void *v_mlxs);
 
@@ -91,18 +92,12 @@ void	my_pixel_put(char *data, int x, int y, t_vec_three *color);
 
 #define PERROR printf(RED "ERROR" RESET "\n");
 #define PSUCCESS printf(GREEN "SUCCESS" RESET "\n");
-/*#define // ENTRY(str) do { \
-=======
 
 #define  ENTRY(str) do { \
->>>>>>> main
     static int i = 0; \
     if (i++ == 0) { \
-        printf(BLUE "GET IN %s FUNCTION" RESET "\n", (str)); \
+        printf("GET IN %s FUNCTION\n", (str)); \
     } \
 } while(0)
-<<<<<<< HEAD
-*/
-/*											*/
 
 #endif

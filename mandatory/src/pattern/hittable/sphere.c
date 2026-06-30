@@ -12,7 +12,8 @@
 
 #include "minirt.h"
 
-void set_face_normal(t_ray *r, t_vec_three *outward_normal, t_hit_record *rec)
+void	set_face_normal(t_ray *r, t_vec_three *outward_normal,
+		t_hit_record *rec)
 {
 	rec->front_face = dot(r->v_dir, *outward_normal) < 0;
 	if (rec->front_face)
@@ -21,37 +22,56 @@ void set_face_normal(t_ray *r, t_vec_three *outward_normal, t_hit_record *rec)
 		rec->normal = vec_three_mult(*outward_normal, -1.0);
 }
 
-bool hit_sphere(double t_min, double t_max, void *sphere, t_ray *r, t_hit_record *rec)
+bool	hit_sphere(double t_min, double t_max, void *sphere, t_ray *r,
+		t_hit_record *rec)
 {
-	double radius = ((t_sphere *)((t_hittable *)sphere)->object_unique_info)->radius;
-	t_vec_three *center = &((t_sphere *)((t_hittable *)sphere)->object_unique_info)->origin;
-	t_vec_three oc = vec_three_neg(r->p_origin, *center);
-	double a = dot(r->v_dir, r->v_dir);
-	double half_b = dot(oc, r->v_dir);
-	double c = dot(oc, oc) - radius*radius;
-	double discriminant = half_b*half_b - a*c;
+	double		radius;
+	t_vec_three	*center;
+	t_vec_three	oc;
+	double		a;
+	double		half_b;
+	double		c;
+	double		discriminant;
+	double		root;
+	double		temp;
+	t_vec_three	outward_normal;
 
+	// static int start;
+	// ++start;
+
+	radius = ((t_sphere *)((t_hittable *)sphere)->object_unique_info)->radius;
+	center = &((t_sphere *)((t_hittable *)sphere)->object_unique_info)->origin;
+	// if (start == 1) {printf("%f\n", center->z);}
+	oc = vec_three_neg(r->p_origin, *center);
+	a = dot(r->v_dir, r->v_dir);
+	half_b = dot(oc, r->v_dir);
+	c = dot(oc, oc) - radius * radius;
+	discriminant = half_b * half_b - a * c;
 	if (discriminant > 0)
 	{
-		double root = sqrt(discriminant);
-		double temp = (-half_b - root) / a;
-		if (temp < t_max && temp > t_min) {
+		root = sqrt(discriminant);
+		temp = (-half_b - root) / a;
+		if (temp < t_max && temp > t_min)
+		{
 			rec->t = temp;
 			rec->p = ray_at(*r, rec->t);
-			t_vec_three outward_normal = vec_three_mult(vec_three_neg(rec->p, *center), 1 / radius);
+			outward_normal = vec_three_mult(vec_three_neg(rec->p, *center), 1
+					/ radius);
 			set_face_normal(r, &outward_normal, rec);
-			rec->material = ((t_hittable *)sphere)->material;
-			return true;
+			rec->color = ((t_hittable *)sphere)->color;
+			return (true);
 		}
 		temp = (-half_b + root) / a;
-		if (temp < t_max && temp > t_min) {
+		if (temp < t_max && temp > t_min)
+		{
 			rec->t = temp;
 			rec->p = ray_at(*r, rec->t);
-			t_vec_three outward_normal = vec_three_mult(vec_three_neg(rec->p, *center), 1 / radius);
+			outward_normal = vec_three_mult(vec_three_neg(rec->p, *center), 1
+					/ radius);
 			set_face_normal(r, &outward_normal, rec);
-			rec->material = ((t_hittable *)sphere)->material;
-			return true;
+			rec->color = ((t_hittable *)sphere)->color;
+			return (true);
 		}
 	}
-	return false;
+	return (false);
 }
