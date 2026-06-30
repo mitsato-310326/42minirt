@@ -12,9 +12,9 @@
 
 #include "minirt.h"
 
-void reflect(t_hit_record *rec, t_vec_three *attenuation, t_ray *reflected, void *material)
-{
-    t_vec_three reflect_direction = rec->normal;
-    *reflected = (struct s_ray){rec->p, reflect_direction};
-    *attenuation = ((t_material *)material)->albedo;
-}
+// void reflect(t_hit_record *rec, t_vec_three *attenuation, t_ray *reflected, void *material)
+// {
+//     t_vec_three reflect_direction = rec->normal;
+//     *reflected = (struct s_ray){rec->p, reflect_direction};
+//     *attenuation = *(t_vec_three *)material;
+// }

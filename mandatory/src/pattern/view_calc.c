@@ -27,7 +27,6 @@ t_vec_three	check_light(t_hit_record rec, t_mlxs *mlxs)
 	t_hit_record shadow_rec;
 	double			diff;
 
-
 	direct = (struct s_vec_three){0, 0, 0};
 	to_light = vec_three_neg(scenespath->light->crd, rec.p);
 	dist = vec_three_length(to_light);
@@ -52,7 +51,7 @@ t_vec_three	ray_color(t_ray *r, t_mlxs *mlxs)
 
 	if (!list_hit(r, 0.001, INFINITY, &rec, mlxs->hittable_list))
 		return ((struct s_vec_three){0, 0, 0});
-	object_color = rec.material->albedo;
+	object_color = rec.color;
 	ambient = vec_three_mult(vec_three_mult_v(object_color, scenespath->amblight->color),
 			scenespath->amblight->ratio);
 	return (vec_three_add(ambient, check_light(rec, mlxs)));
@@ -64,11 +63,6 @@ int	view_calc(t_mlxs *mlxs)
 	int			j;
 	t_vec_three	pixel_color;
 	t_ray		r;
-
-	
-	// sceneslight->color.x = 1;
-	// sceneslight->color.y = 1;
-	// sceneslight->color.z = 0.5;
 
 	print_scene(mlxs->scene);
 

@@ -57,7 +57,6 @@ typedef struct s_mlxs
 	char *data;
 
 	t_hittable_list *hittable_list;
-	t_ambient *ambient;
 	t_camera *cam;
 
 	t_scene *scene;
@@ -93,18 +92,12 @@ void	my_pixel_put(char *data, int x, int y, t_vec_three *color);
 
 #define PERROR printf(RED "ERROR" RESET "\n");
 #define PSUCCESS printf(GREEN "SUCCESS" RESET "\n");
-/*#define // ENTRY(str) do { \
-=======
 
 #define  ENTRY(str) do { \
->>>>>>> main
     static int i = 0; \
     if (i++ == 0) { \
-        printf(BLUE "GET IN %s FUNCTION" RESET "\n", (str)); \
+        printf("GET IN %s FUNCTION\n", (str)); \
     } \
 } while(0)
-<<<<<<< HEAD
-*/
-/*											*/
 
 #endif

@@ -19,6 +19,9 @@ bool	list_hit(t_ray *r, double t_min, double t_max, t_hit_record *rec,
 	bool			hit_anything;
 	double			closest_so_far;
 	t_hittable_list	*tmp;
+	// static int start;
+	// ++start;
+	// printf("%f\n", r->v_dir.y);
 
 	hit_anything = false;
 	closest_so_far = t_max;

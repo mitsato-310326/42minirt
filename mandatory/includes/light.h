@@ -17,12 +17,10 @@
 
 typedef struct s_light_scene t_light_scene;
 
-typedef struct s_ambient
-{
-	t_vec_three color;
-	double	power;
-}			t_ambient;
-
-t_light_scene *create_lights();
+// typedef struct s_ambient
+// {
+// 	t_vec_three color;
+// 	double	power;
+// }			t_ambient;
 
 #endif

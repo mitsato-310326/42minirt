@@ -154,7 +154,7 @@ bool	hit_cylinder(double t_min, double t_max, void *cylinder, t_ray *r,
 	if (hit_anything)
 	{
 		rec->t = best_t;
-		rec->material = ((t_hittable *)cylinder)->material;
+		rec->color = ((t_hittable *)cylinder)->color;
 		rec->p = ray_at(*r, best_t);
 		set_face_normal(r, &best_normal_local, rec);
 		return (true);

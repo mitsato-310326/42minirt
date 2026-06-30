@@ -13,6 +13,10 @@
 #include "libft.h"
 #include "minirt.h"
 
+#define cyl_path ((t_cylinder_scene *)content->obj)
+#define sph_path ((t_sphere_scene *)content->obj)
+#define pln_path ((t_plane_scene *)content->obj)
+
 int				stop_minirt(void *v_mlxs);
 int				key_handler(int keycode, void *v_mlxs);
 
@@ -52,10 +56,13 @@ t_camera	*init_camera(t_camera_scene *camera)
 	double		viewport_height;
 	double		viewport_width;
 
+	camera->vec.z = -1;
+
 	// (void)camera;
 	/*
 	focal_lengthに関して、
 	*/
+
 	viewport_width = 2.0 * tan(camera->fov * M_PI / 360);
 	viewport_height = (double)HEIGHT / WIDTH * viewport_width;
 	new = malloc(sizeof(t_camera));
@@ -74,12 +81,12 @@ t_camera	*init_camera(t_camera_scene *camera)
 
 t_hittable_list	*create_obj(void);
 
-t_hittable_list	*init_hittable(t_scene *scene)
+t_hittable_list	*init_hittable(t_scene *scene)//未使用
 {
-	t_hittable_list	*hittable_list;
+	t_hittable_list	*hittable_list = NULL;
 
 	(void)scene;
-	hittable_list = create_obj();
+	// hittable_list = create_obj();
 	if (hittable_list == NULL)
 		return (NULL);
 	return (hittable_list);
@@ -97,6 +104,62 @@ bool	valid_filename(char *file)
 	if (ft_strncmp(file, RT, RTLEN + 1) == 0)
 		return (true);
 	return (false);
+}
+
+t_hittable_list *connect_hittable(t_list *scene_obj)
+{
+	t_hittable_list	*world = NULL;
+	t_hittable *tmp;
+	t_obj_content *content;
+
+	while(scene_obj)
+	{
+		content = (t_obj_content *)scene_obj->content;
+		if (content->id == CYLINDER)
+		{
+			tmp = malloc(sizeof(t_hittable));//
+			tmp->color = ((t_cylinder_scene *)content->obj)->color;
+			tmp->hit_fn = &hit_cylinder;
+			t_cylinder *cyl;
+			cyl = malloc(sizeof(t_cylinder));
+			cyl->origin = cyl_path->crd;
+			cyl->axis = cyl_path->vec;
+			cyl->radius = cyl_path->diameter / 2.0;
+			cyl->height = cyl_path->height;
+			cyl->q = set_quaternion(cyl->axis);
+			tmp->object_unique_info = cyl;
+		}
+		else if (content->id == SPHERE)
+		{
+			tmp = malloc(sizeof(t_hittable));//
+			t_sphere *sph;
+			sph = malloc(sizeof(t_sphere));
+			tmp->color = sph_path->color;
+			tmp->hit_fn = &hit_sphere;
+			sph->origin = sph_path->crd;
+			sph->radius = sph_path->diameter / 2.0;
+			tmp->object_unique_info = sph;
+		}
+		else if (content->id == PLANE)
+		{
+			t_plane *pln;
+			tmp = malloc(sizeof(t_hittable));//
+			pln = malloc(sizeof(t_plane));
+			tmp->color = pln_path->color;
+			tmp->hit_fn = &hit_plane;
+			pln->normal = pln_path->vec;
+			pln->origin = pln_path->crd;
+			tmp->object_unique_info = pln;
+		}
+		else 
+		{
+			scene_obj = scene_obj->next;
+			continue;
+		}
+		scene_obj = scene_obj->next;
+		ft_hlstadd_front(&world, ft_hlstnew(tmp));
+	}
+	return(world);
 }
 
 t_mlxs	*init(char *file)
@@ -129,110 +192,11 @@ t_mlxs	*init(char *file)
 		return (NULL);
 	}
 	mlxs->cam = init_camera(scene->camera);
+	mlxs->hittable_list = connect_hittable(scene->objs);
 	if (mlxs->cam == NULL)
 	{
 		; // 未実装
 	}
 	// scene_clear(scene);
 	return mlxs;
-}
-
-// ------------ 一時的クソコード ------------ //
-
-t_hittable_list	*create_obj(void)
-{
-	t_hittable_list	*world;
-	t_hittable		*a_u;
-	t_cylinder		*a;
-	t_vec_three		point3a;
-	t_material		*a_m;
-	t_hittable		*j_u;
-	t_cylinder		*j;
-	t_vec_three		point3j;
-	t_material		*j_m;
-	t_hittable		*b_u;
-	t_plane			*b;
-	t_vec_three		point3b;
-	t_vec_three		point3b2;
-	t_material		*b_m;
-	t_hittable		*c_u;
-	t_sphere		*c;
-	t_vec_three		point3c;
-	t_material		*c_m;
-	t_hittable		*d_u;
-	t_sphere		*d;
-	t_vec_three		point3d;
-	t_material		*d_m;
-
-	world = NULL;
-	//
-	a_u = malloc(sizeof(t_hittable));
-	a = malloc(sizeof(t_cylinder));
-	point3a = (struct s_vec_three){1.8, 0, -8.1};
-	a->origin = point3a;
-	a->axis = (struct s_vec_three){0.2, 0.89, 0.1};
-	a->radius = 2.1; // ココ大きくしたら壊れた、わんちゃんカメラがオブジェクトにめり込んでいると動いてくれないかも
-	a->height = 5.1;
-	a->q = set_quaternion(a->axis);
-	a_u->hit_fn = &hit_cylinder;
-	a_m = malloc(sizeof(t_material));
-	a_m->albedo = (struct s_vec_three){0.1, 0.1, 0.1};
-	a_m->scatter_fn = NULL;
-	a_u->material = a_m;
-	a_u->object_unique_info = a;
-	//
-	j_u = malloc(sizeof(t_hittable));
-	j = malloc(sizeof(t_cylinder));
-	point3j = (struct s_vec_three){-2.2, -0.2, -8.1};
-	j->origin = point3j;
-	j->axis = (struct s_vec_three){0.3, 0.2, 0.4};
-	j->radius = 2.1; // ココ大きくしたら壊れた、わんちゃんカメラがオブジェクトにめり込んでいると動いてくれないかも
-	j->height = 5.1;
-	j->q = set_quaternion(j->axis);
-	j_u->hit_fn = &hit_cylinder;
-	j_m = malloc(sizeof(t_material));
-	j_m->albedo = (struct s_vec_three){0.1, 0.1, 0.1};
-	j_m->scatter_fn = NULL;
-	j_u->material = j_m;
-	j_u->object_unique_info = j;
-	b_u = malloc(sizeof(t_hittable));
-	b = malloc(sizeof(t_plane));
-	point3b = (struct s_vec_three){2.2, -2, -1};
-	b->origin = point3b;
-	point3b2 = (struct s_vec_three){0, 1, 0};
-	b->normal = unit_vector(point3b2);
-	b_u->hit_fn = &hit_plane;
-	b_m = malloc(sizeof(t_material));
-	b_m->albedo = (struct s_vec_three){0.7, 0.8, 0.6};
-	b_m->scatter_fn = NULL;
-	b_u->material = b_m;
-	b_u->object_unique_info = b;
-	c_u = malloc(sizeof(t_hittable));
-	c = malloc(sizeof(t_sphere));
-	point3c = (struct s_vec_three){4.0, 4.5, -4.5};
-	c->origin = point3c;
-	c->radius = 0.31;
-	c_u->hit_fn = &hit_sphere;
-	c_m = malloc(sizeof(t_material));
-	c_m->albedo = (struct s_vec_three){0.8, 0.6, 0};
-	c_m->scatter_fn = NULL;
-	c_u->material = c_m;
-	c_u->object_unique_info = c;
-	d_u = malloc(sizeof(t_hittable));
-	d = malloc(sizeof(t_sphere));
-	point3d = (struct s_vec_three){-1, 0, -2};
-	d->origin = point3d;
-	d->radius = 0.5;
-	d_u->hit_fn = &hit_sphere;
-	d_m = malloc(sizeof(t_material));
-	d_m->albedo = (struct s_vec_three){0.8, 0.8, 0.8};
-	d_m->scatter_fn = NULL;
-	d_u->material = d_m;
-	d_u->object_unique_info = d;
-	// ft_hlstadd_front(&world, ft_hlstnew(a_u));
-	// ft_hlstadd_front(&world, ft_hlstnew(b_u));
-	ft_hlstadd_front(&world, ft_hlstnew(j_u));
-	// ft_hlstadd_front(&world, ft_hlstnew(c_u));
-	ft_hlstadd_front(&world, ft_hlstnew(d_u));
-	return (world);
 }

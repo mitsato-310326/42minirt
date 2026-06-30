@@ -22,8 +22,13 @@ bool	hit_plane(double t_min, double t_max, void *cylinder, t_ray *r,
 
 	origin = &((t_plane *)((t_hittable *)cylinder)->object_unique_info)->origin;
 	normal = &((t_plane *)((t_hittable *)cylinder)->object_unique_info)->normal;
-	discriminant = (dot(*origin, *normal) - dot(r->p_origin, *normal))
-		/ dot(r->v_dir, *normal);
+	discriminant = (dot(*origin, *normal) - dot(r->p_origin, *normal)) / dot(r->v_dir, *normal);
+	// printf("%f\n", r->p_origin.x);
+	// printf("%f\n", r->p_origin.y);
+	// printf("%f\n", r->p_origin.z);
+	// printf("%f\n", normal->x);
+	// printf("%f\n", normal->y);
+	// printf("%f\n", normal->z);
 	if (discriminant > 0)
 	{
 		temp = discriminant;
@@ -33,7 +38,7 @@ bool	hit_plane(double t_min, double t_max, void *cylinder, t_ray *r,
 			rec->p = ray_at(*r, rec->t);
 			rec->front_face = true;
 			rec->normal = *normal;
-			rec->material = ((t_hittable *)cylinder)->material;
+			rec->color = ((t_hittable *)cylinder)->color;
 			return (true);
 		}
 	}

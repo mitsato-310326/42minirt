@@ -36,8 +36,12 @@ bool	hit_sphere(double t_min, double t_max, void *sphere, t_ray *r,
 	double		temp;
 	t_vec_three	outward_normal;
 
+	// static int start;
+	// ++start;
+
 	radius = ((t_sphere *)((t_hittable *)sphere)->object_unique_info)->radius;
 	center = &((t_sphere *)((t_hittable *)sphere)->object_unique_info)->origin;
+	// if (start == 1) {printf("%f\n", center->z);}
 	oc = vec_three_neg(r->p_origin, *center);
 	a = dot(r->v_dir, r->v_dir);
 	half_b = dot(oc, r->v_dir);
@@ -54,7 +58,7 @@ bool	hit_sphere(double t_min, double t_max, void *sphere, t_ray *r,
 			outward_normal = vec_three_mult(vec_three_neg(rec->p, *center), 1
 					/ radius);
 			set_face_normal(r, &outward_normal, rec);
-			rec->material = ((t_hittable *)sphere)->material;
+			rec->color = ((t_hittable *)sphere)->color;
 			return (true);
 		}
 		temp = (-half_b + root) / a;
@@ -65,7 +69,7 @@ bool	hit_sphere(double t_min, double t_max, void *sphere, t_ray *r,
 			outward_normal = vec_three_mult(vec_three_neg(rec->p, *center), 1
 					/ radius);
 			set_face_normal(r, &outward_normal, rec);
-			rec->material = ((t_hittable *)sphere)->material;
+			rec->color = ((t_hittable *)sphere)->color;
 			return (true);
 		}
 	}

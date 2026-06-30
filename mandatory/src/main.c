@@ -26,6 +26,7 @@ int	main(int ac, char **av)
 		return (1);
 	view_calc(mlxs);
 	print(mlxs);
+	printf("ok\n");
 	mlx_loop(mlxs->mlx);
 	destroy_minirt(mlxs);
 	return (0);
