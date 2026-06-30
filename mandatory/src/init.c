@@ -56,8 +56,6 @@ t_camera	*init_camera(t_camera_scene *camera)
 	double		viewport_height;
 	double		viewport_width;
 
-	camera->vec.z = -1;
-
 	// (void)camera;
 	/*
 	focal_lengthに関して、
