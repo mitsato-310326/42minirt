@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/29 11:40:48 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/07/19 05:06:13 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ t_hittable_list *connect_hittable(t_list *scene_obj)
 			sph->origin = sph_path->crd;
 			sph->radius = sph_path->diameter / 2.0;
 			tmp->object_unique_info = sph;
+			// printf("aaa %f \n", ((t_sphere *)(tmp->object_unique_info))->radius);
 		}
 		else if (content->id == PLANE)
 		{
@@ -149,7 +150,7 @@ t_hittable_list *connect_hittable(t_list *scene_obj)
 			pln->origin = pln_path->crd;
 			tmp->object_unique_info = pln;
 		}
-		else 
+		else
 		{
 			scene_obj = scene_obj->next;
 			continue;
@@ -176,7 +177,7 @@ t_mlxs	*init(char *file)
 		put_error(NULL, 1); // malloc失敗
 		return (NULL);
 	}
-	mlxs->hittable_list = init_hittable(scene); //配列を作ってるからポインタは適切
+	// mlxs->hittable_list = init_hittable(scene); //配列を作ってるからポインタは適切
 	// sceneslight = create_lights();
 	mlxs->scene = scene;
 	if (mlxs->hittable_list == NULL)

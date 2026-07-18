@@ -63,8 +63,7 @@ SRC         = \
     $(SRC_DIR)/utils/ray_utils/ray_func.c \
     $(SRC_DIR)/utils/vec_utils/vec_func.c \
     $(SRC_DIR)/utils/vec_utils/vec_func2.c \
-    $(SRC_DIR)/utils/util.c \
-    $(SRC_DIR)/reflect.c 
+    $(SRC_DIR)/utils/util.c 
 
 OBJ 		= $(SRC:${SRC_DIR}/%.c=$(OBJ_DIR)/%.o)
 MLX_LIB = mlx/

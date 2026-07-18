@@ -12,11 +12,17 @@
 
 #include "minirt.h"
 
-#define ambient_color (struct s_vec_three){1, 1, 1}
-#define ambient_ratio 0.0001
 #define scenespath mlxs->scene
 
-//ここはlightを変える都合で後回し
+bool	shadow_hit(t_ray *r, double t_max, t_hittable_list *top)
+{
+	t_hit_record	shadow_rec;
+
+	if (list_hit(r, 0, t_max, &shadow_rec, top))
+		return (true);
+	return (false);
+}
+
 t_vec_three	check_light(t_hit_record rec, t_mlxs *mlxs)
 {
 	t_vec_three		direct;
@@ -24,7 +30,6 @@ t_vec_three	check_light(t_hit_record rec, t_mlxs *mlxs)
 	double			dist;
 	t_vec_three		light_dir;
 	t_ray shadow_ray;
-	t_hit_record shadow_rec;
 	double			diff;
 
 	direct = (struct s_vec_three){0, 0, 0};
@@ -33,10 +38,8 @@ t_vec_three	check_light(t_hit_record rec, t_mlxs *mlxs)
 	light_dir = vec_three_mult(to_light, 1 / dist);
 	shadow_ray.p_origin = vec_three_add(rec.p, vec_three_mult(rec.normal, 0.001));
 	shadow_ray.v_dir = light_dir;
-	if (list_hit(&shadow_ray, 0, dist, &shadow_rec, mlxs->hittable_list))
-	{
+	if (shadow_hit(&shadow_ray, dist, mlxs->hittable_list))
 		return (direct);
-	}
 	diff = fmax(0.0, dot(rec.normal, light_dir));
 	direct = vec_three_add(direct, vec_three_mult(scenespath->light->color, diff
 			* scenespath->light->ratio));
@@ -48,7 +51,6 @@ t_vec_three	ray_color(t_ray *r, t_mlxs *mlxs)
 	t_hit_record	rec;
 	t_vec_three		object_color;
 	t_vec_three		ambient;
-
 	if (!list_hit(r, 0.001, INFINITY, &rec, mlxs->hittable_list))
 		return ((struct s_vec_three){0, 0, 0});
 	object_color = rec.color;

@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 19:05:31 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/21 16:18:57 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/07/19 05:10:32 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,8 @@ bool	hit_sphere(double t_min, double t_max, void *sphere, t_ray *r,
 	double		temp;
 	t_vec_three	outward_normal;
 
-	// static int start;
-	// ++start;
-
 	radius = ((t_sphere *)((t_hittable *)sphere)->object_unique_info)->radius;
 	center = &((t_sphere *)((t_hittable *)sphere)->object_unique_info)->origin;
-	// if (start == 1) {printf("%f\n", center->z);}
 	oc = vec_three_neg(r->p_origin, *center);
 	a = dot(r->v_dir, r->v_dir);
 	half_b = dot(oc, r->v_dir);
