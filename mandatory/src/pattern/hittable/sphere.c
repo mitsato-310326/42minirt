@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-void	set_face_normal(t_ray *r, t_vec_three *outward_normal,
+bool	set_face_normal(t_ray *r, t_vec_three *outward_normal,
 		t_hit_record *rec)
 {
 	rec->front_face = dot(r->v_dir, *outward_normal) < 0;
@@ -20,6 +20,7 @@ void	set_face_normal(t_ray *r, t_vec_three *outward_normal,
 		rec->normal = *outward_normal;
 	else
 		rec->normal = vec_three_mult(*outward_normal, -1.0);
+	return(true);
 }
 
 bool	checkcolor(double temp, t_ray *r, t_hit_record *rec, void *sphere)

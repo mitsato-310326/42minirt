@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-bool	list_hit(t_ray *r, double t_min, double t_max, t_hit_record *rec,
+bool	list_hit(t_ray *r, t_trange t_range, t_hit_record *rec,
 		t_hittable_list *top)
 {
 	t_hit_record	temp_rec;
@@ -21,11 +21,11 @@ bool	list_hit(t_ray *r, double t_min, double t_max, t_hit_record *rec,
 	t_hittable_list	*tmp;
 
 	hit_anything = false;
-	closest_so_far = t_max;
+	closest_so_far = t_range.t_max;
 	tmp = top;
 	while (tmp)
 	{
-		if (((t_hittable *)(tmp->content))->hit_fn((t_trange){t_min, closest_so_far},
+		if (((t_hittable *)(tmp->content))->hit_fn((t_trange){t_range.t_min, closest_so_far},
 				tmp->content, r, &temp_rec))
 		{
 			hit_anything = true;

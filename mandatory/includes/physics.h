@@ -54,7 +54,7 @@ bool					hit_cylinder(t_trange t_range, void *hittable, t_ray *r,
 bool					hit_plane(t_trange t_range, void *hittable, t_ray *r,
 							t_hit_record *rec);
 t_quaternion			set_quaternion(t_vec_three axis);
-void					set_face_normal(t_ray *r, t_vec_three *outward_normal,
+bool					set_face_normal(t_ray *r, t_vec_three *outward_normal,
 							t_hit_record *rec);
 
 #endif

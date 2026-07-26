@@ -18,7 +18,7 @@ bool	shadow_hit(t_ray *r, double t_max, t_hittable_list *top)
 {
 	t_hit_record	shadow_rec;
 
-	if (list_hit(r, 0, t_max, &shadow_rec, top))
+	if (list_hit(r, (t_trange){0.001, t_max}, &shadow_rec, top))
 		return (true);
 	return (false);
 }
@@ -53,7 +53,7 @@ t_vec_three	ray_color(t_ray *r, t_mlxs *mlxs)
 	t_vec_three		object_color;
 	t_vec_three		ambient;
 
-	if (!list_hit(r, 0.001, INFINITY, &rec, mlxs->hittable_list))
+	if (!list_hit(r, (t_trange){0.001, INFINITY}, &rec, mlxs->hittable_list))
 		return ((struct s_vec_three){0, 0, 0});
 	object_color = rec.color;
 	ambient = vec_three_mult(vec_three_mult_v(object_color,

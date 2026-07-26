@@ -17,13 +17,15 @@
 
 typedef struct s_hit_record	t_hit_record;
 
+typedef struct s_trange t_trange;
+
 typedef struct s_hittable_list
 {
 	struct s_hittable_list	*next;
 	void					*content;
 }							t_hittable_list;
 
-bool						list_hit(t_ray *r, double t_min, double t_max,
+bool						list_hit(t_ray *r, t_trange t_range,
 								t_hit_record *rec, t_hittable_list *top);
 t_hittable_list				*ft_hlstnew(void *content);
 void						ft_hlstadd_front(t_hittable_list **lst,
