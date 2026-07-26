@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 16:37:15 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/21 18:55:52 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/07/26 14:47:13 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,15 @@ t_vec_three	rotate_vector(t_vec_three v, t_quaternion q)
 	t_vec_three	v_rotated;
 
 	q_vec = (t_vec_three){q.x, q.y, q.z};
-	t = (t_vec_three){2.0f * (q_vec.y * v.z - q_vec.z * v.y), 2.0f * (q_vec.z * v.x - q_vec.x
-			* v.z), 2.0f * (q_vec.x * v.y - q_vec.y * v.x)};
-	v_rotated = (t_vec_three){v.x + q.w * t.x + (q_vec.y * t.z - q_vec.z * t.y), v.y + q.w
-		* t.y + (q_vec.z * t.x - q_vec.x * t.z), v.z + q.w * t.z + (q_vec.x
-			* t.y - q_vec.y * t.x)};
+	t = (t_vec_three){2.0f * (q_vec.y * v.z - q_vec.z * v.y), 2.0f * (q_vec.z
+			* v.x - q_vec.x * v.z), 2.0f * (q_vec.x * v.y - q_vec.y * v.x)};
+	v_rotated = (t_vec_three){v.x + q.w * t.x + (q_vec.y * t.z - q_vec.z * t.y),
+		v.y + q.w * t.y + (q_vec.z * t.x - q_vec.x * t.z), v.z + q.w * t.z
+		+ (q_vec.x * t.y - q_vec.y * t.x)};
 	return (v_rotated);
 }
 
-bool	hit_cylinder(double t_min, double t_max, void *cylinder, t_ray *r,
+bool	hit_cylinder(t_trange t_range, void *cylinder, t_ray *r,
 		t_hit_record *rec)
 {
 	double			radius;
@@ -87,6 +87,7 @@ bool	hit_cylinder(double t_min, double t_max, void *cylinder, t_ray *r,
 	t_vec_three		outward_normal_local;
 	double			t_bottom;
 	double			t_top;
+	t_vec_three		local_p;
 
 	radius = ((t_cylinder *)((t_hittable *)cylinder)->object_unique_info)->radius;
 	q = ((t_cylinder *)((t_hittable *)cylinder)->object_unique_info)->q;
@@ -108,24 +109,26 @@ bool	hit_cylinder(double t_min, double t_max, void *cylinder, t_ray *r,
 		root = sqrt(discriminant);
 		temp = (-half_b - root) / a;
 		y_hit = sub_origin.y + temp * sub_dir.y;
-		if ((y_hit >= 0 && y_hit <= height) && temp < t_max && temp > t_min)
+		if ((y_hit >= 0 && y_hit <= height) && temp < t_range.t_max && temp > t_range.t_min)
 		{
 			best_t = temp;
-			t_vec_three local_p = ray_at((t_ray){sub_origin, sub_dir}, best_t);
-				// origin + t*dir
-			outward_normal_local = (t_vec_three){local_p.x / radius, 0, local_p.z / radius};
+			local_p = ray_at((t_ray){sub_origin, sub_dir}, best_t);
+			// origin + t*dir
+			outward_normal_local = (t_vec_three){local_p.x / radius, 0,
+				local_p.z / radius};
 			best_normal_local = rotate_vector(outward_normal_local, q_inv);
 			hit_anything = true;
 		}
 		temp = (-half_b + root) / a;
 		y_hit = sub_origin.y + temp * sub_dir.y;
-		if ((y_hit >= 0 && y_hit <= height) && temp < best_t && temp < t_max
-			&& temp > t_min)
+		if ((y_hit >= 0 && y_hit <= height) && temp < best_t && temp < t_range.t_max
+			&& temp > t_range.t_min)
 		{
 			best_t = temp;
-			t_vec_three local_p = ray_at((t_ray){sub_origin, sub_dir}, best_t);
-				// origin + t*dir
-			outward_normal_local = (t_vec_three){local_p.x / radius, 0, local_p.z / radius};
+			local_p = ray_at((t_ray){sub_origin, sub_dir}, best_t);
+			// origin + t*dir
+			outward_normal_local = (t_vec_three){local_p.x / radius, 0,
+				local_p.z / radius};
 			best_normal_local = rotate_vector(outward_normal_local, q_inv);
 			hit_anything = true;
 		}
@@ -133,7 +136,7 @@ bool	hit_cylinder(double t_min, double t_max, void *cylinder, t_ray *r,
 	if (sub_dir.y != 0)
 	{
 		t_bottom = -sub_origin.y / sub_dir.y;
-		if ((t_min < t_bottom && t_bottom < best_t && t_bottom < t_max)
+		if ((t_range.t_min < t_bottom && t_bottom < best_t && t_bottom < t_range.t_max)
 			&& within_radius(vec_three_add(vec_three_mult(sub_dir_bottom,
 						t_bottom), sub_origin_bottom), radius))
 		{
@@ -142,7 +145,7 @@ bool	hit_cylinder(double t_min, double t_max, void *cylinder, t_ray *r,
 			best_normal_local = rotate_vector((t_vec_three){0, -1, 0}, q_inv);
 		}
 		t_top = (height - sub_origin.y) / sub_dir.y;
-		if ((t_min < t_top && t_top < best_t && t_top < t_max)
+		if ((t_range.t_min < t_top && t_top < best_t && t_top < t_range.t_max)
 			&& within_radius(vec_three_add(vec_three_mult(sub_dir_bottom,
 						t_top), sub_origin_bottom), radius))
 		{

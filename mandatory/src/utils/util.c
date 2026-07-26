@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_weekend.c                                       :+:      :+:    :+:   */
+/*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 19:14:09 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/28 15:53:53 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/07/26 14:35:54 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_weekend.h"
 #include "minirt.h"
 
-double clamp(double x, double min, double max)
+double	clamp(double x, double min, double max)
 {
-  if (x < min) return min;
-  if (x > max) return max;
-  return x;
+	if (x < min)
+		return (min);
+	if (x > max)
+		return (max);
+	return (x);
 }
-

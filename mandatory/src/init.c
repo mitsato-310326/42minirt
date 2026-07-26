@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/07/19 05:06:13 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/07/26 14:37:25 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ t_camera	*init_camera(t_camera_scene *camera)
 	/*
 	focal_lengthに関して、
 	*/
-
 	viewport_width = 2.0 * tan(camera->fov * M_PI / 360);
 	viewport_height = (double)HEIGHT / WIDTH * viewport_width;
 	new = malloc(sizeof(t_camera));
@@ -69,26 +68,29 @@ t_camera	*init_camera(t_camera_scene *camera)
 	t_vec_three w = unit_vector(camera->vec);      // 視線方向（normalize前提）
 	t_vec_three world_up = (t_vec_three){0, 1, 0}; // 上方向（uとwが正規直交ならvも単位ベクトル）
 	new->origin = (struct s_vec_three)camera->crd;
-	new->horizontal = vec_three_mult(unit_vector(cross(world_up, w)), viewport_width);
-	new->vertical = vec_three_mult(cross(w, unit_vector(cross(world_up, w))), viewport_height); // 要整理
+	new->horizontal = vec_three_mult(unit_vector(cross(world_up, w)),
+			viewport_width);
+	new->vertical = vec_three_mult(cross(w, unit_vector(cross(world_up, w))),
+									viewport_height); // 要整理
 	new->lower_left_corner = vec_three_neg(vec_three_neg(vec_three_neg(new->origin,
 					vec_three_mult(new->horizontal, 0.5)),
-				vec_three_mult(new->vertical, 0.5)), (struct s_vec_three){0, 0, 1});
+				vec_three_mult(new->vertical, 0.5)), (struct s_vec_three){0, 0,
+			1});
 	return (new);
 }
 
 t_hittable_list	*create_obj(void);
 
-t_hittable_list	*init_hittable(t_scene *scene)//未使用
-{
-	t_hittable_list	*hittable_list = NULL;
+// t_hittable_list	*init_hittable(t_scene *scene) //未使用
+// {
+// 	t_hittable_list *hittable_list = NULL;
 
-	(void)scene;
-	// hittable_list = create_obj();
-	if (hittable_list == NULL)
-		return (NULL);
-	return (hittable_list);
-}
+// 	(void)scene;
+// 	// hittable_list = create_obj();
+// 	if (hittable_list == NULL)
+// 		return (NULL);
+// 	return (hittable_list);
+// }
 
 #define RT ".rt"
 #define RTLEN 3
@@ -104,21 +106,24 @@ bool	valid_filename(char *file)
 	return (false);
 }
 
-t_hittable_list *connect_hittable(t_list *scene_obj)
+t_hittable_list	*connect_hittable(t_list *scene_obj)
 {
-	t_hittable_list	*world = NULL;
-	t_hittable *tmp;
-	t_obj_content *content;
+	t_hittable_list	*world;
+	t_hittable		*tmp;
+	t_obj_content	*content;
+	t_cylinder		*cyl;
+	t_sphere		*sph;
+	t_plane			*pln;
 
-	while(scene_obj)
+	world = NULL;
+	while (scene_obj)
 	{
 		content = (t_obj_content *)scene_obj->content;
 		if (content->id == CYLINDER)
 		{
-			tmp = malloc(sizeof(t_hittable));//
+			tmp = malloc(sizeof(t_hittable)); //
 			tmp->color = ((t_cylinder_scene *)content->obj)->color;
 			tmp->hit_fn = &hit_cylinder;
-			t_cylinder *cyl;
 			cyl = malloc(sizeof(t_cylinder));
 			cyl->origin = cyl_path->crd;
 			cyl->axis = cyl_path->vec;
@@ -129,20 +134,17 @@ t_hittable_list *connect_hittable(t_list *scene_obj)
 		}
 		else if (content->id == SPHERE)
 		{
-			tmp = malloc(sizeof(t_hittable));//
-			t_sphere *sph;
+			tmp = malloc(sizeof(t_hittable)); //
 			sph = malloc(sizeof(t_sphere));
 			tmp->color = sph_path->color;
 			tmp->hit_fn = &hit_sphere;
 			sph->origin = sph_path->crd;
 			sph->radius = sph_path->diameter / 2.0;
 			tmp->object_unique_info = sph;
-			// printf("aaa %f \n", ((t_sphere *)(tmp->object_unique_info))->radius);
 		}
 		else if (content->id == PLANE)
 		{
-			t_plane *pln;
-			tmp = malloc(sizeof(t_hittable));//
+			tmp = malloc(sizeof(t_hittable)); //
 			pln = malloc(sizeof(t_plane));
 			tmp->color = pln_path->color;
 			tmp->hit_fn = &hit_plane;
@@ -153,12 +155,12 @@ t_hittable_list *connect_hittable(t_list *scene_obj)
 		else
 		{
 			scene_obj = scene_obj->next;
-			continue;
+			continue ;
 		}
 		scene_obj = scene_obj->next;
 		ft_hlstadd_front(&world, ft_hlstnew(tmp));
 	}
-	return(world);
+	return (world);
 }
 
 t_mlxs	*init(char *file)
@@ -180,10 +182,8 @@ t_mlxs	*init(char *file)
 	// mlxs->hittable_list = init_hittable(scene); //配列を作ってるからポインタは適切
 	// sceneslight = create_lights();
 	mlxs->scene = scene;
-	if (mlxs->hittable_list == NULL)
-	{
-		; // 未実装
-	}
+	// if (mlxs->hittable_list == NULL) 未実装
+	// 	;
 	if (setup_mlx(mlxs) == false)
 	{
 		put_error(INIT_MLX_ERR, 0);
@@ -192,10 +192,8 @@ t_mlxs	*init(char *file)
 	}
 	mlxs->cam = init_camera(scene->camera);
 	mlxs->hittable_list = connect_hittable(scene->objs);
-	if (mlxs->cam == NULL)
-	{
-		; // 未実装
-	}
+	// if (mlxs->cam == NULL) 未実装
+	// 	;
 	// scene_clear(scene);
-	return mlxs;
+	return (mlxs);
 }
