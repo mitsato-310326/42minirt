@@ -1,11 +1,11 @@
-*This project has been created as part of the 42 curriculum by keitotak.*
+*This project has been created as part of the 42 curriculum by mitsato, keitotak.*
 # miniRT
 
 ## Description
 
-This project is rendering three-dimensional(3D) computer-generated(CG) images, implemented in C with **ray tracing** technique.
+This project renders three-dimensional (3D) computer-generated (CG) images using the C programming language and the **ray tracing** technique. The program reads a source file in the .rt format, which contains scene data such as positions, direction vectors, and color values for objects including spheres, planes, and cylinders, and then generates the corresponding images.
 
-**Goal:** Implement the program to render 3DCG images — while learning the fundamentals of ray tracing () in C.
+**Goal:** Implement a program that renders 3D CG images while learning the fundamentals of ray tracing in C, including how to translate mathematical formulas into practical program logic.
 
 ---
 
@@ -21,7 +21,7 @@ make
 
 ### Execution
 
-To run the simulation:
+To run the program:
 
 ```bash
 ./miniRT file.rt
