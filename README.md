@@ -1,11 +1,18 @@
-*This project has been created as part of the 42 curriculum by mitsato, keitotak.*
+*This project was created as part of the 42 curriculum by mitsato and keitotak.*
+
 # miniRT
 
 ## Description
 
-This project renders three-dimensional (3D) computer-generated (CG) images using the C programming language and the **ray tracing** technique. The program reads a source file in the .rt format, which contains scene data such as positions, direction vectors, and color values for objects including spheres, planes, and cylinders, and then generates the corresponding images.
+This project renders three-dimensional (3D) computer-generated (CG) images using the C programming language and the **ray tracing** technique. The program reads a scene description file in the .rt format, which contains the data needed to build a 3D scene, including object positions, direction vectors, and color values for primitives such as spheres, planes, and cylinders. Based on this input, it generates the corresponding image.
 
-**Goal:** Implement a program that renders 3D CG images while learning the fundamentals of ray tracing in C, including how to translate mathematical formulas into practical program logic.
+The goal of this project is to implement a simple but functional ray tracing renderer while deepening the understanding of fundamental graphics concepts and translating mathematical formulas into practical program logic.
+
+---
+
+## Project Overview
+
+miniRT is a small ray tracing project focused on parsing scene files and rendering basic geometric objects. It provides an opportunity to explore core concepts such as ray-object intersection, vector operations, camera setup, and basic lighting.
 
 ---
 
@@ -13,7 +20,7 @@ This project renders three-dimensional (3D) computer-generated (CG) images using
 
 ### Compilation
 
-To build the program:
+To build the program, run:
 
 ```bash
 make
@@ -21,13 +28,13 @@ make
 
 ### Execution
 
-To run the program:
+To run the program, use:
 
 ```bash
-./miniRT file.rt
+./miniRT PATH/TO/RT_FILE
 ```
 
-**Example:**
+Example:
 
 ```bash
 ./miniRT scene_rt/sample.rt
@@ -57,20 +64,27 @@ make re
 
 ## Resources
 
-The following references were used to build understanding of the project and ray tracing concepts:
+The following references were helpful for understanding ray tracing and related mathematical concepts:
 
-### Tools & Visualizers
+### Website
 
-- 
+- [Ray Tracing in One Weekend](https://inzkyk.xyz/ray_tracing_in_one_weekend/) — A beginner-friendly introduction to the basics of ray tracing.
+- [Ray to Cylinder](http://marupeke296.com/COL_3D_No25_RayToSilinder.html) — A useful reference for implementing ray-cylinder intersection.
+- [Rodrigues' Rotation Formula](https://w3e.kanazawa-it.ac.jp/math/physics/category/physical_math/linear_algebra/henkan-tex.cgi?target=/math/physics/category/physical_math/linear_algebra/rodrigues_rotation_formula.html) — A reference for understanding vector-based rotation.
 
 ### Articles & Documentation
 
-- 
+- [MSS Report](https://www.mesw.co.jp/business/report/pdf/mss_18_07.pdf) — A document providing background on mathematical and geometric concepts relevant to the project.
 
-### Books
+### Video
 
-- 
+- [Ray Tracing Basics](https://youtu.be/UTz7ytMJ2yk?si=pZ1TBdvrACGgFxAc) — A visual overview of the core ideas behind ray tracing.
 
 ---
 
-### How AI Was Used
+## How AI Was Used
+
+- Used AI for frequent code review and feedback to improve clarity, structure, and correctness.
+- Used AI as a source of reference for ray tracing concepts and implementation ideas.
+- Asked AI to help identify the root cause of bugs when issues occurred during development.
+- Used AI to improve the formatting of this README and generate polished descriptive text.
