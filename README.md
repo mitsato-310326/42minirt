@@ -8,11 +8,36 @@ This project renders three-dimensional (3D) computer-generated (CG) images using
 
 The goal of this project is to implement a simple but functional ray tracing renderer while deepening the understanding of fundamental graphics concepts and translating mathematical formulas into practical program logic.
 
----
-
-## Project Overview
+### Project Overview
 
 miniRT is a small ray tracing project focused on parsing scene files and rendering basic geometric objects. It provides an opportunity to explore core concepts such as ray-object intersection, vector operations, camera setup, and basic lighting.
+
+### RT File
+
+The RT file is a scene description file in the .rt format that the program reads to render a 3D image. Each line represents one piece of information about the scene, and each element is described by a specific identifier at the beginning of the line.
+
+The first field of each line is always an identifier that indicates the type of information:
+
+- A: Ambient lighting
+- C: Camera
+- L: Light
+- sp: Sphere
+- pl: Plane
+- cy: Cylinder
+
+Each element must follow a fixed structure and order of parameters. For example, ambient lighting is written as:
+
+```text
+A 0.2 255,255,255
+```
+
+where the values represent the ambient lighting ratio and the RGB color.
+
+The program reads the file by parsing these elements line by line. Parameters such as coordinates, vectors, colors, and other numeric values are provided according to the required format for each object type. The file may contain multiple elements, and the order of the elements is not restricted, although some elements such as ambient lighting, camera, and light can only be declared once.
+
+Below is an example of an RT file:
+
+![ex rt file](image.png)
 
 ---
 
