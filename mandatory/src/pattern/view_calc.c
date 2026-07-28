@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-#define scenespath mlxs->scene
+/* avoid non-constant macros; use local scene pointer */
 
 bool	shadow_hit(t_ray *r, double t_max, t_hittable_list *top)
 {
@@ -25,6 +25,9 @@ bool	shadow_hit(t_ray *r, double t_max, t_hittable_list *top)
 
 t_vec_three	check_light(t_hit_record rec, t_mlxs *mlxs)
 {
+	t_scene		*scene;
+
+    scene = mlxs->scene;
 	t_vec_three	direct;
 	t_vec_three	to_light;
 	double		dist;
@@ -33,7 +36,7 @@ t_vec_three	check_light(t_hit_record rec, t_mlxs *mlxs)
 	double		diff;
 
 	direct = (struct s_vec_three){0, 0, 0};
-	to_light = vec_three_neg(scenespath->light->crd, rec.p);
+	to_light = vec_three_neg(scene->light->crd, rec.p);
 	dist = vec_three_length(to_light);
 	light_dir = vec_three_mult(to_light, 1 / dist);
 	shadow_ray.p_origin = vec_three_add(rec.p, vec_three_mult(rec.normal,
@@ -42,13 +45,16 @@ t_vec_three	check_light(t_hit_record rec, t_mlxs *mlxs)
 	if (shadow_hit(&shadow_ray, dist, mlxs->hittable_list))
 		return (direct);
 	diff = fmax(0.0, dot(rec.normal, light_dir));
-	direct = vec_three_add(direct, vec_three_mult(scenespath->light->color, diff
-				* scenespath->light->ratio));
+	direct = vec_three_add(direct, vec_three_mult(scene->light->color, diff
+					* scene->light->ratio));
 	return (direct);
 }
 
 t_vec_three	ray_color(t_ray *r, t_mlxs *mlxs)
 {
+	t_scene		*scene;
+
+    scene = mlxs->scene;
 	t_hit_record	rec;
 	t_vec_three		object_color;
 	t_vec_three		ambient;
@@ -57,7 +63,7 @@ t_vec_three	ray_color(t_ray *r, t_mlxs *mlxs)
 		return ((struct s_vec_three){0, 0, 0});
 	object_color = rec.color;
 	ambient = vec_three_mult(vec_three_mult_v(object_color,
-				scenespath->amblight->color), scenespath->amblight->ratio);
+					scene->amblight->color), scene->amblight->ratio);
 	return (vec_three_add(ambient, check_light(rec, mlxs)));
 }
 

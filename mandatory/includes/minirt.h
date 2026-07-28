@@ -98,17 +98,6 @@ void							my_pixel_put(char *data, int x, int y,
 # define RED "\033[31m"
 # define RESET "\033[0m"
 
-# define PERROR printf(RED "ERROR" RESET "\n");
-# define PSUCCESS printf(GREEN "SUCCESS" RESET "\n");
-
-# define ENTRY(str)                                 \
-	do                                             \
-	{                                              \
-		static int i = 0;                          \
-		if (i++ == 0)                              \
-		{                                          \
-			printf("GET IN %s FUNCTION\n", (str)); \
-		}                                          \
-	} while (0)
+/* debug helper macros removed */
 
 #endif
