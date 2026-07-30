@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 19:59:28 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/29 11:39:02 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/07/30 14:30:09 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,3 @@ t_scene	*parse(char *file)
 	ft_lstclear(&elements, delete_element);
 	return (scene);
 }
-
-/*
-	print_str(str);
-	print_list(lines);
-	print_element(elements);
-	print_scene(scene);
-*/
