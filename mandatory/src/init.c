@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/29 11:40:48 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/07/30 16:03:20 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	key_handler(int keycode, void *v_mlxs);
 void put_error(char *errstr, bool systemerr)
 {
 	if (systemerr)
-		perror(NULL);
+		perror(errstr);
 	else
 		ft_putstr_fd(errstr, 2);
 }
@@ -98,16 +98,19 @@ bool	valid_filename(char *file)
 	return (false);
 }
 
+# define ERR_FILENAME "invalid filename.\n"
+# define ERR_MISCONFFILE "misconfiguration is encountered in the scene file.\n"
+
 t_mlxs	*init(char *file)
 {
 	t_mlxs	*mlxs;
 	t_scene	*scene;
 
 	if (!valid_filename(file))
-		return (printf("invalid filename.\n"), NULL);
+		return (PERROR, put_error(ERR_FILENAME, 0), NULL);
 	scene = parse(file);
 	if (scene == NULL)
-		return (scene_clear(scene), NULL);
+		return (put_error(ERR_MISCONFFILE, 0), NULL);
 	mlxs = malloc(sizeof(t_mlxs));
 	if (mlxs == NULL)
 	{

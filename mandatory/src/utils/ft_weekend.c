@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 19:14:09 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/28 15:53:53 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/07/30 15:29:58 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 double	random_double(void)
 {
-  PERROR
+	PERROR;
 	return (0.5);
 }
 

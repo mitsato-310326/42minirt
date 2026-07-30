@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:32:16 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/29 12:05:40 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/07/30 15:29:26 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,9 @@ void	my_pixel_put(char *data, int x, int y, t_vec_three *color);
 #define RED   "\033[31m"
 #define RESET "\033[0m"
 
-#define PERROR printf(RED "ERROR" RESET "\n");
-#define PSUCCESS printf(GREEN "SUCCESS" RESET "\n");
+//#define PERROR printf(RED "ERROR" RESET "\n");
+#define PERROR printf(RED "ERROR" "\n")
+#define PSUCCESS printf(GREEN "SUCCESS" RESET "\n")
 /*#define // ENTRY(str) do { \
 =======
 

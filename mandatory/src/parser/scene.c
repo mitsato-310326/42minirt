@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/27 02:23:28 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/29 00:36:33 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/07/30 15:56:27 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ t_scene	*create_scene(t_list *elm_lst)
 	t_element	*elm;
 
 	scene = (t_scene *)malloc(sizeof(t_scene));
+	if (scene == NULL)
+		return (PERROR, put_error("malloc", 1), NULL);
 	init_scene(scene);
 	while (elm_lst)
 	{

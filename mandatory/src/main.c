@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:26:10 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/22 20:49:49 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/07/30 15:27:47 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ int	main(int ac, char **av)
 
 	mlxs = init(av[1]);
 	if (mlxs == NULL)
-		return 1;
+		return (EXIT_FAILURE);
 	view_calc(mlxs);
 	print(mlxs);
 
 	mlx_loop(mlxs->mlx);
 	destroy_minirt(mlxs);
-	return (0);
+	return (PSUCCESS, EXIT_SUCCESS);
 }
