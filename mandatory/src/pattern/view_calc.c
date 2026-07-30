@@ -12,6 +12,55 @@
 
 #include "minirt.h"
 
+#define scenespath mlxs->scene
+
+bool	shadow_hit(t_ray *r, double t_max, t_hittable_list *top)
+{
+	t_hit_record	shadow_rec;
+
+	if (list_hit(r, (t_trange){0.001, t_max}, &shadow_rec, top))
+		return (true);
+	return (false);
+}
+
+t_vec_three	check_light(t_hit_record rec, t_mlxs *mlxs)
+{
+	t_vec_three	direct;
+	t_vec_three	to_light;
+	double		dist;
+	t_vec_three	light_dir;
+	t_ray		shadow_ray;
+	double		diff;
+
+	direct = (struct s_vec_three){0, 0, 0};
+	to_light = vec_three_neg(scenespath->light->crd, rec.p);
+	dist = vec_three_length(to_light);
+	light_dir = vec_three_mult(to_light, 1 / dist);
+	shadow_ray.p_origin = vec_three_add(rec.p, vec_three_mult(rec.normal,
+				0.001));
+	shadow_ray.v_dir = light_dir;
+	if (shadow_hit(&shadow_ray, dist, mlxs->hittable_list))
+		return (direct);
+	diff = fmax(0.0, dot(rec.normal, light_dir));
+	direct = vec_three_add(direct, vec_three_mult(scenespath->light->color, diff
+				* scenespath->light->ratio));
+	return (direct);
+}
+
+t_vec_three	ray_color(t_ray *r, t_mlxs *mlxs)
+{
+	t_hit_record	rec;
+	t_vec_three		object_color;
+	t_vec_three		ambient;
+
+	if (!list_hit(r, (t_trange){0.001, INFINITY}, &rec, mlxs->hittable_list))
+		return ((struct s_vec_three){0, 0, 0});
+	object_color = rec.color;
+	ambient = vec_three_mult(vec_three_mult_v(object_color,
+				scenespath->amblight->color), scenespath->amblight->ratio);
+	return (vec_three_add(ambient, check_light(rec, mlxs)));
+}
+
 int	view_calc(t_mlxs *mlxs)
 {
 	int			i;
@@ -19,6 +68,7 @@ int	view_calc(t_mlxs *mlxs)
 	t_vec_three	pixel_color;
 	t_ray		r;
 
+	print_scene(mlxs->scene);
 	j = HEIGHT - 1;
 	while (j >= 0)
 	{
@@ -26,7 +76,8 @@ int	view_calc(t_mlxs *mlxs)
 		while (i < WIDTH)
 		{
 			pixel_color = (struct s_vec_three){0, 0, 0};
-			r = get_ray((i + 0.5) / (WIDTH - 1), (j + 0.5) / (HEIGHT - 1), *(mlxs->cam));
+			r = get_ray((i + 0.5) / (WIDTH - 1), (j + 0.5) / (HEIGHT - 1),
+					*(mlxs->cam));
 			pixel_color = vec_three_add(pixel_color, ray_color(&r, mlxs));
 			my_pixel_put(mlxs->data, i, j, &pixel_color);
 			++i;

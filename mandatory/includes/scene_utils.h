@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_utils.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/27 14:31:53 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/29 12:03:49 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/07/26 14:38:23 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "minirt.h"
 
 // set_scene.c
-t_scene	*set_elm_to_scene(t_scene *scene, t_element *elm);
+t_scene				*set_elm_to_scene(t_scene *scene, t_element *elm);
 
 // create_objs.c
 t_sphere_scene		*create_sphere(t_element *elm);

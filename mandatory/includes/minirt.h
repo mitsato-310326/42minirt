@@ -6,103 +6,109 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:32:16 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/29 12:05:40 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/07/26 14:44:49 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-#include <string.h>
-#include <math.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdbool.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include "../../mlx/mlx.h"
-#include "../../libft/libft.h"
-#include "./ray_util.h"
-#include "./vec_util.h"
+# include "../../libft/libft.h"
+# include "../../mlx/mlx.h"
+# include "./ray_util.h"
+# include "./vec_util.h"
+# include <fcntl.h>
+# include <math.h>
+# include <stdbool.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/stat.h>
+# include <sys/types.h>
 
-//debug includes
-#include "../../ft_mlx.h"
-#include "../../os_setting.h"
-#include "./hittable.h"
-#include "./hittable_list.h"
-#include "./physics.h"
-#include "./camera.h"
-#include "./ft_weekend.h"
-#include "./lambertian.h"
-#include "./parser.h"
-#include "./parser_utils.h"
-#include "./parser_print.h"
-#include "./scene.h"
-#include "./scene_utils.h"
-#include "light.h"
+// debug includes
+# include "../../ft_mlx.h"
+# include "../../os_setting.h"
+# include "./camera.h"
+# include "./ft_weekend.h"
+# include "./hittable.h"
+# include "./hittable_list.h"
+# include "./parser.h"
+# include "./parser_print.h"
+# include "./parser_utils.h"
+# include "./physics.h"
+# include "./scene.h"
+# include "./scene_utils.h"
+# include "camera.h"
+# include "light.h"
 
-#define WIDTH 640
-#define HEIGHT 360
+# define WIDTH 640
+# define HEIGHT 360
 
 /*											*/
-typedef struct s_light_list t_light_list;
+typedef struct s_camera			t_camera;
+typedef struct s_light_scene	t_light_scene;
+typedef struct s_ambient		t_ambient;
+
+typedef struct s_trange
+{
+	double						t_min;
+	double						t_max;
+}								t_trange;
 
 typedef struct s_mlxs
 {
-	char *mlx;
-	char *win;
-	char *img;
-	char *data;
+	char						*mlx;
+	char						*win;
+	char						*img;
+	char						*data;
 
-	t_hittable_list *hittable_list;
-	t_light_list *light_list;
+	t_hittable_list				*hittable_list;
+	t_camera					*cam;
 
-	
-	t_camera *cam;
-}						t_mlxs;
+	t_scene						*scene;
+}								t_mlxs;
 
-void put_error(char *errstr, bool systemerr);
-t_mlxs *init(char *map);
-int destroy_minirt(t_mlxs *mlxs);
-char	*read_str(char *file);
+void							put_error(char *errstr, bool systemerr);
+t_mlxs							*init(char *map);
+int								destroy_minirt(t_mlxs *mlxs);
+char							*read_str(char *file);
 
 /*					CALCULATE				*/
 
-int view_calc(t_mlxs *mlx);
-t_vec_three ray_color(t_ray* r, t_mlxs *mlxs);
+int								view_calc(t_mlxs *mlx);
+t_vec_three						ray_color(t_ray *r, t_mlxs *mlxs);
 
 /*					HOOK					*/
 
-int stop_minirt(void *v_mlxs);
-int	key_handler(int keycode, void *v_mlxs);
+int								destroy_minirt(t_mlxs *mlxs);
+int								stop_minirt(void *v_mlxs);
+int								key_handler(int keycode, void *v_mlxs);
 
 /*					PRINT					*/
 
-bool 	print(t_mlxs * mlxs);
-void	my_pixel_put(char *data, int x, int y, t_vec_three *color);
+bool							print(t_mlxs *mlxs);
+void							my_pixel_put(char *data, int x, int y,
+									t_vec_three *color);
 
 /*					DEBUG					*/
 
-#define BLUE   "\033[34m"
-#define GREEN   "\033[32m"
-#define RED   "\033[31m"
-#define RESET "\033[0m"
+# define BLUE "\033[34m"
+# define GREEN "\033[32m"
+# define RED "\033[31m"
+# define RESET "\033[0m"
 
-#define PERROR printf(RED "ERROR" RESET "\n");
-#define PSUCCESS printf(GREEN "SUCCESS" RESET "\n");
-/*#define // ENTRY(str) do { \
-=======
+# define PERROR printf(RED "ERROR" RESET "\n");
+# define PSUCCESS printf(GREEN "SUCCESS" RESET "\n");
 
-#define  ENTRY(str) do { \
->>>>>>> main
-    static int i = 0; \
-    if (i++ == 0) { \
-        printf(BLUE "GET IN %s FUNCTION" RESET "\n", (str)); \
-    } \
-} while(0)
-<<<<<<< HEAD
-*/
-/*											*/
+# define ENTRY(str)                                 \
+	do                                             \
+	{                                              \
+		static int i = 0;                          \
+		if (i++ == 0)                              \
+		{                                          \
+			printf("GET IN %s FUNCTION\n", (str)); \
+		}                                          \
+	} while (0)
 
 #endif

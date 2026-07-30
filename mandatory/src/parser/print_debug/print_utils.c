@@ -19,7 +19,7 @@ void	print_id(char *id_name)
 
 void	print_color(t_color color)
 {
-	printf("color: r=%d g=%d b=%d\n", color.r, color.g, color.b);
+	printf("color: r=%f g=%f b=%f\n", color.x, color.y, color.z);
 }
 
 void	print_coord(t_coord crd)

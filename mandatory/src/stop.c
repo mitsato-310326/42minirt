@@ -22,24 +22,20 @@ int	key_handler(int keycode, void *v_mlxs)
 {
 	if (keycode == 0xFF1B)
 		ft_mlx_loop_end(((t_mlxs *)v_mlxs)->mlx);
-	// printf("%x\n", keycode);
-	if ((keycode >= 0xFF51 && keycode <= 0xFF54) || keycode == 0xFFe1)
+	return (0);
+}
+
+int	destroy_minirt(t_mlxs *mlxs)
+{
+	if (mlxs && mlxs->img)
+		mlx_destroy_image(mlxs->mlx, mlxs->img);
+	if (mlxs && mlxs->win)
+		mlx_destroy_window(mlxs->mlx, mlxs->win);
+	if (mlxs)
 	{
-		int div = keycode - 0xFF51;
-		if (div == 0)
-			(((t_mlxs *)v_mlxs))->cam->origin.x -= 0.2;
-		else if (div == 1)
-			(((t_mlxs *)v_mlxs))->cam->origin.z += 0.2;
-		else if (div == 2)
-			(((t_mlxs *)v_mlxs))->cam->origin.x -= 0.2;
-		else if (div == 3)
-			(((t_mlxs *)v_mlxs))->cam->origin.z -= 0.2;
-
-		if (keycode == 0xFFe1)
-			(((t_mlxs *)v_mlxs))->cam->origin.y -= 0.2;
-
-		view_calc(((t_mlxs *)v_mlxs));
-		print(((t_mlxs *)v_mlxs));
+		ft_mlx_destroy_display(mlxs->mlx);
+		free(mlxs->mlx);
+		free(mlxs);
 	}
 	return (0);
 }
