@@ -1,14 +1,21 @@
-#include "minirt.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cylinder_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/28 22:23:25 by mitsato           #+#    #+#             */
+/*   Updated: 2026/07/30 00:00:00 by mitsato          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-bool	within_radius(t_vec_three point, double radius)
-{
-	return (point.x * point.x + point.z * point.z < radius * radius);
-}
+#include "minirt.h"
 
 t_quaternion	set_q(t_vec_three cross, double dot)
 {
 	t_quaternion	q;
-	float		q_len;
+	float			q_len;
 
 	q.x = cross.x;
 	q.y = cross.y;
@@ -100,8 +107,8 @@ void	init_cyl_locals(t_cyl_locals *s, t_cylinder *cy, t_ray *r)
 		s->sub_origin.z};
 	s->half_b = dot(s->sub_origin_bottom, s->sub_dir_bottom);
 	s->a = dot(s->sub_dir_bottom, s->sub_dir_bottom);
-	s->discriminant = s->half_b * s->half_b -
-		(dot(s->sub_origin_bottom, s->sub_origin_bottom) - s->radius
+	s->discriminant = s->half_b * s->half_b
+		- (dot(s->sub_origin_bottom, s->sub_origin_bottom) - s->radius
 			* s->radius) * dot(s->sub_dir_bottom, s->sub_dir_bottom);
 	s->hit_anything = false;
 	s->best_t = INFINITY;

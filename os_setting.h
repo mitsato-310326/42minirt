@@ -21,11 +21,11 @@ typedef struct s_mlxs	t_mlxs;
 
 typedef enum e_os
 {
-    MAC_OS,
-    LINUX_OS
-} t_os;
+	MAC_OS,
+	LINUX_OS
+}	t_os;
 
-#define OS LINUX_OS
+# define OS LINUX_OS
 
 /*					DEBUG					*/
 

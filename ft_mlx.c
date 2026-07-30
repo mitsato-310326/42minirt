@@ -14,26 +14,22 @@
 
 void	ft_mlx_destroy_display(void *mlx)
 {
-	switch (OS)
+	if (OS == MAC_OS)
 	{
-	case MAC_OS:
 		(void)mlx;
 		return ;
-	case LINUX_OS:
-		mlx_destroy_display(mlx);
-		return ;
 	}
+	if (OS == LINUX_OS)
+		mlx_destroy_display(mlx);
 }
 
 void	ft_mlx_loop_end(void *mlx)
 {
-	switch (OS)
+	if (OS == MAC_OS)
 	{
-	case MAC_OS:
 		(void)mlx;
 		return ;
-	case LINUX_OS:
-		mlx_loop_end(mlx);
-		return ;
 	}
+	if (OS == LINUX_OS)
+		mlx_loop_end(mlx);
 }

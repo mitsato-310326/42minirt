@@ -25,8 +25,9 @@ bool	list_hit(t_ray *r, t_trange t_range, t_hit_record *rec,
 	tmp = top;
 	while (tmp)
 	{
-		if (((t_hittable *)(tmp->content))->hit_fn((t_trange){t_range.t_min, closest_so_far},
-				tmp->content, r, &temp_rec))
+		if (((t_hittable *)tmp->content)->hit_fn(
+				(t_trange){t_range.t_min, closest_so_far},
+			tmp->content, r, &temp_rec))
 		{
 			hit_anything = true;
 			closest_so_far = temp_rec.t;

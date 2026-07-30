@@ -44,6 +44,8 @@
 
 # define WIDTH 640
 # define HEIGHT 360
+# define RT ".rt"
+# define RTLEN 3
 
 /*											*/
 typedef struct s_camera			t_camera;
@@ -73,6 +75,13 @@ void							put_error(char *errstr, bool systemerr);
 t_mlxs							*init(char *map);
 int								destroy_minirt(t_mlxs *mlxs);
 char							*read_str(char *file);
+bool							valid_filename(char *file);
+t_hittable						*create_cylinder_hittable(
+									t_obj_content *content);
+t_hittable						*create_sphere_hittable(
+									t_obj_content *content);
+t_hittable						*create_plane_hittable(
+									t_obj_content *content);
 
 /*					CALCULATE				*/
 

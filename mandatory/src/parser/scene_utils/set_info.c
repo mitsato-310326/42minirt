@@ -83,15 +83,6 @@ t_color	*set_color(t_color *clr, char const *str)
 	return (clr);
 }
 
-int	*set_fov(int *fov, char const *str)
-{
-	if (!set_int(fov, str))
-		return (NULL);
-	if (!range_int(*fov, 0, 180))
-		return (NULL);
-	return (fov);
-}
-
 double	*set_ratio(double *ratio, char *str)
 {
 	if (!set_double(ratio, str))

@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_helpers.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/28 22:23:25 by mitsato           #+#    #+#             */
+/*   Updated: 2026/07/30 00:00:00 by mitsato          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "minirt.h"
 
 t_hittable	*create_cylinder_hittable(t_obj_content *content)
 {
-	t_hittable		*tmp;
-	t_cylinder		*cyl;
+	t_hittable			*tmp;
+	t_cylinder			*cyl;
 	t_cylinder_scene	*cyl_sc;
 
 	cyl_sc = (t_cylinder_scene *)content->obj;

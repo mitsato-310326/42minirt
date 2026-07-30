@@ -17,11 +17,10 @@ typedef struct s_mlxs	t_mlxs;
 
 /*											*/
 
-void ft_mlx_destroy_display(void *mlx);
-void ft_mlx_loop_end(void *mlx);
+void	ft_mlx_destroy_display(void *mlx);
+void	ft_mlx_loop_end(void *mlx);
 
 /*											*/
-
 
 /*					DEBUG					*/
 

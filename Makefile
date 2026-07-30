@@ -33,6 +33,7 @@ SRC         = \
     ft_mlx.c \
     $(SRC_DIR)/main.c \
     $(SRC_DIR)/init.c \
+    $(SRC_DIR)/init_helpers.c \
     $(SRC_DIR)/$(PARSER_DIR)/parse.c \
     $(SRC_DIR)/$(PARSER_DIR)/read.c \
     $(SRC_DIR)/$(PARSER_DIR)/lines.c \
@@ -58,6 +59,7 @@ SRC         = \
     $(SRC_DIR)/$(PATTERN_DIR)/hittable/sphere.c \
     $(SRC_DIR)/$(PATTERN_DIR)/hittable/plane.c \
     $(SRC_DIR)/$(PATTERN_DIR)/hittable/cylinder.c \
+    $(SRC_DIR)/$(PATTERN_DIR)/hittable/cylinder_utils.c \
     $(SRC_DIR)/$(PATTERN_DIR)/hittable/hittable_utils.c \
     $(SRC_DIR)/$(PATTERN_DIR)/view_calc.c \
     $(SRC_DIR)/utils/ray_utils/ray_func.c \

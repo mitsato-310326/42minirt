@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-int stop_minirt(void *v_mlxs)
+int	stop_minirt(void *v_mlxs)
 {
 	ft_mlx_loop_end(((t_mlxs *)v_mlxs)->mlx);
 	return (0);

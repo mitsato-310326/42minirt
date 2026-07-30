@@ -12,6 +12,11 @@
 
 #include "minirt.h"
 
+bool	within_radius(t_vec_three point, double radius)
+{
+	return (point.x * point.x + point.z * point.z < radius * radius);
+}
+
 bool	cyl_hit_controller(double best_t, t_hit_record *rec, void *cylinder,
 		t_ray *r)
 {
@@ -19,6 +24,36 @@ bool	cyl_hit_controller(double best_t, t_hit_record *rec, void *cylinder,
 	rec->color = ((t_hittable *)cylinder)->color;
 	rec->p = ray_at(*r, best_t);
 	return (true);
+}
+
+t_cyl_ret	cyl_wei(t_quaternion info, t_trange t_range,
+			t_quaternion q_inv, t_ray sub)
+{
+	t_cyl_ret	ret;
+	double		t;
+	t_vec_three	local_p;
+	int			i;
+
+	ret.hit_anything = false;
+	ret.best_t = t_range.t_max;
+	i = -1;
+	while (++i < 2)
+	{
+		if (i == 0)
+			t = info.x;
+		else
+			t = info.y;
+		if (t < t_range.t_min || t > ret.best_t)
+			continue ;
+		local_p = vec_three_add(sub.p_origin, vec_three_mult(sub.v_dir, t));
+		if (local_p.y < 0 || local_p.y > info.z)
+			continue ;
+		ret.hit_anything = true;
+		ret.best_t = t;
+		ret.best_normal_local = rotate_vector(vec_three_mult(
+					(t_vec_three){local_p.x, 0, local_p.z}, 1 / info.w), q_inv);
+	}
+	return (ret);
 }
 
 bool	hit_cylinder(t_trange t_range, void *cylinder, t_ray *r,

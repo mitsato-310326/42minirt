@@ -15,19 +15,19 @@
 
 # include "vec_util.h"
 
-typedef struct s_vec_three t_vec_three;
+typedef struct s_vec_three	t_vec_three;
 
 /*											*/
 
 typedef struct s_ray
 {
-	t_vec_three p_origin;
-	t_vec_three v_dir;
+	t_vec_three	p_origin;
+	t_vec_three	v_dir;
 }			t_ray;
 
 /*					UTILS					*/
 
-t_vec_three ray_at(t_ray ray, double t);
+t_vec_three	ray_at(t_ray ray, double t);
 
 /*					DEBUG					*/
 

@@ -81,9 +81,6 @@ t_camera	*init_camera(t_camera_scene *camera)
 
 t_hittable_list	*create_obj(void);
 
-#define RT ".rt"
-#define RTLEN 3
-
 t_hittable_list	*connect_hittable(t_list *scene_obj)
 {
 	t_hittable_list	*world;
