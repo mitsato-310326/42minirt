@@ -21,28 +21,24 @@ bool	cyl_hit_controller(double best_t, t_hit_record *rec, void *cylinder,
 	return (true);
 }
 
-/* forward: implemented in cylinder_utils.c */
-extern t_cyl_ret	cyl_wei(t_quaternion info, t_trange t_range,
-		t_quaternion q_inv, t_ray sub);
-
 bool	hit_cylinder(t_trange t_range, void *cylinder, t_ray *r,
 		t_hit_record *rec)
 {
 	t_cyl_locals	s;
-	t_cylinder	*cy;
-	t_cyl_ret	ret;
+	t_cylinder		*cy;
+	t_cyl_ret		ret;
+	t_quaternion	info;
+	t_ray			sub;
 
 	cy = (t_cylinder *)((t_hittable *)cylinder)->object_unique_info;
 	init_cyl_locals(&s, cy, r);
 	if (s.discriminant > 0)
 	{
-		ret = cyl_wei(
-			(t_quaternion){(-s.half_b - sqrt(s.discriminant)) / s.a,
-				(-s.half_b + sqrt(s.discriminant)) / s.a,
-				s.height, s.radius},
-			t_range,
-			(t_quaternion){-s.q.x, -s.q.y, -s.q.z, s.q.w},
-			(t_ray){s.sub_origin, s.sub_dir});
+		info = (t_quaternion){(-s.half_b - sqrt(s.discriminant)) / s.a,
+			(-s.half_b + sqrt(s.discriminant)) / s.a,
+			s.height, s.radius};
+		sub = (t_ray){s.sub_origin, s.sub_dir};
+		ret = cyl_wei(info, t_range, s.q_inv, sub);
 		s.hit_anything = ret.hit_anything;
 		s.best_t = ret.best_t;
 		s.best_normal_local = ret.best_normal_local;

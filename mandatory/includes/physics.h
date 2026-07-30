@@ -13,10 +13,10 @@
 #ifndef PHYSICS_H
 # define PHYSICS_H
 
-# include "hittable.h"
-# include "minirt.h"
+# include "ray_util.h"
 
 typedef struct s_trange	t_trange;
+typedef struct s_hit_record	t_hit_record;
 
 typedef struct s_quaternion
 {

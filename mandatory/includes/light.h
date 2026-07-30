@@ -13,14 +13,8 @@
 #ifndef LIGHT_H
 # define LIGHT_H
 
-#include "minirt.h"
+# include "minirt.h"
 
-typedef struct s_light_scene t_light_scene;
-
-// typedef struct s_ambient
-// {
-// 	t_vec_three color;
-// 	double	power;
-// }			t_ambient;
+typedef struct s_light_scene	t_light_scene;
 
 #endif
