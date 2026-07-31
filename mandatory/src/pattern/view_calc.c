@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:26:10 by mitsato           #+#    #+#             */
-/*   Updated: 2026/05/04 15:37:14 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/07/31 22:04:37 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ t_vec_three	check_light(t_hit_record rec, t_mlxs *mlxs)
 	shadow_ray.v_dir = light_dir;
 	if (shadow_hit(&shadow_ray, dist, mlxs->hittable_list))
 		return ((struct s_vec_three){0, 0, 0});
-	return (vec_three_mult(scene->light->color,
-			fmax(0.0, dot(rec.normal, light_dir)) * scene->light->ratio));
+	return (vec_three_mult(scene->light->color, fmax(0.0, dot(rec.normal,
+					light_dir)) * scene->light->ratio));
 }
 
 t_vec_three	ray_color(t_ray *r, t_mlxs *mlxs)
@@ -57,7 +57,8 @@ t_vec_three	ray_color(t_ray *r, t_mlxs *mlxs)
 	object_color = rec.color;
 	ambient = vec_three_mult(vec_three_mult_v(object_color,
 				scene->amblight->color), scene->amblight->ratio);
-	return (vec_three_add(ambient, check_light(rec, mlxs)));
+	return (vec_three_add(ambient, vec_three_mult_v(object_color,
+				check_light(rec, mlxs))));
 }
 
 int	view_calc(t_mlxs *mlxs)

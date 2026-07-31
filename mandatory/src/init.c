@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/07/26 14:37:25 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/07/31 22:05:05 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ t_camera	*init_camera(t_camera_scene *camera)
 	new->horizontal = vec_three_mult(unit_cross, viewport_width);
 	new->vertical = vec_three_mult(cross(tw, unit_vector(cross((t_vec_three){0,
 						1, 0}, tw))), viewport_height);
-	new->lower_left_corner = vec_three_neg(
-			vec_three_neg(
-				vec_three_neg(new->origin, vec_three_mult(new->horizontal,
-						0.5)), vec_three_mult(new->vertical, 0.5)),
-			(struct s_vec_three){0, 0, 1});
+	new->lower_left_corner = vec_three_add(vec_three_add(\
+			vec_three_neg(new->origin,
+					vec_three_mult(new->horizontal, 0.5)),
+				vec_three_neg((t_vec_three){0, 0, 0},
+					vec_three_mult(new->vertical, 0.5))), tw);
 	return (new);
 }
 
