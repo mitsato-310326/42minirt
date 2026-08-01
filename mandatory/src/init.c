@@ -6,12 +6,15 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/08/01 18:41:25 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/08/01 19:18:04 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minirt.h"
+
+#define INIT_MLX_ERR "error"
+#define TITLE "miniRT"
 
 int				stop_minirt(void *v_mlxs);
 int				key_handler(int keycode, void *v_mlxs);
@@ -24,8 +27,31 @@ void	put_error(char *errstr, bool systemerr)
 		ft_putstr_fd(errstr, 2);
 }
 
-#define INIT_MLX_ERR "error"
-#define TITLE "miniRT"
+t_hittable_list	*connect_hittable(t_list *scene_obj)
+{
+	t_hittable_list	*world;
+	t_hittable		*tmp;
+	t_obj_content	*content;
+
+	world = NULL;
+	while (scene_obj)
+	{
+		content = (t_obj_content *)scene_obj->content;
+		tmp = NULL;
+		if (content->id == CYLINDER)
+			tmp = create_cylinder_hittable(content);
+		else if (content->id == SPHERE)
+			tmp = create_sphere_hittable(content);
+		else if (content->id == PLANE)
+			tmp = create_plane_hittable(content);
+		if (tmp != NULL)
+			ft_hlstadd_front(&world, ft_hlstnew(tmp));
+		else
+			return(ft_hlstclear(&world), NULL);
+		scene_obj = scene_obj->next;
+	}
+	return (world);
+}
 
 bool	setup_mlx(t_mlxs *mlxs)
 {
@@ -45,6 +71,12 @@ bool	setup_mlx(t_mlxs *mlxs)
 	mlxs->data = mlx_get_data_addr(mlxs->img, &bpp, &size_line, &endian);
 	if (mlxs->data == NULL)
 		return (false);
+	mlxs->cam = init_camera(mlxs->scene->camera);
+	if(mlxs->cam == NULL)
+		return(false);
+	mlxs->hittable_list = connect_hittable(mlxs->scene->objs);
+	if(mlxs->hittable_list == NULL)
+		return(false);
 	mlx_hook(mlxs->win, 17, 0, stop_minirt, mlxs);
 	mlx_key_hook(mlxs->win, key_handler, mlxs);
 	return (true);
@@ -77,32 +109,6 @@ t_camera	*init_camera(t_camera_scene *camera)
 	return (new);
 }
 
-t_hittable_list	*create_obj(void);
-
-t_hittable_list	*connect_hittable(t_list *scene_obj)
-{
-	t_hittable_list	*world;
-	t_hittable		*tmp;
-	t_obj_content	*content;
-
-	world = NULL;
-	while (scene_obj)
-	{
-		content = (t_obj_content *)scene_obj->content;
-		tmp = NULL;
-		if (content->id == CYLINDER)
-			tmp = create_cylinder_hittable(content);
-		else if (content->id == SPHERE)
-			tmp = create_sphere_hittable(content);
-		else if (content->id == PLANE)
-			tmp = create_plane_hittable(content);
-		if (tmp != NULL)
-			ft_hlstadd_front(&world, ft_hlstnew(tmp));
-		scene_obj = scene_obj->next;
-	}
-	return (world);
-}
-
 t_mlxs	*init(char *file)
 {
 	t_mlxs	*mlxs;
@@ -117,7 +123,7 @@ t_mlxs	*init(char *file)
 	if (mlxs == NULL)
 	{
 		put_error(NULL, 1);
-		return (NULL);
+		return (mlxs);
 	}
 	mlxs->scene = scene;
 	if (setup_mlx(mlxs) == false)
@@ -126,7 +132,5 @@ t_mlxs	*init(char *file)
 		destroy_minirt(mlxs);
 		return (NULL);
 	}
-	mlxs->cam = init_camera(scene->camera);
-	mlxs->hittable_list = connect_hittable(scene->objs);
 	return (mlxs);
 }
