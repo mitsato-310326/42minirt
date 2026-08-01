@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:26:10 by mitsato           #+#    #+#             */
-/*   Updated: 2026/07/31 22:04:37 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/08/01 12:15:50 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int	view_calc(t_mlxs *mlxs)
 	t_vec_three	pixel_color;
 	t_ray		r;
 
-	print_scene(mlxs->scene);
 	j = HEIGHT - 1;
 	while (j >= 0)
 	{

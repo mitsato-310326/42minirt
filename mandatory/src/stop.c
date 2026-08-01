@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook.c                                             :+:      :+:    :+:   */
+/*   stop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:26:10 by mitsato           #+#    #+#             */
-/*   Updated: 2026/06/05 19:28:48 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/08/01 12:07:40 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ int	key_handler(int keycode, void *v_mlxs)
 
 int	destroy_minirt(t_mlxs *mlxs)
 {
+	if (mlxs && mlxs->scene)
+		scene_clear(mlxs->scene);
+	if (mlxs && mlxs->hittable_list)
+		ft_hlstclear(&mlxs->hittable_list);
+	if (mlxs && mlxs->cam)
+		free(mlxs->cam);
 	if (mlxs && mlxs->img)
 		mlx_destroy_image(mlxs->mlx, mlxs->img);
 	if (mlxs && mlxs->win)
