@@ -6,11 +6,12 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 19:59:28 by keitotak          #+#    #+#             */
-/*   Updated: 2026/07/30 14:30:09 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/08/01 19:00:42 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#define ERR_EMPTY "the file is empty.\n"
 
 t_scene	*parse(char *file)
 {
@@ -22,6 +23,8 @@ t_scene	*parse(char *file)
 	str = read_str(file);
 	if (str == NULL)
 		return (NULL);
+	if (*str == '\0')
+		return (put_error(ERR_EMPTY, 0), NULL);
 	lines = get_list(str, NL);
 	if (lines == NULL)
 		return (free(str), NULL);

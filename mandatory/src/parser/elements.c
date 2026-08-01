@@ -6,14 +6,12 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 14:45:58 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/29 00:43:42 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/07/30 16:07:17 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "parser.h"
-
-/*void ft_lstclear(t_list **lst, void (*del)(void *))*/
 
 void	delete_element(void *p)
 {
@@ -41,13 +39,15 @@ t_id	get_elmid(char *id_str)
 	return (ELSE);
 }
 
+#define ERR_INVID "invalid identifier is described in the scene file.\n"
+
 static t_element	*create_element(char *str)
 {
 	t_element	*elm;
 
 	elm = (t_element *)malloc(sizeof(t_element));
 	if (elm == NULL)
-		return (NULL);
+		return (put_error("malloc", 1), NULL);
 	elm->info = get_list(str, SPACE);
 	if (elm->info == NULL)
 	{
@@ -60,7 +60,7 @@ static t_element	*create_element(char *str)
 	{
 		ft_lstclear(&elm->info, free);
 		free(elm);
-		return (NULL);
+		return (put_error(ERR_INVID, 0), NULL);
 	}
 	return (elm);
 }
@@ -91,6 +91,8 @@ bool	check_doubled_id(t_list *lst)
 	return (false);
 }
 
+#define ERR_DBLID "unique id is doubled in the scene file.\n"
+
 t_list	*get_elements(t_list *lines)
 {
 	t_list		*elm_lst;
@@ -111,7 +113,7 @@ t_list	*get_elements(t_list *lines)
 	if (check_doubled_id(elm_lst))
 	{
 		ft_lstclear(&elm_lst, delete_element);
-		return (NULL);
+		return (put_error(ERR_DBLID, 0), NULL);
 	}
 	return (elm_lst);
 }

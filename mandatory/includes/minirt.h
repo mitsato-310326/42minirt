@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:32:16 by mitsato           #+#    #+#             */
-/*   Updated: 2026/08/01 18:31:51 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/08/01 18:48:46 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,5 @@ void							my_pixel_put(char *data, int x, int y,
 # define GREEN "\033[32m"
 # define RED "\033[31m"
 # define RESET "\033[0m"
-
-/* debug helper macros removed */
 
 #endif

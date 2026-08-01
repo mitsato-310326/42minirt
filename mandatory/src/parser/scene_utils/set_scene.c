@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/27 14:24:47 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/29 00:45:41 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/07/30 16:01:31 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,31 +87,36 @@ static t_list	*set_object(t_list *obj_lst, t_element *elm)
 	return (obj_lst);
 }
 
+#define ERR_AMBL "amblight element is wrong.\n"
+#define ERR_CMR "camera element is wrong.\n"
+#define ERR_LGT "light element is wrong.\n"
+#define ERR_OBJ "objects element is wrong.\n"
+
 t_scene	*set_elm_to_scene(t_scene *scene, t_element *elm)
 {
 	if (elm->id == AMBIENT)
 	{
 		scene->amblight = set_amblight(scene->amblight, elm);
 		if (scene->amblight == NULL)
-			return (NULL);
+			return (put_error(ERR_AMBL, 0), NULL);
 	}
 	else if (elm->id == CAMERA)
 	{
 		scene->camera = set_camera(scene->camera, elm);
 		if (scene->camera == NULL)
-			return (NULL);
+			return (put_error(ERR_CMR, 0), NULL);
 	}
 	else if (elm->id == LIGHT)
 	{
 		scene->light = set_light(scene->light, elm);
 		if (scene->light == NULL)
-			return (NULL);
+			return (put_error(ERR_LGT, 0), NULL);
 	}
 	else
 	{
 		scene->objs = set_object(scene->objs, elm);
 		if (scene->objs == NULL)
-			return (NULL);
+			return (put_error(ERR_OBJ, 0), NULL);
 	}
 	return (scene);
 }

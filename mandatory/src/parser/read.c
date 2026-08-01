@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 09:38:48 by keitotak          #+#    #+#             */
-/*   Updated: 2026/06/29 11:39:52 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/07/30 15:43:22 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static bool	valid_str(char *str)
 	return (true);
 }
 
+#define ERR_INVSTR "invalid strings in the scene file.\n"
+
 char	*read_str(char *file)
 {
 	int		fd;
@@ -60,17 +62,14 @@ char	*read_str(char *file)
 	{
 		read_count = read(fd, buf, BUFSIZE);
 		if (read_count < 0)
-		{
-			perror("read");
-			return (free(str), NULL);
-		}
+			return (put_error("read", 1), free(str), NULL);
 		buf[read_count] = '\0';
 		str = ft_realloc(str, ft_strlen(str) + read_count + 1);
 		if (str == NULL)
-			return (free(str), NULL);
+			return (put_error("malloc", 1), free(str), NULL);
 		ft_strlcat(str, buf, ft_strlen(str) + read_count + 1);
 	}
 	if (!valid_str(str))
-		return (free(str), NULL);
+		return (put_error(ERR_INVSTR, 0), free(str), NULL);
 	return (str);
 }

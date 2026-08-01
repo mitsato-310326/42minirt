@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/08/01 18:41:25 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/08/01 19:07:03 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@
 int				stop_minirt(void *v_mlxs);
 int				key_handler(int keycode, void *v_mlxs);
 
+#define ERROR "\033[31mERROR\n"
+
 void	put_error(char *errstr, bool systemerr)
 {
+	ft_putstr_fd(ERROR, 2);
 	if (systemerr)
-		perror(NULL);
+		perror(errstr);
 	else
 		ft_putstr_fd(errstr, 2);
 }
@@ -103,16 +106,18 @@ t_hittable_list	*connect_hittable(t_list *scene_obj)
 	return (world);
 }
 
+#define ERR_FILENAME "invalid filename.\n"
+
 t_mlxs	*init(char *file)
 {
 	t_mlxs	*mlxs;
 	t_scene	*scene;
 
 	if (!valid_filename(file))
-		return (printf("invalid filename.\n"), NULL);
+		return (put_error(ERR_FILENAME, 0), NULL);
 	scene = parse(file);
 	if (scene == NULL)
-		return (scene_clear(scene), NULL);
+		return (NULL);
 	mlxs = malloc(sizeof(t_mlxs));
 	if (mlxs == NULL)
 	{

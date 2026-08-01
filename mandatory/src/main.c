@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:26:10 by mitsato           #+#    #+#             */
-/*   Updated: 2026/08/01 12:17:00 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/08/01 19:00:17 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,5 @@ int	main(int ac, char **av)
 	print(mlxs);
 	mlx_loop(mlxs->mlx);
 	destroy_minirt(mlxs);
-	return (0);
+	return (EXIT_SUCCESS);
 }
