@@ -30,9 +30,9 @@ HOOK_DIR	= hook
 PATTERN_DIR	= pattern
 
 SRC         = \
-    ft_mlx.c \
     $(SRC_DIR)/main.c \
     $(SRC_DIR)/init.c \
+    $(SRC_DIR)/init_helpers.c \
     $(SRC_DIR)/$(PARSER_DIR)/parse.c \
     $(SRC_DIR)/$(PARSER_DIR)/read.c \
     $(SRC_DIR)/$(PARSER_DIR)/lines.c \
@@ -58,12 +58,13 @@ SRC         = \
     $(SRC_DIR)/$(PATTERN_DIR)/hittable/sphere.c \
     $(SRC_DIR)/$(PATTERN_DIR)/hittable/plane.c \
     $(SRC_DIR)/$(PATTERN_DIR)/hittable/cylinder.c \
+    $(SRC_DIR)/$(PATTERN_DIR)/hittable/cylinder_utils.c \
     $(SRC_DIR)/$(PATTERN_DIR)/hittable/hittable_utils.c \
     $(SRC_DIR)/$(PATTERN_DIR)/view_calc.c \
     $(SRC_DIR)/utils/ray_utils/ray_func.c \
     $(SRC_DIR)/utils/vec_utils/vec_func.c \
     $(SRC_DIR)/utils/vec_utils/vec_func2.c \
-    $(SRC_DIR)/utils/util.c 
+    $(SRC_DIR)/utils/util.c
 
 OBJ 		= $(SRC:${SRC_DIR}/%.c=$(OBJ_DIR)/%.o)
 MLX_LIB = mlx/

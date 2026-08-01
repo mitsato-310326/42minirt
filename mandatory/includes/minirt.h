@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:32:16 by mitsato           #+#    #+#             */
-/*   Updated: 2026/07/26 14:44:49 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/08/01 18:31:51 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@
 # include <sys/types.h>
 
 // debug includes
-# include "../../ft_mlx.h"
-# include "../../os_setting.h"
 # include "./camera.h"
 # include "./ft_weekend.h"
 # include "./hittable.h"
@@ -44,6 +42,8 @@
 
 # define WIDTH 640
 # define HEIGHT 360
+# define RT ".rt"
+# define RTLEN 3
 
 /*											*/
 typedef struct s_camera			t_camera;
@@ -73,6 +73,13 @@ void							put_error(char *errstr, bool systemerr);
 t_mlxs							*init(char *map);
 int								destroy_minirt(t_mlxs *mlxs);
 char							*read_str(char *file);
+bool							valid_filename(char *file);
+t_hittable						*create_cylinder_hittable(
+									t_obj_content *content);
+t_hittable						*create_sphere_hittable(
+									t_obj_content *content);
+t_hittable						*create_plane_hittable(
+									t_obj_content *content);
 
 /*					CALCULATE				*/
 
@@ -98,17 +105,6 @@ void							my_pixel_put(char *data, int x, int y,
 # define RED "\033[31m"
 # define RESET "\033[0m"
 
-# define PERROR printf(RED "ERROR" RESET "\n");
-# define PSUCCESS printf(GREEN "SUCCESS" RESET "\n");
-
-# define ENTRY(str)                                 \
-	do                                             \
-	{                                              \
-		static int i = 0;                          \
-		if (i++ == 0)                              \
-		{                                          \
-			printf("GET IN %s FUNCTION\n", (str)); \
-		}                                          \
-	} while (0)
+/* debug helper macros removed */
 
 #endif

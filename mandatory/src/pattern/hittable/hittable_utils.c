@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 21:12:56 by mitsato           #+#    #+#             */
-/*   Updated: 2026/07/26 14:50:11 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/08/01 12:11:03 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ bool	list_hit(t_ray *r, t_trange t_range, t_hit_record *rec,
 	tmp = top;
 	while (tmp)
 	{
-		if (((t_hittable *)(tmp->content))->hit_fn((t_trange){t_range.t_min, closest_so_far},
-				tmp->content, r, &temp_rec))
+		if (((t_hittable *)tmp->content)->hit_fn(
+				(t_trange){t_range.t_min, closest_so_far},
+			tmp->content, r, &temp_rec))
 		{
 			hit_anything = true;
 			closest_so_far = temp_rec.t;
@@ -64,6 +65,8 @@ void	ft_hlstclear(t_hittable_list **lst)
 	while (lst && *lst)
 	{
 		tmp = (*lst)->next;
+		free(((t_hittable *)((*lst)->content))->object_unique_info);
+		free((t_hittable *)((*lst)->content));
 		free(*lst);
 		*lst = tmp;
 	}

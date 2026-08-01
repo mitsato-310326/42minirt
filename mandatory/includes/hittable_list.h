@@ -17,7 +17,7 @@
 
 typedef struct s_hit_record	t_hit_record;
 
-typedef struct s_trange t_trange;
+typedef struct s_trange		t_trange;
 
 typedef struct s_hittable_list
 {

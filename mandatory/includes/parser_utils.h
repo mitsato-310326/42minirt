@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSE_UTILS_H
-# define PARSE_UTILS_H
+#ifndef PARSER_UTILS_H
+# define PARSER_UTILS_H
 
 # include "minirt.h"
 

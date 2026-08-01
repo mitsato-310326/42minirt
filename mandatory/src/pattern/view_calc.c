@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   view_calc.c                                              :+:      :+:    :+:   */
+/*   view_calc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:26:10 by mitsato           #+#    #+#             */
-/*   Updated: 2026/05/04 15:37:14 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/08/01 12:15:50 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-#define scenespath mlxs->scene
+/* avoid non-constant macros; use local scene pointer */
 
 bool	shadow_hit(t_ray *r, double t_max, t_hittable_list *top)
 {
@@ -25,40 +25,40 @@ bool	shadow_hit(t_ray *r, double t_max, t_hittable_list *top)
 
 t_vec_three	check_light(t_hit_record rec, t_mlxs *mlxs)
 {
-	t_vec_three	direct;
+	t_scene		*scene;
 	t_vec_three	to_light;
 	double		dist;
 	t_vec_three	light_dir;
 	t_ray		shadow_ray;
-	double		diff;
 
-	direct = (struct s_vec_three){0, 0, 0};
-	to_light = vec_three_neg(scenespath->light->crd, rec.p);
+	scene = mlxs->scene;
+	to_light = vec_three_neg(scene->light->crd, rec.p);
 	dist = vec_three_length(to_light);
 	light_dir = vec_three_mult(to_light, 1 / dist);
 	shadow_ray.p_origin = vec_three_add(rec.p, vec_three_mult(rec.normal,
 				0.001));
 	shadow_ray.v_dir = light_dir;
 	if (shadow_hit(&shadow_ray, dist, mlxs->hittable_list))
-		return (direct);
-	diff = fmax(0.0, dot(rec.normal, light_dir));
-	direct = vec_three_add(direct, vec_three_mult(scenespath->light->color, diff
-				* scenespath->light->ratio));
-	return (direct);
+		return ((struct s_vec_three){0, 0, 0});
+	return (vec_three_mult(scene->light->color, fmax(0.0, dot(rec.normal,
+					light_dir)) * scene->light->ratio));
 }
 
 t_vec_three	ray_color(t_ray *r, t_mlxs *mlxs)
 {
+	t_scene			*scene;
 	t_hit_record	rec;
 	t_vec_three		object_color;
 	t_vec_three		ambient;
 
+	scene = mlxs->scene;
 	if (!list_hit(r, (t_trange){0.001, INFINITY}, &rec, mlxs->hittable_list))
 		return ((struct s_vec_three){0, 0, 0});
 	object_color = rec.color;
 	ambient = vec_three_mult(vec_three_mult_v(object_color,
-				scenespath->amblight->color), scenespath->amblight->ratio);
-	return (vec_three_add(ambient, check_light(rec, mlxs)));
+				scene->amblight->color), scene->amblight->ratio);
+	return (vec_three_add(ambient, vec_three_mult_v(object_color,
+				check_light(rec, mlxs))));
 }
 
 int	view_calc(t_mlxs *mlxs)
@@ -68,7 +68,6 @@ int	view_calc(t_mlxs *mlxs)
 	t_vec_three	pixel_color;
 	t_ray		r;
 
-	print_scene(mlxs->scene);
 	j = HEIGHT - 1;
 	while (j >= 0)
 	{

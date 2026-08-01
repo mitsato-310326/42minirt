@@ -56,3 +56,12 @@ int	*set_int(int *i, char const *str)
 	*i = ft_atoi(str);
 	return (i);
 }
+
+int	*set_fov(int *fov, char const *str)
+{
+	if (!set_int(fov, str))
+		return (NULL);
+	if (!range_int(*fov, 0, 180))
+		return (NULL);
+	return (fov);
+}
