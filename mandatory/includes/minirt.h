@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:32:16 by mitsato           #+#    #+#             */
-/*   Updated: 2026/07/26 14:44:49 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/08/01 18:31:51 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@
 # include <sys/types.h>
 
 // debug includes
-# include "../../ft_mlx.h"
-# include "../../os_setting.h"
 # include "./camera.h"
 # include "./ft_weekend.h"
 # include "./hittable.h"

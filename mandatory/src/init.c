@@ -6,14 +6,12 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/07/31 22:05:05 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/08/01 18:41:25 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minirt.h"
-
-/* avoid casting macros; use typed local pointers instead */
 
 int				stop_minirt(void *v_mlxs);
 int				key_handler(int keycode, void *v_mlxs);
@@ -27,7 +25,7 @@ void	put_error(char *errstr, bool systemerr)
 }
 
 #define INIT_MLX_ERR "error"
-#define TITLE "error"
+#define TITLE "miniRT"
 
 bool	setup_mlx(t_mlxs *mlxs)
 {
