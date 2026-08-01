@@ -15,33 +15,33 @@
 
 # include <math.h>
 
-/*											*/
+/*                                          */
 
 typedef struct s_vec_three
 {
 	double	x;
 	double	y;
 	double	z;
-}			t_vec_three;
+}							t_vec_three;
 
-/*					UTILS					*/
+/*                  UTILS                  */
 
-t_vec_three	vec_three_add(t_vec_three a, t_vec_three b);
-t_vec_three	vec_three_neg(t_vec_three a, t_vec_three b);
-t_vec_three	vec_three_mult(t_vec_three a, double t);
-t_vec_three vec_three_mult_v(t_vec_three a, t_vec_three b);
-double		vec_three_squared(t_vec_three a);
+t_vec_three		vec_three_add(t_vec_three a, t_vec_three b);
+t_vec_three		vec_three_neg(t_vec_three a, t_vec_three b);
+t_vec_three		vec_three_mult(t_vec_three a, double t);
+t_vec_three		vec_three_mult_v(t_vec_three a, t_vec_three b);
+double			vec_three_length(t_vec_three a);
 
-double		dot(t_vec_three a, t_vec_three b);
-t_vec_three unit_vector(t_vec_three v);
-// t_vec_three random_in_unit_sphere();
-// t_vec_three random_in_hemisphere(t_vec_three *normal);
+double			dot(t_vec_three a, t_vec_three b);
+t_vec_three		unit_vector(t_vec_three v);
+// t_vec_three		random_in_unit_sphere();
+// t_vec_three		random_in_hemisphere(t_vec_three *normal);
 
-t_vec_three reflect(t_vec_three *v, t_vec_three *n);
-t_vec_three cross(t_vec_three a, t_vec_three b);
+// t_vec_three		reflect(t_vec_three *v, t_vec_three *n);
+t_vec_three		cross(t_vec_three a, t_vec_three b);
 
-/*					DEBUG					*/
+/*                  DEBUG                  */
 
-/*											*/
+/*                                          */
 
 #endif

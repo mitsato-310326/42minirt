@@ -47,7 +47,7 @@ static t_element	*create_element(char *str)
 
 	elm = (t_element *)malloc(sizeof(t_element));
 	if (elm == NULL)
-		return (PERROR, put_error("malloc", 1), NULL);
+		return (put_error("malloc", 1), NULL);
 	elm->info = get_list(str, SPACE);
 	if (elm->info == NULL)
 	{
@@ -60,7 +60,7 @@ static t_element	*create_element(char *str)
 	{
 		ft_lstclear(&elm->info, free);
 		free(elm);
-		return (PERROR, put_error(ERR_INVID, 0), NULL);
+		return (put_error(ERR_INVID, 0), NULL);
 	}
 	return (elm);
 }
@@ -113,7 +113,7 @@ t_list	*get_elements(t_list *lines)
 	if (check_doubled_id(elm_lst))
 	{
 		ft_lstclear(&elm_lst, delete_element);
-		return (PERROR, put_error(ERR_DBLID, 0), NULL);
+		return (put_error(ERR_DBLID, 0), NULL);
 	}
 	return (elm_lst);
 }

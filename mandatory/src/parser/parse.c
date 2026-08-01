@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 19:59:28 by keitotak          #+#    #+#             */
-/*   Updated: 2026/07/30 16:13:50 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/08/01 19:00:42 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_scene	*parse(char *file)
 	if (str == NULL)
 		return (NULL);
 	if (*str == '\0')
-		return (PERROR, put_error(ERR_EMPTY, 0), NULL);
+		return (put_error(ERR_EMPTY, 0), NULL);
 	lines = get_list(str, NL);
 	if (lines == NULL)
 		return (free(str), NULL);

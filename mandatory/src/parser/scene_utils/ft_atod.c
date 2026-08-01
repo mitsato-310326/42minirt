@@ -56,7 +56,7 @@ double	ft_atod(char const *str)
 	in = (double)ft_atoi(str);
 	str = ft_strchr(str, '.');
 	if (str == NULL)
-		return ((double)in);
+		return (sg * (double)in);
 	str++;
 	fr = (double)ft_atoi(str);
 	fr /= pow(10.0, (double)ft_strlen(str));

@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   os_setting.h                                       :+:      :+:    :+:   */
+/*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/26 21:51:59 by mitsato           #+#    #+#             */
-/*   Updated: 2026/04/25 17:58:48 by mitsato          ###   ########.fr       */
+/*   Created: 2026/05/03 19:14:09 by mitsato           #+#    #+#             */
+/*   Updated: 2026/08/01 18:58:24 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OS_SETTING_H
-# define OS_SETTING_H
+#include "ft_weekend.h"
+#include "minirt.h"
 
-typedef struct s_mlxs	t_mlxs;
-
-/*											*/
-
-/*											*/
-
-typedef enum e_os
+double	clamp(double x, double min, double max)
 {
-    MAC_OS,
-    LINUX_OS
-} t_os;
-
-#define OS LINUX_OS
-
-/*					DEBUG					*/
-
-/*											*/
-
-#endif
+	if (x < min)
+		return (min);
+	if (x > max)
+		return (max);
+	return (x);
+}

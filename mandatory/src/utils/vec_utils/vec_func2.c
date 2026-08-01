@@ -10,48 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vec_util.h"
 #include "ft_weekend.h"
+#include "vec_util.h"
 
-double dot(t_vec_three a, t_vec_three b)
+double	dot(t_vec_three a, t_vec_three b)
 {
 	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
 
-t_vec_three unit_vector(t_vec_three v)
+t_vec_three	unit_vector(t_vec_three v)
 {
-  return (vec_three_mult(v, 1.0 / vec_three_squared(v)));
+	return (vec_three_mult(v, 1.0 / vec_three_length(v)));
 }
 
-#define PI 3.14159265
-
-// t_vec_three random_in_unit_sphere()
-// {
-  // double a = random_double_with(0, 2*PI);
-  // double z = random_double_with(-1, 1);
-  // double r = sqrt(1 - z*z);
-  // return (struct s_vec_three){r * cos(a), r * sin(a), z};
-// }
-
-// t_vec_three random_in_hemisphere(t_vec_three *normal)
-// {
-// 	t_vec_three in_unit_sphere = random_in_unit_sphere();
-// 	if (dot(in_unit_sphere, *normal) > 0.0)
-// 		return in_unit_sphere;
-// 	else
-// 		return vec_three_mult(in_unit_sphere, -1);
-// }
-
-t_vec_three reflect(t_vec_three *v, t_vec_three *n)
+t_vec_three	cross(t_vec_three a, t_vec_three b)
 {
-	return vec_three_neg(*v, vec_three_mult(*n, 2.0f * dot(*v,*n)));
-}
-
-t_vec_three cross(t_vec_three a, t_vec_three b)
-{
-    return (t_vec_three){
-        a.y * b.z - a.z * b.y,
-        a.z * b.x - a.x * b.z,
-        a.x * b.y - a.y * b.x
-    };
+	return ((t_vec_three){a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x
+		* b.y - a.y * b.x});
 }

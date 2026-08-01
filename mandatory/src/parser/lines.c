@@ -47,7 +47,7 @@ t_list	*get_list(char *str, char const *set)
 
 	arr = my_split(str, set);
 	if (arr == NULL)
-		return (PERROR, put_error("split", 1), NULL);
+		return (put_error("split", 1), NULL);
 	lines = arr_to_lst(arr);
 	free_array(arr, arrlen(arr));
 	remove_empty_line(lines);

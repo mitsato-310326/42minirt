@@ -62,14 +62,14 @@ char	*read_str(char *file)
 	{
 		read_count = read(fd, buf, BUFSIZE);
 		if (read_count < 0)
-			return (PERROR, put_error("read", 1), free(str), NULL);
+			return (put_error("read", 1), free(str), NULL);
 		buf[read_count] = '\0';
 		str = ft_realloc(str, ft_strlen(str) + read_count + 1);
 		if (str == NULL)
-			return (PERROR, put_error("malloc", 1), free(str), NULL);
+			return (put_error("malloc", 1), free(str), NULL);
 		ft_strlcat(str, buf, ft_strlen(str) + read_count + 1);
 	}
 	if (!valid_str(str))
-		return (PERROR, put_error(ERR_INVSTR, 0), free(str), NULL);
+		return (put_error(ERR_INVSTR, 0), free(str), NULL);
 	return (str);
 }

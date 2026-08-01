@@ -37,7 +37,7 @@ typedef struct s_element
 	t_id	id;
 }	t_element;
 
-typedef struct s_scene t_scene;
+typedef struct s_scene	t_scene;
 
 // parse.c
 t_scene	*parse(char *file);

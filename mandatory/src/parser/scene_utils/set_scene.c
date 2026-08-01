@@ -98,25 +98,25 @@ t_scene	*set_elm_to_scene(t_scene *scene, t_element *elm)
 	{
 		scene->amblight = set_amblight(scene->amblight, elm);
 		if (scene->amblight == NULL)
-			return (PERROR, put_error(ERR_AMBL, 0), NULL);
+			return (put_error(ERR_AMBL, 0), NULL);
 	}
 	else if (elm->id == CAMERA)
 	{
 		scene->camera = set_camera(scene->camera, elm);
 		if (scene->camera == NULL)
-			return (PERROR, put_error(ERR_CMR, 0), NULL);
+			return (put_error(ERR_CMR, 0), NULL);
 	}
 	else if (elm->id == LIGHT)
 	{
 		scene->light = set_light(scene->light, elm);
 		if (scene->light == NULL)
-			return (PERROR, put_error(ERR_LGT, 0), NULL);
+			return (put_error(ERR_LGT, 0), NULL);
 	}
 	else
 	{
 		scene->objs = set_object(scene->objs, elm);
 		if (scene->objs == NULL)
-			return (PERROR, put_error(ERR_OBJ, 0), NULL);
+			return (put_error(ERR_OBJ, 0), NULL);
 	}
 	return (scene);
 }
