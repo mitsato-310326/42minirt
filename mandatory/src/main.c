@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:26:10 by mitsato           #+#    #+#             */
-/*   Updated: 2026/08/01 19:00:17 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/08/06 18:35:06 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		put_error("Invalid args", 0);
+		put_error("Invalid args\n", 0);
 		return (EXIT_FAILURE);
 	}
 	mlxs = init(av[1]);
