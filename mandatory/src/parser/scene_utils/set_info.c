@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/27 14:39:25 by keitotak          #+#    #+#             */
-/*   Updated: 2026/07/26 14:36:49 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/08/06 20:23:51 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ t_vector	*set_vector(t_vector *vec, char const *str)
 	if (!range_double(vec->y, -1.0, 1.0))
 		return (NULL);
 	if (!range_double(vec->z, -1.0, 1.0))
+		return (NULL);
+	if (vec->x == 0.0 && vec->y == 0.0 && vec->z == 0.0)
 		return (NULL);
 	return (vec);
 }
