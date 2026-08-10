@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 14:45:58 by keitotak          #+#    #+#             */
-/*   Updated: 2026/07/30 15:44:20 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/08/10 17:59:06 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,35 @@ bool	empty_line(char *str)
 	return (true);
 }
 
+void	ft_lstrm(t_list *lst, t_list *prev)
+{
+	t_list	*next;
+
+	next = lst->next;
+	ft_lstdelone(lst, free);
+	if (prev == NULL)
+		lst = next;
+	else
+	{
+		lst = prev;
+		lst->next = next;
+	}
+}
+
 static void	remove_empty_line(t_list *lines)
 {
 	t_list	*prev;
-	t_list	*next;
 
+	prev = NULL;
 	while (lines)
 	{
 		if (empty_line(lines->content))
+			ft_lstrm(lines, prev);
+		if (prev)
 		{
-			next = lines->next;
-			free(lines->content);
-			free(lines);
-			lines = prev;
-			lines->next = next;
+			prev = lines;
+			lines = lines->next;
 		}
-		prev = lines;
-		lines = lines->next;
 	}
 }
 
