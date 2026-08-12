@@ -46,14 +46,13 @@ t_vector	*set_vector(t_vector *vec, char const *str)
 		return (NULL);
 	if (!range_double(vec->z, -1.0, 1.0))
 		return (NULL);
+	if (vec->x == 0.0 && vec->y == 0.0 && vec->z == 0.0)
+		return (NULL);
 	return (vec);
 }
 
-bool	check_color(t_color *clr, int r, int g, int b)
+static bool	check_color(int r, int g, int b)
 {
-	clr->x = r / 255.0;
-	clr->y = g / 255.0;
-	clr->z = b / 255.0;
 	if (!range_int(r, 0, 255))
 		return (false);
 	if (!range_int(g, 0, 255))
@@ -66,20 +65,26 @@ bool	check_color(t_color *clr, int r, int g, int b)
 t_color	*set_color(t_color *clr, char const *str)
 {
 	char	**arr;
+	int		r;
+	int		g;
+	int		b;
 
 	if (!is_three_dimential(str))
 		return (NULL);
 	arr = ft_split(str, ',');
 	if (arr == NULL)
 		return (NULL);
-	if (!is_int(arr[0]) || !is_int(arr[1]) || !is_int(arr[2]))
+	if (!set_int(&r, arr[0]) || !set_int(&g, arr[1]) || !set_int(&b, arr[2]))
 	{
 		free_array(arr, 3);
 		return (NULL);
 	}
-	if (!check_color(clr, ft_atoi(arr[0]), ft_atoi(arr[1]), ft_atoi(arr[2])))
-		return (free_array(arr, 3), NULL);
 	free_array(arr, 3);
+	if (!check_color(r, g, b))
+		return (NULL);
+	clr->x = r / 255.0;
+	clr->y = g / 255.0;
+	clr->z = b / 255.0;
 	return (clr);
 }
 

@@ -16,17 +16,17 @@
 # include "minirt.h"
 
 char	**my_split(char const *s, char const *set);
+
+// ft.c
+int		ft_isspace(int c);
+int		ft_issign(int c);
 void	*ft_realloc(void *p, size_t size);
-// char	*ft_strndup(char const *str, size_t n);
+void	*ft_lstsearch(t_list *lst, int index);
 
 // array.c
 void	free_array(char **array, size_t size);
 size_t	arrlen(char **array);
 void	print_array(char **arr);
-
-// list.c
-void	*ft_lstsearch(t_list *lst, int index);
-void	print_list(t_list *list);
 
 // cnv_arr_lst.c
 char	**lst_to_arr(t_list *lst);

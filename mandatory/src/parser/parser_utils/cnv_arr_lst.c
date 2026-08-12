@@ -15,6 +15,7 @@
 t_list	*arr_to_lst(char **arr)
 {
 	t_list	*lst;
+	t_list	*node;
 	char	*content;
 
 	lst = NULL;
@@ -26,7 +27,11 @@ t_list	*arr_to_lst(char **arr)
 			ft_lstclear(&lst, free);
 			return (put_error("malloc", 1), NULL);
 		}
-		ft_lstadd_back(&lst, ft_lstnew(content));
+		node = ft_lstnew(content);
+		if (node == NULL)
+			return (free(content), ft_lstclear(&lst, free),
+				put_error("malloc", true), NULL);
+		ft_lstadd_back(&lst, node);
 		arr++;
 	}
 	return (lst);
@@ -54,5 +59,6 @@ char	**lst_to_arr(t_list *lst)
 		i++;
 		lst = lst->next;
 	}
+	arr[i] = NULL;
 	return (arr);
 }

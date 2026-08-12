@@ -25,6 +25,8 @@ t_sphere_scene	*create_sphere(t_element *elm)
 		return (free(sph), NULL);
 	if (!set_double(&sph->diameter, ft_lstsearch(elm->info, 2)))
 		return (free(sph), NULL);
+	if (sph->diameter <= 0.0)
+		return (free(sph), NULL);
 	if (!set_color(&sph->color, ft_lstsearch(elm->info, 3)))
 		return (free(sph), NULL);
 	return (sph);
@@ -63,7 +65,11 @@ t_cylinder_scene	*create_cylinder(t_element *elm)
 		return (free(cyl), NULL);
 	if (!set_double(&cyl->diameter, ft_lstsearch(elm->info, 3)))
 		return (free(cyl), NULL);
+	if (cyl->diameter <= 0.0)
+		return (free(cyl), NULL);
 	if (!set_double(&cyl->height, ft_lstsearch(elm->info, 4)))
+		return (free(cyl), NULL);
+	if (cyl->height <= 0.0)
 		return (free(cyl), NULL);
 	if (!set_color(&cyl->color, ft_lstsearch(elm->info, 5)))
 		return (free(cyl), NULL);

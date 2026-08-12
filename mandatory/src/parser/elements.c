@@ -13,7 +13,7 @@
 #include "minirt.h"
 #include "parser.h"
 
-void	delete_element(void *p)
+void	del_elm(void *p)
 {
 	t_element	*elm;
 
@@ -65,7 +65,7 @@ static t_element	*create_element(char *str)
 	return (elm);
 }
 
-bool	check_doubled_id(t_list *lst)
+static bool	check_doubled_id(t_list *lst)
 {
 	int			amb_cnt;
 	int			cmr_cnt;
@@ -96,6 +96,7 @@ bool	check_doubled_id(t_list *lst)
 t_list	*get_elements(t_list *lines)
 {
 	t_list		*elm_lst;
+	t_list		*node;
 	t_element	*elm;
 
 	elm_lst = NULL;
@@ -103,17 +104,18 @@ t_list	*get_elements(t_list *lines)
 	{
 		elm = create_element(lines->content);
 		if (elm == NULL)
+			return (ft_lstclear(&elm_lst, del_elm), NULL);
+		node = ft_lstnew(elm);
+		if (node == NULL)
 		{
-			ft_lstclear(&elm_lst, delete_element);
-			return (NULL);
+			del_elm(elm);
+			ft_lstclear(&elm_lst, del_elm);
+			return (put_error("malloc", true), NULL);
 		}
-		ft_lstadd_back(&elm_lst, ft_lstnew(elm));
+		ft_lstadd_back(&elm_lst, node);
 		lines = lines->next;
 	}
 	if (check_doubled_id(elm_lst))
-	{
-		ft_lstclear(&elm_lst, delete_element);
-		return (put_error(ERR_DBLID, 0), NULL);
-	}
+		return (ft_lstclear(&elm_lst, del_elm), put_error(ERR_DBLID, 0), NULL);
 	return (elm_lst);
 }

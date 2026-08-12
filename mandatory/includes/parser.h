@@ -49,11 +49,12 @@ int		ft_issign(int c);
 
 // lines.c
 t_list	*get_list(char *str, char const *set);
+bool	empty_line(char *str);
 
 // elements.c
 t_list	*get_elements(t_list *lines);
 t_id	get_elmid(char *id_str);
-void	delete_element(void *p);
+void	del_elm(void *p);
 void	print_element(t_list *element);
 
 // scene.c

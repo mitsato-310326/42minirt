@@ -69,5 +69,11 @@ t_scene	*create_scene(t_list *elm_lst)
 		}
 		elm_lst = elm_lst->next;
 	}
+	if (!scene->amblight || !scene->camera || !scene->light)
+	{
+		put_error("ambient lighting, camera, and light are required.\n", false);
+		scene_clear(scene);
+		return (NULL);
+	}
 	return (scene);
 }
