@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 21:18:49 by mitsato           #+#    #+#             */
-/*   Updated: 2026/08/01 19:07:03 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/08/01 19:32:08 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,30 @@ void	put_error(char *errstr, bool systemerr)
 #define INIT_MLX_ERR "error"
 #define TITLE "miniRT"
 
+t_hittable_list	*connect_hittable(t_list *scene_obj)
+{
+	t_hittable_list	*world;
+	t_hittable		*tmp;
+	t_obj_content	*content;
+
+	world = NULL;
+	while (scene_obj)
+	{
+		content = (t_obj_content *)scene_obj->content;
+		tmp = NULL;
+		if (content->id == CYLINDER)
+			tmp = create_cylinder_hittable(content);
+		else if (content->id == SPHERE)
+			tmp = create_sphere_hittable(content);
+		else if (content->id == PLANE)
+			tmp = create_plane_hittable(content);
+		if (tmp != NULL)
+			ft_hlstadd_front(&world, ft_hlstnew(tmp));
+		scene_obj = scene_obj->next;
+	}
+	return (world);
+}
+
 bool	setup_mlx(t_mlxs *mlxs)
 {
 	int	bpp;
@@ -49,6 +73,12 @@ bool	setup_mlx(t_mlxs *mlxs)
 		return (false);
 	mlxs->data = mlx_get_data_addr(mlxs->img, &bpp, &size_line, &endian);
 	if (mlxs->data == NULL)
+		return (false);
+	mlxs->cam = init_camera(mlxs->scene->camera);
+	if (mlxs->cam == NULL)
+		return (false);
+	mlxs->hittable_list = connect_hittable(mlxs->scene->objs);
+	if (mlxs->hittable_list == NULL)
 		return (false);
 	mlx_hook(mlxs->win, 17, 0, stop_minirt, mlxs);
 	mlx_key_hook(mlxs->win, key_handler, mlxs);
@@ -84,30 +114,6 @@ t_camera	*init_camera(t_camera_scene *camera)
 
 t_hittable_list	*create_obj(void);
 
-t_hittable_list	*connect_hittable(t_list *scene_obj)
-{
-	t_hittable_list	*world;
-	t_hittable		*tmp;
-	t_obj_content	*content;
-
-	world = NULL;
-	while (scene_obj)
-	{
-		content = (t_obj_content *)scene_obj->content;
-		tmp = NULL;
-		if (content->id == CYLINDER)
-			tmp = create_cylinder_hittable(content);
-		else if (content->id == SPHERE)
-			tmp = create_sphere_hittable(content);
-		else if (content->id == PLANE)
-			tmp = create_plane_hittable(content);
-		if (tmp != NULL)
-			ft_hlstadd_front(&world, ft_hlstnew(tmp));
-		scene_obj = scene_obj->next;
-	}
-	return (world);
-}
-
 #define ERR_FILENAME "invalid filename.\n"
 
 t_mlxs	*init(char *file)
@@ -133,7 +139,5 @@ t_mlxs	*init(char *file)
 		destroy_minirt(mlxs);
 		return (NULL);
 	}
-	mlxs->cam = init_camera(scene->camera);
-	mlxs->hittable_list = connect_hittable(scene->objs);
 	return (mlxs);
 }
