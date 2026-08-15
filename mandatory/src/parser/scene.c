@@ -15,14 +15,6 @@
 #include "parser.h"
 #include "scene.h"
 
-static void	init_scene(t_scene *scene)
-{
-	scene->amblight = NULL;
-	scene->camera = NULL;
-	scene->light = NULL;
-	scene->objs = NULL;
-}
-
 void	delete_obj_content(void *p)
 {
 	t_obj_content	*content;
@@ -50,15 +42,14 @@ void	scene_clear(t_scene *scene)
 	free(scene);
 }
 
-t_scene	*create_scene(t_list *elm_lst)
+static t_scene	*set_scene(t_scene *scene, t_list *elm_lst)
 {
-	t_scene		*scene;
 	t_element	*elm;
 
-	scene = (t_scene *)malloc(sizeof(t_scene));
-	if (scene == NULL)
-		return (put_error("malloc", 1), NULL);
-	init_scene(scene);
+	scene->amblight = NULL;
+	scene->camera = NULL;
+	scene->light = NULL;
+	scene->objs = NULL;
 	while (elm_lst)
 	{
 		elm = (t_element *)elm_lst->content;
@@ -69,9 +60,27 @@ t_scene	*create_scene(t_list *elm_lst)
 		}
 		elm_lst = elm_lst->next;
 	}
+	return (scene);
+}
+
+t_scene	*create_scene(t_list *elm_lst)
+{
+	t_scene		*scene;
+
+	scene = (t_scene *)malloc(sizeof(t_scene));
+	if (scene == NULL)
+		return (put_error("malloc", 1), NULL);
+	if (set_scene(scene, elm_lst) == NULL)
+		return (NULL);
 	if (!scene->amblight || !scene->camera || !scene->light)
 	{
 		put_error("ambient lighting, camera, and light are required.\n", false);
+		scene_clear(scene);
+		return (NULL);
+	}
+	if (scene->objs == NULL)
+	{
+		put_error("at least one object is required.\n", false);
 		scene_clear(scene);
 		return (NULL);
 	}
