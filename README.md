@@ -12,9 +12,9 @@ The goal of this project is to implement a simple but functional ray tracing ren
 
 miniRT is a small ray tracing project focused on parsing scene files and rendering basic geometric objects. It provides an opportunity to explore core concepts such as ray-object intersection, vector operations, camera setup, and basic lighting.
 
-### RT File
+### Scene File
 
-The RT file is a scene description file in the .rt format that the program reads to render a 3D image. Each line represents one piece of information about the scene, and each element is described by a specific identifier at the beginning of the line.
+The Scene file is a scene description file in the .rt format that the program reads to render a 3D image. Each line represents one piece of information about the scene, and each element is described by a specific identifier at the beginning of the line.
 
 The first field of each line is always an identifier that indicates the type of information:
 
@@ -37,7 +37,7 @@ The program reads the file by parsing these elements line by line. Parameters su
 
 Below is an example of an RT file:
 
-![ex rt file](image.png)
+![ex scene file](image.png)
 
 ---
 
