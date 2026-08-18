@@ -23,8 +23,8 @@ t_scene	*parse(char *file)
 	str = read_str(file);
 	if (str == NULL)
 		return (NULL);
-	if (*str == '\0')
-		return (put_error(ERR_EMPTY, 0), NULL);
+	if (*str == '\0' || empty_line(str))
+		return (put_error(ERR_EMPTY, 0), free(str), NULL);
 	lines = get_list(str, NL);
 	if (lines == NULL)
 		return (free(str), NULL);
@@ -35,7 +35,7 @@ t_scene	*parse(char *file)
 	ft_lstclear(&lines, free);
 	scene = create_scene(elements);
 	if (scene == NULL)
-		return (ft_lstclear(&elements, delete_element), NULL);
-	ft_lstclear(&elements, delete_element);
+		return (ft_lstclear(&elements, del_elm), NULL);
+	ft_lstclear(&elements, del_elm);
 	return (scene);
 }

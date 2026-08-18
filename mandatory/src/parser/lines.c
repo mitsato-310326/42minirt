@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 14:45:58 by keitotak          #+#    #+#             */
-/*   Updated: 2026/07/30 15:44:20 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/08/12 18:35:30 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,21 @@ bool	empty_line(char *str)
 	return (true);
 }
 
-static void	remove_empty_line(t_list *lines)
+static void	remove_empty_line(t_list **lines)
 {
-	t_list	*prev;
-	t_list	*next;
+	t_list	*node;
 
-	while (lines)
+	while (*lines)
 	{
-		if (empty_line(lines->content))
+		if (empty_line((*lines)->content))
 		{
-			next = lines->next;
-			free(lines->content);
-			free(lines);
-			lines = prev;
-			lines->next = next;
+			node = *lines;
+			*lines = node->next;
+			free(node->content);
+			free(node);
 		}
-		prev = lines;
-		lines = lines->next;
+		else
+			lines = &(*lines)->next;
 	}
 }
 
@@ -50,6 +48,6 @@ t_list	*get_list(char *str, char const *set)
 		return (put_error("split", 1), NULL);
 	lines = arr_to_lst(arr);
 	free_array(arr, arrlen(arr));
-	remove_empty_line(lines);
+	remove_empty_line(&lines);
 	return (lines);
 }

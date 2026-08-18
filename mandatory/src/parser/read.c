@@ -6,21 +6,11 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 09:38:48 by keitotak          #+#    #+#             */
-/*   Updated: 2026/07/30 15:43:22 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/08/11 15:51:46 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-int	ft_isspace(int c)
-{
-	return (c == ' ' || (c >= '\t' && c <= '\r'));
-}
-
-int	ft_issign(int c)
-{
-	return (c == '+' || c == '-');
-}
 
 static bool	valid_char(int c)
 {
@@ -48,28 +38,48 @@ static bool	valid_str(char *str)
 
 #define ERR_INVSTR "invalid strings in the scene file.\n"
 
-char	*read_str(char *file)
+static char	*get_newstr(int fd, char *str)
 {
-	int		fd;
-	int		read_count;
+	ssize_t	read_count;
 	char	buf[BUFSIZE + 1];
-	char	*str;
+	char	*new_str;
 
-	fd = open(file, O_RDONLY);
 	read_count = 1;
-	str = ft_calloc(1, sizeof(char));
 	while (read_count != 0)
 	{
 		read_count = read(fd, buf, BUFSIZE);
 		if (read_count < 0)
-			return (put_error("read", 1), free(str), NULL);
+			return (put_error("read", true), free(str), NULL);
+		if (ft_memchr(buf, '\0', (size_t)read_count) != NULL)
+			return (put_error(ERR_INVSTR, false), free(str), NULL);
 		buf[read_count] = '\0';
-		str = ft_realloc(str, ft_strlen(str) + read_count + 1);
-		if (str == NULL)
-			return (put_error("malloc", 1), free(str), NULL);
-		ft_strlcat(str, buf, ft_strlen(str) + read_count + 1);
+		if (!valid_str(buf))
+			return (put_error(ERR_INVSTR, false), free(str), NULL);
+		new_str = ft_realloc(str, ft_strlen(str) + (size_t)read_count + 1);
+		if (new_str == NULL)
+			return (put_error("malloc", true), free(str), NULL);
+		str = new_str;
+		ft_strlcat(str, buf, ft_strlen(str) + (size_t)read_count + 1);
 	}
-	if (!valid_str(str))
-		return (put_error(ERR_INVSTR, 0), free(str), NULL);
+	return (str);
+}
+
+char	*read_str(char *file)
+{
+	int		fd;
+	char	*str;
+	char	*new_str;
+
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		return (put_error(file, true), NULL);
+	str = ft_calloc(1, sizeof(char));
+	if (str == NULL)
+		return (close(fd), put_error("malloc", true), NULL);
+	new_str = get_newstr(fd, str);
+	if (new_str == NULL)
+		return (close(fd), NULL);
+	str = new_str;
+	close(fd);
 	return (str);
 }

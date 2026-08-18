@@ -17,48 +17,49 @@
 
 bool	is_three_dimential(char const *str)
 {
-	int	dot_cnt;
+	int	comma_count;
 
-	dot_cnt = 0;
+	if (str == NULL || *str == '\0')
+		return (false);
+	comma_count = 0;
 	while (*str)
 	{
-		if (ft_isdigit(*str) || ft_issign(*str) || *str == DOT)
-			str++;
-		else if (*str == COMMA)
+		if (*str == COMMA)
 		{
-			if (!ft_isdigit(*(str + 1)) && !ft_issign(*(str + 1)))
+			if (++comma_count > 2 || str == NULL || *(str + 1) == '\0')
 				return (false);
-			dot_cnt++;
-			str++;
 		}
-		else
+		else if (!ft_isdigit((unsigned char)*str) && !ft_issign(*str)
+			&& *str != DOT)
 			return (false);
+		str++;
 	}
-	if (dot_cnt != 2)
-		return (false);
-	return (true);
+	return (comma_count == 2);
 }
 
 double	ft_atod(char const *str)
 {
-	int		sg;
-	double	in;
-	double	fr;
+	double	value;
+	double	decimal;
+	int		sign;
 
-	sg = 1;
-	fr = 0;
+	sign = 1;
 	if (ft_issign(*str))
 	{
 		if (*str == '-')
-			sg *= -1;
+			sign = -1;
 		str++;
 	}
-	in = (double)ft_atoi(str);
-	str = ft_strchr(str, '.');
-	if (str == NULL)
-		return (sg * (double)in);
-	str++;
-	fr = (double)ft_atoi(str);
-	fr /= pow(10.0, (double)ft_strlen(str));
-	return (sg * (in + fr));
+	value = 0.0;
+	while (ft_isdigit((unsigned char)*str))
+		value = value * 10.0 + (*str++ - '0');
+	if (*str == '.')
+		str++;
+	decimal = 0.1;
+	while (ft_isdigit((unsigned char)*str))
+	{
+		value += (*str++ - '0') * decimal;
+		decimal *= 0.1;
+	}
+	return (sign * value);
 }

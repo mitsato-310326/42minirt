@@ -25,6 +25,7 @@
 # include <string.h>
 # include <sys/stat.h>
 # include <sys/types.h>
+# include <unistd.h>
 
 // debug includes
 # include "./camera.h"

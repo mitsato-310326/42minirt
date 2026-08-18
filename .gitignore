@@ -1,5 +1,7 @@
 mlx/
+obj/
 miniRT
+libft/libft.a
 mlx_macos_guide.md
 tags
 .cache/

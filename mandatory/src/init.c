@@ -17,6 +17,7 @@ int				stop_minirt(void *v_mlxs);
 int				key_handler(int keycode, void *v_mlxs);
 
 #define ERROR "\033[31mERROR\n"
+#define RESET "\033[0m"
 
 void	put_error(char *errstr, bool systemerr)
 {
@@ -25,6 +26,7 @@ void	put_error(char *errstr, bool systemerr)
 		perror(errstr);
 	else
 		ft_putstr_fd(errstr, 2);
+	ft_putstr_fd(RESET, 2);
 }
 
 #define INIT_MLX_ERR "error"
