@@ -56,13 +56,13 @@ make
 To run the program, use:
 
 ```bash
-./miniRT PATH/TO/RT_FILE
+./miniRT PATH/TO/SCENE_FILE
 ```
 
 Example:
 
 ```bash
-./miniRT scene_rt/sample.rt
+./miniRT scenes/example.rt
 ```
 
 ### Cleanup
