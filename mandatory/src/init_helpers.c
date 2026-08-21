@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 22:23:25 by mitsato           #+#    #+#             */
-/*   Updated: 2026/07/30 00:00:00 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/08/18 19:48:41 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ bool	valid_filename(char *file)
 	size_t	len;
 
 	len = ft_strlen(file);
+	if (len - RTLEN <= 0)
+		return (false);
 	file += len - RTLEN;
 	if (ft_strncmp(file, RT, RTLEN + 1) == 0)
 		return (true);
