@@ -6,7 +6,7 @@
 /*   By: keitotak <keitotak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/27 14:24:47 by keitotak          #+#    #+#             */
-/*   Updated: 2026/07/30 16:01:31 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/08/25 20:45:37 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static t_list	*set_object(t_list *obj_lst, t_element *elm)
 	else if (elm->id == CYLINDER)
 		content->obj = create_cylinder(elm);
 	if (content->obj == NULL)
-		return (free(content), NULL);
+		return (free(content), ft_lstclear(&obj_lst, delete_obj_content), NULL);
 	content->id = elm->id;
 	newnode = ft_lstnew(content);
 	if (newnode == NULL)
