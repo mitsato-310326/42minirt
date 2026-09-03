@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 19:05:31 by mitsato           #+#    #+#             */
-/*   Updated: 2026/07/26 15:13:10 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/09/03 20:13:18 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,18 @@ bool	set_face_normal(t_ray *r, t_vec_three *outward_normal,
 
 bool	checkcolor(double temp, t_ray *r, t_hit_record *rec, void *sphere)
 {
-	t_vec_three	outward_normal;
 	double		radius;
 	t_vec_three	*center;
+	t_vec_three	outward_normal2;
 
 	radius = ((t_sphere *)((t_hittable *)sphere)->object_unique_info)->radius;
 	center = &((t_sphere *)((t_hittable *)sphere)->object_unique_info)->origin;
-	rec->t = temp;
+	rec->t = temp * 0.99;
 	rec->p = ray_at(*r, rec->t);
-	outward_normal = vec_three_mult(vec_three_neg(rec->p, *center), 1
-			/ radius);
-	set_face_normal(r, &outward_normal, rec);
+	outward_normal2.x = vec_three_neg(rec->p, *center).x / radius;
+	outward_normal2.y = vec_three_neg(rec->p, *center).y / radius;
+	outward_normal2.z = vec_three_neg(rec->p, *center).z / radius;
+	set_face_normal(r, &outward_normal2, rec);
 	rec->color = ((t_hittable *)sphere)->color;
 	return (true);
 }
