@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 16:37:15 by mitsato           #+#    #+#             */
-/*   Updated: 2026/07/26 14:47:45 by mitsato          ###   ########.fr       */
+/*   Updated: 2026/09/03 20:12:42 by mitsato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@ bool	hit_plane(t_trange t_range, void *cylinder, t_ray *r, t_hit_record *rec)
 		{
 			rec->t = temp;
 			rec->p = ray_at(*r, rec->t);
-			rec->front_face = true;
-			rec->normal = *normal;
 			rec->color = ((t_hittable *)cylinder)->color;
+			rec->front_face = dot(r->v_dir, *normal) <= 0;
+			rec->normal = *normal;
+			if (!rec->front_face)
+				rec->normal = vec_three_neg((t_vec_three){0, 0, 0}, *normal);
 			return (true);
 		}
 	}
