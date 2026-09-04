@@ -49,8 +49,10 @@ t_hittable_list	*connect_hittable(t_list *scene_obj)
 			tmp = create_sphere_hittable(content);
 		else if (content->id == PLANE)
 			tmp = create_plane_hittable(content);
-		if (tmp != NULL)
-			ft_hlstadd_front(&world, ft_hlstnew(tmp));
+		if (tmp == NULL)
+			return (ft_hlstclear(&world), NULL);
+		if (add_node_to_hlist(tmp, &world) == false)
+			return (NULL);
 		scene_obj = scene_obj->next;
 	}
 	return (world);
@@ -126,10 +128,11 @@ t_mlxs	*init(char *file)
 	scene = parse(file);
 	if (scene == NULL)
 		return (NULL);
-	mlxs = malloc(sizeof(t_mlxs));
+	mlxs = ft_calloc(1, sizeof(t_mlxs));
 	if (mlxs == NULL)
 	{
-		put_error(NULL, 1);
+		scene_clear(scene);
+		put_error(ERR_ALLOC, false);
 		return (NULL);
 	}
 	mlxs->scene = scene;

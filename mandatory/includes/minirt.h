@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 20:32:16 by mitsato           #+#    #+#             */
-/*   Updated: 2026/08/01 18:48:46 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/09/04 17:44:40 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <math.h>
 # include <stdbool.h>
+# include <stdint.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -45,6 +46,7 @@
 # define HEIGHT 360
 # define RT ".rt"
 # define RTLEN 3
+# define ERR_ALLOC "memory allocation failed.\n"
 
 /*											*/
 typedef struct s_camera			t_camera;
@@ -70,34 +72,35 @@ typedef struct s_mlxs
 	t_scene						*scene;
 }								t_mlxs;
 
-void							put_error(char *errstr, bool systemerr);
-t_mlxs							*init(char *map);
-int								destroy_minirt(t_mlxs *mlxs);
-char							*read_str(char *file);
-bool							valid_filename(char *file);
-t_hittable						*create_cylinder_hittable(
-									t_obj_content *content);
-t_hittable						*create_sphere_hittable(
-									t_obj_content *content);
-t_hittable						*create_plane_hittable(
-									t_obj_content *content);
+void				put_error(char *errstr, bool systemerr);
+t_mlxs				*init(char *map);
+int					destroy_minirt(t_mlxs *mlxs);
+char				*read_str(char *file);
+bool				valid_filename(char *file);
+bool				add_node_to_hlist(t_hittable *tmp, t_hittable_list **world);
+t_hittable			*create_cylinder_hittable(
+						t_obj_content *content);
+t_hittable			*create_sphere_hittable(
+						t_obj_content *content);
+t_hittable			*create_plane_hittable(
+						t_obj_content *content);
 
 /*					CALCULATE				*/
 
-int								view_calc(t_mlxs *mlx);
-t_vec_three						ray_color(t_ray *r, t_mlxs *mlxs);
+int					view_calc(t_mlxs *mlx);
+t_vec_three			ray_color(t_ray *r, t_mlxs *mlxs);
 
 /*					HOOK					*/
 
-int								destroy_minirt(t_mlxs *mlxs);
-int								stop_minirt(void *v_mlxs);
-int								key_handler(int keycode, void *v_mlxs);
+int					destroy_minirt(t_mlxs *mlxs);
+int					stop_minirt(void *v_mlxs);
+int					key_handler(int keycode, void *v_mlxs);
 
 /*					PRINT					*/
 
-bool							print(t_mlxs *mlxs);
-void							my_pixel_put(char *data, int x, int y,
-									t_vec_three *color);
+bool				print(t_mlxs *mlxs);
+void				my_pixel_put(char *data, int x, int y,
+						t_vec_three *color);
 
 /*					DEBUG					*/
 

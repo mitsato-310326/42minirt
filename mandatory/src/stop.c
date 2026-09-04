@@ -39,8 +39,11 @@ int	destroy_minirt(t_mlxs *mlxs)
 		mlx_destroy_window(mlxs->mlx, mlxs->win);
 	if (mlxs)
 	{
-		mlx_destroy_display(mlxs->mlx);
-		free(mlxs->mlx);
+		if (mlxs->mlx)
+		{
+			mlx_destroy_display(mlxs->mlx);
+			free(mlxs->mlx);
+		}
 		free(mlxs);
 	}
 	return (0);

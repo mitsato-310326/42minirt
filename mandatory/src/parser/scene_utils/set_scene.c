@@ -80,8 +80,7 @@ static t_list	*set_object(t_list *obj_lst, t_element *elm)
 	if (newnode == NULL)
 	{
 		free(content->obj);
-		free(content);
-		return (NULL);
+		return (free(content), ft_lstclear(&obj_lst, delete_obj_content), NULL);
 	}
 	ft_lstadd_back(&obj_lst, newnode);
 	return (obj_lst);

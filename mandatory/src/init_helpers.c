@@ -88,6 +88,22 @@ t_hittable	*create_plane_hittable(t_obj_content *content)
 	return (tmp);
 }
 
+bool	add_node_to_hlist(t_hittable *tmp, t_hittable_list **world)
+{
+	t_hittable_list	*node;
+
+	node = ft_hlstnew(tmp);
+	if (node == NULL)
+	{
+		free(tmp->object_unique_info);
+		free(tmp);
+		ft_hlstclear(world);
+		return (false);
+	}
+	ft_hlstadd_front(world, node);
+	return (true);
+}
+
 bool	valid_filename(char *file)
 {
 	int	i;
