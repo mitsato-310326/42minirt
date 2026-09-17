@@ -6,7 +6,7 @@
 /*   By: mitsato <mitsato@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 22:23:25 by mitsato           #+#    #+#             */
-/*   Updated: 2026/08/18 19:48:41 by keitotak         ###   ########.fr       */
+/*   Updated: 2026/09/04 15:28:18 by keitotak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,15 +88,35 @@ t_hittable	*create_plane_hittable(t_obj_content *content)
 	return (tmp);
 }
 
+bool	add_node_to_hlist(t_hittable *tmp, t_hittable_list **world)
+{
+	t_hittable_list	*node;
+
+	node = ft_hlstnew(tmp);
+	if (node == NULL)
+	{
+		free(tmp->object_unique_info);
+		free(tmp);
+		ft_hlstclear(world);
+		return (false);
+	}
+	ft_hlstadd_front(world, node);
+	return (true);
+}
+
 bool	valid_filename(char *file)
 {
-	size_t	len;
+	int	i;
+	int	j;
 
-	len = ft_strlen(file);
-	if (len - RTLEN <= 0)
+	i = (int)ft_strlen(file);
+	j = RTLEN;
+	while (i-- && j--)
+	{
+		if (file[i] != RT[j])
+			return (false);
+	}
+	if (i < 0 || file[i] == '/')
 		return (false);
-	file += len - RTLEN;
-	if (ft_strncmp(file, RT, RTLEN + 1) == 0)
-		return (true);
-	return (false);
+	return (true);
 }

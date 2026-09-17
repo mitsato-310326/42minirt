@@ -25,12 +25,12 @@ t_list	*arr_to_lst(char **arr)
 		if (content == NULL)
 		{
 			ft_lstclear(&lst, free);
-			return (put_error("malloc", 1), NULL);
+			return (put_error(ERR_ALLOC, false), NULL);
 		}
 		node = ft_lstnew(content);
 		if (node == NULL)
 			return (free(content), ft_lstclear(&lst, free),
-				put_error("malloc", true), NULL);
+				put_error(ERR_ALLOC, false), NULL);
 		ft_lstadd_back(&lst, node);
 		arr++;
 	}

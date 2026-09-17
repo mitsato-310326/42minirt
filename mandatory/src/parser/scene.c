@@ -69,7 +69,7 @@ t_scene	*create_scene(t_list *elm_lst)
 
 	scene = (t_scene *)malloc(sizeof(t_scene));
 	if (scene == NULL)
-		return (put_error("malloc", 1), NULL);
+		return (put_error(ERR_ALLOC, false), NULL);
 	if (set_scene(scene, elm_lst) == NULL)
 		return (NULL);
 	if (!scene->amblight || !scene->camera || !scene->light)

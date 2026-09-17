@@ -14,8 +14,11 @@
 
 static char	**free_arr(char **arr)
 {
-	while (*arr)
-		free(*arr++);
+	size_t	i;
+
+	i = 0;
+	while (arr[i])
+		free(arr[i++]);
 	free(arr);
 	return (NULL);
 }

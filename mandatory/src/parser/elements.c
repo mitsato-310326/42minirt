@@ -47,7 +47,7 @@ static t_element	*create_element(char *str)
 
 	elm = (t_element *)malloc(sizeof(t_element));
 	if (elm == NULL)
-		return (put_error("malloc", 1), NULL);
+		return (put_error(ERR_ALLOC, false), NULL);
 	elm->info = get_list(str, SPACE);
 	if (elm->info == NULL)
 	{
@@ -110,7 +110,7 @@ t_list	*get_elements(t_list *lines)
 		{
 			del_elm(elm);
 			ft_lstclear(&elm_lst, del_elm);
-			return (put_error("malloc", true), NULL);
+			return (put_error(ERR_ALLOC, false), NULL);
 		}
 		ft_lstadd_back(&elm_lst, node);
 		lines = lines->next;

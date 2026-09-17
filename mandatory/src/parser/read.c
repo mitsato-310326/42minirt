@@ -36,13 +36,30 @@ static bool	valid_str(char *str)
 	return (true);
 }
 
+static char	*append_buf(char *str, char *buf, size_t read_count)
+{
+	size_t	old_len;
+	size_t	new_size;
+	char	*new_str;
+
+	old_len = ft_strlen(str);
+	if (read_count > SIZE_MAX - old_len - 1)
+		return (put_error(ERR_ALLOC, false), free(str), NULL);
+	new_size = old_len + read_count + 1;
+	new_str = ft_realloc(str, new_size);
+	if (new_str == NULL)
+		return (put_error(ERR_ALLOC, false), free(str), NULL);
+	str = new_str;
+	ft_strlcat(str, buf, new_size);
+	return (str);
+}
+
 #define ERR_INVSTR "invalid strings in the scene file.\n"
 
 static char	*get_newstr(int fd, char *str)
 {
 	ssize_t	read_count;
 	char	buf[BUFSIZE + 1];
-	char	*new_str;
 
 	read_count = 1;
 	while (read_count != 0)
@@ -55,11 +72,9 @@ static char	*get_newstr(int fd, char *str)
 		buf[read_count] = '\0';
 		if (!valid_str(buf))
 			return (put_error(ERR_INVSTR, false), free(str), NULL);
-		new_str = ft_realloc(str, ft_strlen(str) + (size_t)read_count + 1);
-		if (new_str == NULL)
-			return (put_error("malloc", true), free(str), NULL);
-		str = new_str;
-		ft_strlcat(str, buf, ft_strlen(str) + (size_t)read_count + 1);
+		str = append_buf(str, buf, (size_t)read_count);
+		if (str == NULL)
+			return (NULL);
 	}
 	return (str);
 }
@@ -75,7 +90,7 @@ char	*read_str(char *file)
 		return (put_error(file, true), NULL);
 	str = ft_calloc(1, sizeof(char));
 	if (str == NULL)
-		return (close(fd), put_error("malloc", true), NULL);
+		return (close(fd), put_error(ERR_ALLOC, false), NULL);
 	new_str = get_newstr(fd, str);
 	if (new_str == NULL)
 		return (close(fd), NULL);

@@ -23,7 +23,7 @@ int	main(int ac, char **av)
 	}
 	mlxs = init(av[1]);
 	if (mlxs == NULL)
-		return (1);
+		return (EXIT_FAILURE);
 	view_calc(mlxs);
 	print(mlxs);
 	mlx_loop(mlxs->mlx);
